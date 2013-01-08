@@ -1,0 +1,9 @@
+%h1
+	{{entity_type.name}}
+	(from {{source.name}})
+
+%p
+	{{inspect data}}
+
+%span.updated
+	{{updated_at}}

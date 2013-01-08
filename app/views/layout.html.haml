@@ -1,0 +1,10 @@
+!!! 5
+%html{ :lang => "en", :class => "no-js" }
+	%head
+		= haml :"_header", :layout => false
+
+	%body
+		#content
+			= yield
+
+		= haml :"_footer", :layout => false

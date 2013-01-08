@@ -1,0 +1,86 @@
+@mixin clear {
+	clear: both;
+}
+// remember to set `height` and `width`
+@mixin ellipsis {
+	display: inline-block;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+// http://www.zeldman.com/2012/03/01/replacing-the-9999px-hack-new-image-replacement/
+@mixin replace {
+	overflow: hidden;
+	text-indent: 100%;
+	white-space: nowrap;
+}
+// disable text selection (CSS 3) -- useful for e.g. faked buttons
+// http://stackoverflow.com/questions/826782/1730141#1730141
+@mixin disable_text_selection {
+	user-select: none;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+}
+
+@mixin avatar_size($size:45) {
+	height: #{$size}px;
+	width: #{$size}px;
+	background-size: #{$size}px #{$size}px;
+	-moz-background-size: #{$size}px #{$size}px;
+	-webkit-background-size: #{$size}px #{$size}px;
+}
+
+//SPRITES
+// https://gist.github.com/1432554
+@mixin sprite($name, $type, $width:auto, $height:auto) {
+	background-image: url("/assets/" + $name + "." + $type);
+	background-repeat: no-repeat;
+	background-size: #{$width}px #{$height}px;
+	-moz-background-size: #{$width}px #{$height}px;
+	-ms-background-size: #{$width}px #{$height}px;
+	-o-background-size: #{$width}px #{$height}px;
+	-webkit-background-size: #{$width}px #{$height}px;
+
+	@media (min-device-pixel-ratio:1.5), (-webkit-min-device-pixel-ratio:1.5) {
+		background-image: url("/assets/" + $name + "@2x." + $type);
+	}
+}
+
+//ROUNDED CORNERS
+@mixin round($radius:5) {
+	border-radius: #{$radius}px;
+	-moz-border-radius: #{$radius}px;
+	-webkit-border-radius: #{$radius}px;
+}
+@mixin square {
+	@include round(0);
+}
+
+//BOX SHADOWS
+@mixin no_shadow {
+	box-shadow: none;
+	-mozilla-box-shadow: none;
+	-webkit-box-shadow: none;
+}
+@mixin shadow($shadows...) {
+	box-shadow: $shadows;
+	-moz-box-shadow: $shadows;
+	-webkit-box-shadow: $shadows;
+}
+
+//GRADIENTS
+@mixin no_gradient {
+	background-image: none;
+}
+@mixin vertical_gradient_two_stops($stop_1:0%, $color_1:#fff, $stop_2:100%, $color_2:#000) {
+	background-image: linear-gradient(to bottom, $color_1 $stop_1, $color_2 $stop_2);
+	background-image: -moz-linear-gradient(0 0 270deg, $color_1, $color_2);
+	background-image: -ms-linear-gradient(top, $color_1 $stop_1, $color_2 $stop_2);
+	background-image: -o-linear-gradient(top, $color_1 $stop_1, $color_2 $stop_2);
+	background-image: -webkit-gradient(linear, left top, left bottom, color-stop($stop_1, $color_1), color-stop($stop_2, $color_2));
+	background-image: -webkit-linear-gradient(top, $color_1 $stop_1, $color_2 $stop_2);
+
+}
+@mixin vertical_gradient($start_color:#fff, $end_color:#000) {
+	@include vertical_gradient_two_stops(0%, $start_color, 100%, $end_color);
+}
