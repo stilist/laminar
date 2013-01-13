@@ -77,23 +77,9 @@ module Sinatra
 		#
 		# This example also demonstrates several convenient features:
 		# 1. `data` and `status_code` can be `nil`
-		# 2. Passing a lambda for the `status_code` argument--`/users/3` determines
-		#    the HTTP status code by whether the `User` record exists.
+		# 2. passing a lambda for the `status_code` argument
 		#
-		# == Other notes
-		#
-		# `page_out` attempts to call `for_json` on whatever is passed to `data`.
-		# Simply define a `for_json` method in the ActiveRecord model and return
-		# a `Hash` with the desired fields. Convenient for filtering out passwords
-		# or embedding associations.
 		def page_out data={}, status_code=200
-			output = case
-				when data.respond_to?(:for_json) then data.for_json
-				when data.class == Array
-					data.map { |i| i.respond_to?(:for_json) ? i.for_json : i }
-				else data
-			end
-
 			# Process `status_code` if it's a lambda. Need `... || 200` in case
 			# lambda returns `nil`.
 			status_code = (status_code.call || 200) if status_code.respond_to? :call
@@ -108,29 +94,38 @@ module Sinatra
 				end
 			else
 				respond_to do |format|
-					format.js { send_json output, status_code }
-					format.json { send_json output, status_code }
-					format.html { send_page output, status_code }
+					format.js { send_json data, status_code }
+					format.json { send_json data, status_code }
+					format.html { send_page data, status_code }
 				end
 			end
 		end
 
 		private
 
+		def to_mongo data
+			data
+		end
+
+		def from_mongo data
+			# Transform into something slightly more useful.
+			data["_id"] = data["_id"].to_s
+			data["timestamp"] = Time.at(data["unix_timestamp"]).utc.iso8601
+
+			data
+		end
+
 		def prerender_data data
-			source = data["source"]["name"]
-			type = data["entity_type"]["name"]
+			_data = from_mongo data
 
-			template = App.templates["#{source}_#{type}"] ||
-					App.templates["#{type}"] || App.templates["generic"] || ""
+			verb = _data["verb"]
+			object = _data["object"]
 
-			handlebars = Handlebars::Context.new
-			handlebars.register_helper(:inspect) do |obj|
-				Handlebars::SafeString.new obj.to_json
-			end
+			template = App.templates["#{verb}_#{object}"] ||
+					App.templates["#{object}"] || App.templates["generic"] || ""
 
-			compiled = handlebars.compile template
-			compiled.call data
+			context = Steering.context_for template
+			context.call "template", _data
 		end
 
 		def send_page data, status_code=200

@@ -12,8 +12,8 @@ group :app do
 	gem "sinatra-static-assets", require: "sinatra/static_assets"
 
 	# database
-	gem "sinatra-activerecord", require: "sinatra/activerecord"
-	gem "pg"
+	gem "mongo"
+	gem "bson_ext"
 
 	# assets
 	gem "sprockets"
@@ -29,7 +29,7 @@ group :app do
 	gem "json"
 	gem "sinatra-respond_to", require: "sinatra/respond_to"
 	# server-side rendering
-	gem "handlebars", require: "handlebars"
+	gem "steering", require: "steering"
 
 	# console
 	gem "tux"

@@ -1,9 +1,8 @@
 %h1
-	{{entity_type.name}}
-	(from {{source.name}})
+	{{type}}/{{object}}
 
-%p
-	{{inspect data}}
+%time.updated{ :datetime => "{{timestamp}}" }
+	{{timestamp}}
 
-%span.updated
-	{{updated_at}}
+%a.pilcrow{ :url => "/node/{{_id}}" }
+	||D
