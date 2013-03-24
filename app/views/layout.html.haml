@@ -1,10 +1,25 @@
 !!! 5
-%html{ :lang => "en", :class => "no-js" }
-	%head
-		= haml :"_header", :layout => false
+%html{ lang: "en", class: "no-js", "xmlns:og" => "//ogp.me/ns#" }
+	%head{ profile: "//gmpg.org/xfn/11" }
+		= haml :"_header", layout: false
 
 	%body
-		#content
+		%nav#nameplate
+			%ul
+				%li
+					%a#logo{ href: "//ratafia.info", rel: "home index" }
+						Ratafia Currant
+				%li
+					%a#archives{ href: "/ratafia.info/archive", rel: "archives" }
+						Archives
+				%li
+					%a#code{ href: "//github.com/stilist", rel: "external" }
+						Code
+				%li
+					%a#links{ href: "//pinboard.in/u:stilist", rel: "me" }
+						Links
+
+		#content.hfeed
 			= yield
 
-		= haml :"_footer", :layout => false
+		= haml :"_footer", layout: false

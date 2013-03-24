@@ -1,0 +1,10 @@
+- permalink = "/items/#{locals["id"]}"
+
+%section.meta
+	%p.signoff
+		%a{ href: permalink }
+			%time.updated{ datetime: locals["updated_at"].iso8601, pubdate: "" }
+				= locals["updated_at"].strftime "%l:%M:%S %P on %e %B, 0%Y"
+		•
+		%a.pilcrow{ href: permalink, rel: "bookmark" }
+			⁋

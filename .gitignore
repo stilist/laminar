@@ -3,3 +3,5 @@
 # Bundler
 .bundle/
 vendor/gems/
+
+latest.dump

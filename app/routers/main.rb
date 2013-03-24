@@ -1,12 +1,11 @@
 App.configure do |app|
 	app.get "/" do
-		items = app.collection.find().limit(100).to_a
-		data = items.empty? ? {} : items
-		page_out data
-	end
+		@page_title = "Recent activity"
+		@page_summary = @page_title
+		@page_type = :index
+		@permalink = "/"
 
-	app.get "/node/:hash_key" do |page|
-		item = app.collection.find(_id: BSON::ObjectId(params[:hash_key])).first
-		page_out item, ->{ 404 unless item }
+		items = Activity.limit(50).all
+		page_out items
 	end
 end

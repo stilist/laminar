@@ -1,5 +1,13 @@
 / Libraries
 = javascript_script_tag "assets/vendor.js"
+= javascript_script_tag "//maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"
+= javascript_script_tag "//use.typekit.net/nbb2edj.js"
 
 / App
 = javascript_script_tag "assets/boot.js"
+
+:javascript
+	try { Typekit.load(); } catch (e) {}
+
+/[if IE]
+	= javascript_script_tag "//html5shiv.googlecode.com/svn/trunk/html5.js"

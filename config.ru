@@ -3,6 +3,8 @@ require "rubygems"
 require "bundler"
 Bundler.require :app
 
+Dir.glob("#{File.dirname(__FILE__)}/lib/**/*.rb") { |file| require file }
+
 # Load app
 require File.expand_path("app/app.rb", File.dirname(__FILE__))
 
@@ -32,6 +34,17 @@ map "/assets" do
 	end
 
 	run environment
+end
+
+CarrierWave.configure do |config|
+	config.fog_credentials = {
+		provider: "AWS",
+		aws_access_key_id: ENV["AWS_KEY"] || "",
+		aws_secret_access_key: ENV["AWS_SECRET"] || ""
+	}
+
+	config.fog_directory = ENV["FOG_DIRECTORY"] || ""
+	config.permissions = 0644
 end
 
 map "/" do

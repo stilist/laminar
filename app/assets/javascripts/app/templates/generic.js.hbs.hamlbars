@@ -1,8 +1,0 @@
-%h1
-	{{type}}/{{object}}
-
-%time.updated{ :datetime => "{{timestamp}}" }
-	{{timestamp}}
-
-%a.pilcrow{ :url => "/node/{{_id}}" }
-	||D

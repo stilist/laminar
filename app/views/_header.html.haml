@@ -1,8 +1,252 @@
-%meta{ :charset => "UTF-8" }
+%meta{ charset: "UTF-8" }
 
-%title
-	-# TODO I18n
-	Laminar
+/ mobile
+%meta{ content: "width=device-width, initial-scale=1", name: "viewport" }
+/ Google Webmaster Tool
+%meta{ content: "fBP5k+EA4BFJx2aaK3hiOymbZSUbEAkp8OcEdeK/Fk8=", name: "verify-v1" }
+/ Google+ Direct Connect
+%link{ href: "//plus.google.com/110429686691143465116", rel: "me publisher", title: "Google+" }
+/ Yahoo! Site Explorer
+%meta{ content: "cfc35a49dda0d46c", name: "y_key" }
+- if @page_type == :index
+	/ Readability publisher
+	%meta{ content: "hw4FKyh3RrzAXzVGndy9KFv3c3eDC7gLfsLpvf9J", name: "readability-verification" }
 
-= stylesheet_link_tag "assets/core.css"
+/ Facebook Insights
+%meta{ content: "211500669", property: "fb:admins" }
+
+/ Open Graph/Twitter Cards
+%meta{ content: "http://static.ratafia.info/bird_200x200.png", property: "og:image" }
+%meta{ content: "Ratafia Currant", property: "og:site_title" }
+%meta{ content: "summary", property: "twitter:card" }
+%meta{ content: "@stilist", property: "twitter:creator" }
+- if @page_type == :index
+	%meta{ content: "website", property: "og:type" }
+	%meta{ content: "http://static.ratafia.info/bird_200x200.png", property: "twitter:image" }
+	/ TODO
+	%meta{ content: "{MetaDescription}", property: "og:description" }
+	%meta{ content: "{MetaDescription}", property: "twitter:description" }
+	%meta{ content: "Ratafia Currant", property: "og:title" }
+	%meta{ content: "Ratafia Currant", property: "twitter:title" }
+	%meta{ content: "http://ratafia.info", property: "og:url" }
+	%meta{ content: "http://ratafia.info", property: "twitter:url" }
+- else
+	%meta{ content: "#{@page_title}", property: "og:title" }
+	%meta{ content: "#{@page_title}", property: "twitter:title" }
+	%meta{ content: "#{@page_title}", property: "og:description" }
+	%meta{ content: "#{@page_title}", property: "twitter:description" }
+	%meta{ content: "article", property: "og:type" }
+	%meta{ content: "#{@permalink}", property: "og:url" }
+	%meta{ content: "#{@permalink}", property: "twitter:url" }
+%meta{ content: "Ratafia Currant", property: "og:site_name" }
+
+/ stuff
+%meta{ content: "jordan cole, stilist, ratafia, ratafia currant", name: "keywords" }
+%meta{ content: "Copyright © Jordan Cole", name: "copyright" }
+%title #{@page_title} — Ratafia Currant
+%link{ href: "//static.ratafia.info/favicon.ico", rel: "shortcut icon" }
+%link{ href: "//creativecommons.org/licenses/by-nc/3.0/us/", rel: "license" }
+%link{ href: "//static.ratafia.info/themes/ricardo/style.css", media: "screen", rel: "stylesheet" }
+%link{ href: "//feeds.feedburner.com/ratafia", rel: "alternate", title: "Ratafia Currant", type: "application/atom+xml" }
+
+/ PubSubHubBub syndication
+%link{ href: "//pubsubhubbub.appspot.com", rel: "hub" }
+
+/ for microformats
+%link{ href: "//purl.org/uF/2008/03/", rel: "profile" }
+
+/ OpenID
+%link{ href: "//www.myopenid.com/server", rel: "openid.server" }
+%link{ href: "//stilist.myopenid.com/", rel: "openid.delegate" }
+%link{ href: "//stilist.myopenid.com", rel: "openid2.local_id" }
+%link{ href: "//www.myopenid.com/server", rel: "openid2.provider" }
+%meta{ content: "//www.myopenid.com/xrds?username=stilist.myopenid.com", "httpequiv" => "X-XRDS-Location" }
+
+/ pavatar
+%link{ href: "//static.ratafia.info/bird_80x80.png", rel: "pavatar avatar logo" }
+
+/ iOS
+%link{ href: "//static.ratafia.info/bird_200x200.png", rel: "apple-touch-icon" }
+
+/ give Facebook a default image when this URL is shared
+%link{ href: "//static.ratafia.info/bird_80x80.png", rel: "image_src" }
+
+/ external profiles
+%link{ href: "//profiles.google.com/stilist", rel: "me", title: "Google" }
+%link{ href: "//www.23andme.com/user/?profile=dae40d658fd0aef7", rel: "me", title: "23andMe" }
+%link{ href: "//4clojure.com/user/stilist", rel: "me", title: "4clojure" }
+%link{ href: "//8bc.org/members/stilist/", rel: "me", title: "8bitcollective" }
+%link{ href: "//500px.com/stilist", rel: "me", title: "500px" }
+%link{ href: "http://ashow.zefrank.com/Stilist", rel: "me", title: "a show" }
+%link{ href: "//about.me/stilist", rel: "me", title: "about.me" }
+%link{ href: "//adiumxtras.com/index.php?a=users&amp;do=profile&amp;user_id=3324", rel: "me", title: "Adium Xtras" }
+%link{ href: "//www.airbnb.com/users/show/448440", rel: "me", title: "Airbnb" }
+%link{ href: "//allrecipes.com/cook/19571771/", rel: "me", title: "Allrecipes.com" }
+%link{ href: "//www.amazon.com/gp/pdp/profile/A23TDZ3SH64OM", rel: "me", title: "Amazon" }
+%link{ href: "//community.ancestry.com/profile.aspx?mba=00fe74f8-0006-0000-0000-000000000000", rel: "me", title: "Ancestry.com" }
+%link{ href: "//discussions.apple.com/people/stilist", rel: "me", title: "Apple Discussions" }
+%link{ href: "//lifestream.aol.com/stream/chartereuese", rel: "me", title: "AOL Lifestream" }
+%link{ href: "//lifestream.aol.com/stream/hyphopkyd", rel: "me", title: "AOL Lifestream" }
+%link{ href: "//lifestream.aol.com/stream/jeeniuschild", rel: "me", title: "AOL Lifestream" }
+%link{ href: "//lifestream.aol.com/stream/jordnao", rel: "me", title: "AOL Lifestream" }
+%link{ href: "//lifestream.aol.com/stream/leptocephaly", rel: "me", title: "AOL Lifestream" }
+%link{ href: "//lifestream.aol.com/stream/lunahaloyo", rel: "me", title: "AOL Lifestream" }
+%link{ href: "//lifestream.aol.com/stream/mrstilist", rel: "me", title: "AOL Lifestream" }
+%link{ href: "//lifestream.aol.com/stream/tehstilist", rel: "me", title: "AOL Lifestream" }
+%link{ href: "//www.aqua-soft.org/forum/user/22665-stilist/", rel: "me", title: "Aqua-Soft forums" }
+%link{ href: "//www.archiveteam.org/index.php?title=User:Stilist", rel: "me", title: "Archive Team" }
+%link{ href: "//www.athletepath.com/stilist", rel: "me", title: "Athletepath" }
+%link{ href: "//www.avclub.com/users/jordan-cole,130615/", rel: "me", title: "A.V. Club" }
+%link{ href: "//www.bebo.com/Profile.jsp?MemberId=10082459697", rel: "me", title: "bebo" }
+%link{ href: "//blippy.com/stilist", rel: "me", title: "Blippy" }
+%link{ href: "//www.blogger.com/profile/00416913816087619738", rel: "me", title: "Blogger" }
+%link{ href: "//www.boxee.tv/go/stilist", rel: "me", title: "Boxee" }
+%link{ href: "//bud.ge/profile/id/3623", rel: "me", title: "Budge" }
+%link{ href: "//claimid.com/stilist", rel: "me", title: "claimID" }
+%link{ href: "//clojuredocs.org/profile/stilist", rel: "me", title: "ClojureDocs" }
+%link{ href: "//www.collegehumor.com/user/4028029", rel: "me", title: "CollegeHumor" }
+%link{ href: "//www.creditkarma.com/profile/stilist", rel: "me", title: "Credit Karma" }
+%link{ href: "//customize.org/stilist", rel: "me", title: "customize.org" }
+%link{ href: "//www.dailymile.com/people/stilist", rel: "me", title: "dailymile" }
+%link{ href: "//stilist.deviantart.com/", rel: "me", title: "deviantART" }
+%link{ href: "//pod.geraspora.de/u/stilist", rel: "me", title: "Diaspora*" }
+%link{ href: "//www.discogs.com/user/ratafia", rel: "me", title: "discogs" }
+%link{ href: "//disqus.com/stilist/", rel: "me", title: "Disqus" }
+%link{ href: "//dribbble.com/stilist", rel: "me", title: "Dribbble" }
+%link{ href: "//sportsnation.espn.go.com/fans/mrstilist", rel: "me", title: "ESPN SportsNation" }
+%link{ href: "//www.etsy.com/people/ratafiacurrant", rel: "me", title: "Etsy" }
+%link{ href: "//www.experts-exchange.com/M_1431552.html", rel: "me", title: "Experts Exchange" }
+%link{ href: "//portland.everyblock.com/users/17109/", rel: "me", title: "EveryBlock" }
+%link{ href: "//fab.com/stilist/", rel: "me", title: "Fab.com" }
+%link{ href: "//www.facebook.com/Xi4zEkRCtU9tpEHWwa5wOv1u6rtgWhkS", rel: "me", title: "Facebook" }
+%link{ href: "//www.fandango.com/PublicProfilePage.aspx?cuname=stilist", rel: "me", title: "Fandango" }
+%link{ href: "//favstar.fm/users/stilist/", rel: "me", title: "Favstar" }
+%link{ href: "//www.fitbit.com/user/22MNQW", rel: "me", title: "Fitbit" }
+%link{ href: "//flattr.com/profile/stilist", rel: "me", title: "Flattr" }
+%link{ href: "//www.flickr.com/photos/stilist/", rel: "me", title: "Flickr" }
+%link{ href: "//flightaware.com/user/stilist", rel: "me", title: "FlightAware" }
+%link{ href: "//www.foreignaffairs.com/users/stilistratafiainfo", rel: "me", title: "Foreign Affairs" }
+%link{ href: "//forrst.com/people/stilist", rel: "me", title: "Forrst" }
+%link{ href: "//foursquare.com/user/469956", rel: "me", title: "Foursquare" }
+%link{ href: "//www.freesound.org/usersViewSingle.php?id=28618", rel: "me", title: "freesound" }
+%link{ href: "//freewebs.com/stilist/", rel: "me", title: "Freewebs" }
+%link{ href: "//friendfeed.com/stilist", rel: "me", title: "FriendFeed" }
+%link{ href: "//geekli.st/stilist", rel: "me", title: "Geeklist" }
+%link{ href: "//geoloqi.com/stilist", rel: "me", title: "Geoloqi" }
+%link{ href: "//getsatisfaction.com/people/stilist", rel: "me", title: "Get Satisfaction" }
+%link{ href: "//gimmebar.com/loves/stilist", rel: "me", title: "Gimme Bar" }
+%link{ href: "//github.com/stilist", rel: "me", title: "GitHub" }
+%link{ href: "//beta.glitch.com/profiles/PHVM14S8G952NTF/", rel: "me", title: "Glitch" }
+%link{ href: "//www.goodreads.com/user/show/9435658-jordan", rel: "me", title: "Goodreads" }
+%link{ href: "//maps.google.com/maps/user?uid=217124401204746979873", rel: "me", title: "Google Maps" }
+%link{ href: "//www.google.com/reader/shared/stilist", rel: "me", title: "Google Reader" }
+%link{ href: "//gowalla.com/users/stilist", rel: "me", title: "Gowalla" }
+%link{ href: "//gravatar.com/stilist", rel: "me", title: "Gravatar" }
+%link{ href: "//grooveshark.com/stilist", rel: "me", title: "Grooveshark" }
+%link{ href: "//news.ycombinator.com/user?id=stilist", rel: "me", title: "Hacker News" }
+%link{ href: "//www.hulu.com/profiles/stilist", rel: "me", title: "Hulu" }
+%link{ href: "//www.icq.com/people/235009402/", rel: "me", title: "ICQ" }
+%link{ href: "//identi.ca/stilist", rel: "me", title: "identi.ca" }
+%link{ href: "//people.ign.com/stilist", rel: "me", title: "IGN" }
+%link{ href: "//people.ign.com/hyphopkyd", rel: "me", title: "IGN" }
+%link{ href: "//www.imdb.com/user/ur25570491/", rel: "me", title: "IMDb" }
+%link{ href: "//www.insanelymac.com/forum/index.php?showuser=439375", rel: "me", title: "InsanelyMac" }
+%link{ href: "//instagram.com/stilist", rel: "me", title: "Instagram" }
+%link{ href: "//osx.iusethis.com/user/stilist", rel: "me", title: "i use this" }
+%link{ href: "//c.itunes.apple.com/us/profile/id93206769", rel: "me", title: "iTunes Ping" }
+%link{ href: "//jsfiddle.net/user/stilist/", rel: "me", title: "jsFiddle" }
+%link{ href: "//downloads.khinsider.com/forums/member.php?u=23061", rel: "me", title: "KHDownloads forums" }
+%link{ href: "//www.kickstarter.com/profile/stilist", rel: "me", title: "Kickstarter" }
+%link{ href: "//www.kiva.org/lender/stilist", rel: "me", title: "Kiva" }
+%link{ href: "//www.kongregate.com/accounts/stilist", rel: "me", title: "Kongregate" }
+%link{ href: "//www.last.fm/user/ratafiacurrant", rel: "me", title: "last.fm" }
+%link{ href: "//lotsofskins.com/?profile=stilist", rel: "me", title: "Lotsofskins" }
+%link{ href: "//macthemes.net/forum/profile.php?id=16271", rel: "me", title: "MacThemes forums" }
+%link{ href: "//forums.macworld.com/index.php?showuser=116584", rel: "me", title: "Macworld forums" }
+%link{ href: "//www.metafilter.com/user/96063", rel: "me", title: "MetaFilter" }
+%link{ href: "//microformats.org/wiki/User:Stilist", rel: "me", title: "Microformats wiki" }
+%link{ href: "//modmyi.com/forums/members/77962.html", rel: "me", title: "ModMyi forums" }
+%link{ href: "//stilist.myopenid.com/", rel: "me", title: "MyOpenID" }
+%link{ href: "//www.nationalgeographic.com/user/?UID=1491124", rel: "me", title: "National Geographic" }
+%link{ href: "//stilist.newsvine.com/", rel: "me", title: "Newsvine" }
+%link{ href: "//my.nymag.com/stilist/", rel: "me", title: "New York Magazine" }
+%link{ href: "//www.nfl.com/fans/profile/stilist", rel: "me", title: "NFL.com" }
+%link{ href: "//my.nike.com/stilist", rel: "me", title: "Nike" }
+%link{ href: "//timespeople.nytimes.com/view/user/61907004/activities.html", rel: "me", title: "TimesPeople" }
+%link{ href: "//board.okayplayer.com/okp.php?az=user_profiles&amp;u_id=170848", rel: "me", title: "Okayplayer forums" }
+%link{ href: "//www.overclock.net/member.php?u=4063", rel: "me", title: "Overclock.net" }
+%link{ href: "//www.path.com/stilist", rel: "me", title: "Path" }
+%link{ href: "//www.meetup.com/pdxweb/members/40381612/", rel: "me", title: "PDX Web &amp; Design — Meetup" }
+%link{ href: "//forums.penny-arcade.com/member.php?u=8108", rel: "me", title: "Penny Arcade Forums" }
+%link{ href: "//secure.phabricator.com/p/stilist/", rel: "me", title: "Phabricator" }
+%link{ href: "//smg.photobucket.com/home/stilist/index", rel: "me", title: "Photobucket" }
+%link{ href: "//pinboard.in/u:stilist", rel: "me", title: "Pinboard" }
+%link{ href: "//www.planetamd64.com/index.php?showuser=123029", rel: "me", title: "PlanetAMD64" }
+%link{ href: "//us.playstation.com/publictrophy/?onlinename=stilist", rel: "me", title: "PlayStation Network" }
+%link{ href: "//pouet.net/user.php?who=7264", rel: "me", title: "pouet" }
+%link{ href: "//www.programmersheaven.com/user/stilist/", rel: "me", title: "Programmer’s Heaven" }
+%link{ href: "//protocol.by/stilist", rel: "me", title: "PROTOCOL.BY" }
+%link{ href: "//www.quora.com/Jordan-Cole", rel: "me", title: "Quora" }
+%link{ href: "//www.qwerly.com/stilist", rel: "me", title: "Qwerly" }
+%link{ href: "//www.rdio.com/people/stilist/", rel: "me", title: "rdio" }
+%link{ href: "//www.readability.com/stilist", rel: "me", title: "Readability" }
+%link{ href: "//readthedocs.org/profiles/stilist/", rel: "me", title: "Read the Docs" }
+%link{ href: "//www.reddit.com/user/stilist", rel: "me", title: "reddit" }
+%link{ href: "//findout.rei.com/user-profile/?userid=5942620926789636128", rel: "me", title: "REI" }
+%link{ href: "//www.rockband.com/users/stilist", rel: "me", title: "Rock Band" }
+%link{ href: "//rollyo.com/stilist/", rel: "me", title: "Rollyo" }
+%link{ href: "//rstat.us/users/stilist", rel: "me", title: "rstat.us" }
+%link{ href: "//www.scribd.com/stilist", rel: "me", title: "Scribd" }
+%link{ href: "//slashdot.org/~stilist", rel: "me", title: "slashdot" }
+%link{ href: "//www.slideshare.net/stilist", rel: "me", title: "SlideShare" }
+%link{ href: "//soundcloud.com/ratafiacurrant", rel: "me", title: "SoundCloud" }
+%link{ href: "//speakerdeck.com/u/stilist", rel: "me", title: "Speaker Deck" }
+%link{ href: "//stackoverflow.com/users/672403/user672403", rel: "me", title: "Stack Overflow" }
+%link{ href: "//steamcommunity.com/id/stilist/", rel: "me", title: "Steam" }
+%link{ href: "//steepster.com/stilist", rel: "me", title: "Steepster" }
+%link{ href: "//svpply.com/stilist", rel: "me", title: "Svpply" }
+%link{ href: "//technorati.com/people/stilist", rel: "me", title: "Technorati" }
+%link{ href: "//stilist.tent.is", rel: "me", title: "Tent.is" }
+%link{ href: "//www.thecarbonaccount.com/people/stilist/", rel: "me", title: "The Carbon Account" }
+%link{ href: "//www.threadless.com/profile/2111351/ratafiacurrant", rel: "me", title: "Threadless" }
+%link{ href: "//tinypic.com/stilist", rel: "me", title: "Tinypic" }
+%link{ href: "//twitter.com/stilist", rel: "me", title: "Twitter" }
+%link{ href: "//reviews.urbanoutfitters.com/5309/1087951223/profile.htm", rel: "me", title: "Urban Outfitters" }
+%link{ href: "//www.ustream.tv/user/stilist", rel: "me", title: "Ustream.TV" }
+%link{ href: "//www.viddler.com/explore/stilist/", rel: "me", title: "Viddler" }
+%link{ href: "//vimeo.com/stilist", rel: "me", title: "Vimeo" }
+%link{ href: "//wenthiking.com/users/189-jordan-cole/hikes", rel: "me", title: "Went Hiking" }
+%link{ href: "//whatpulse.org/stats/users/358812/", rel: "me", title: "WhatPulse" }
+%link{ href: "//wwws.whitehouse.gov/user/791791/", rel: "me", title: "Whitehouse.gov" }
+%link{ href: "//secure.wikimedia.org/wikipedia/en/wiki/User:Stilist", rel: "me", title: "Wikipedia" }
+%link{ href: "//www.wincustomize.com/users/698241/stilist", rel: "me", title: "WinCustomize" }
+%link{ href: "//stilist.wordpress.com/", rel: "me", title: "WordPress" }
+%link{ href: "//www.x100enthusiasts.com/profile/935/stilist", rel: "me", title: "X100 Enthusiasts" }
+%link{ href: "//stilist.xanga.com/", rel: "me", title: "Xanga" }
+%link{ href: "//profile.yahoo.com/5XVU5GDQYSTOKLPSM737JSNZIA/", rel: "me", title: "Yahoo!" }
+%link{ href: "//stilist.yelp.com", rel: "me", title: "Yelp" }
+%link{ href: "//www.youtube.com/user/stilist", rel: "me", title: "YouTube" }
+%link{ href: "//www.zerply.com/profile/stilist", rel: "me", title: "Zerply" }
+
+%link{ href: "#{@permalink}", rel: "canonical" }
+
+:javascript
+	/* //hivelogic.com/enkoder/ */
+	function hivelogic_enkoder() {
+	var x="function f(x){var i,o=\"\",l=x.length;for(i=l-1;i>=0;i--) {try{o+=x.c" +
+	"harAt(i);}catch(e){}}return o;}f(\")\\\"function f(x,y){var i,o=\\\"\\\\\\\""+
+	"\\\\,l=x.length;for(i=0;i<l;i++){if(i>(55+y))y*=2;y%=127;o+=String.fromChar" +
+	"Code(x.charCodeAt(i)^(y++));}return o;}f(\\\"\\\\SWZOVYSJ\\\\\\\\02173+7!)(" +
+	"oju+k$?+)m\\\\\\\\rp>5<:#7c)/517,\\\\\\\\024!\\\\\\\\020\\\\\\\\002\\\\\\\\" +
+	"020\\\\\\\\004\\\\\\\\000\\\\\\\\016\\\\\\\\tG\\\\\\\\003\\\\\\\\005\\\\\\\\"+
+	"n\\\\\\\\002Q\\\\\\\\034\\\\\\\\005\\\\\\\\023\\\\\\\\030\\\\\\\\026\\\\\\\\"+
+	"027\\\\\\\\001K,*:'^NM6enja?C\\\\\\\\002\\\\\\\\001AOEVU\\\\\\\\032t\\\\\\\\"+
+	"013OFMDBs\\\\\\\\022\\\\\\\\017W^U\\\\\\\\\\\\\\\\Z\\\\\\\\027U\\\\\\\\\\\\" +
+	"\\\\\\\\\\\\033\\\\\\\\007\\\\\\\\023\\\\\\\\\\\\\\\\\\\\\\\\000\\\\\\\\035" +
+	"izrx\\\"\\\\,55)\\\"(f};)lo,0(rtsbus.o nruter};)i(tArahc.x=+o{)--i;0=>i;1-l" +
+	"=i(rof}}{)e(hctac};l=+l;x=+x{yrt{)15=!)31/l(tAedoCrahc.x(elihw;lo=l,htgnel." +
+	"x=lo,\\\"\\\"=o,i rav{)x(f noitcnuf\")"; while(x=eval(x));
+	}
+
 = stylesheet_link_tag "assets/normalize.css"
+= stylesheet_link_tag "assets/core.css"
