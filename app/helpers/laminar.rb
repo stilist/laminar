@@ -24,13 +24,20 @@ module Laminar
 
 	def item_classes data
 		hsl = calculate_hsl data
-		luminance = case
-			when hsl[:luminance] > 65 then "light"
-			when hsl[:luminance] < 45 then "dark"
-			else "mid"
+		lower = 45
+		upper = 65
+
+		avg = (hsl[:saturation] + hsl[:luminance]) / 2
+
+		brightness = if avg < lower || hsl[:saturation] < lower || hsl[:luminance] < lower
+			"dark"
+		elsif avg >= 65
+			"light"
+		else
+			"mid"
 		end
 
-		"hentry hnews type-#{data["activity_type"]} source-#{data["source"]} #{luminance}"
+		"hentry hnews type-#{data["activity_type"]} source-#{data["source"]} #{brightness}"
 	end
 
 	def item_hsl data

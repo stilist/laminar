@@ -7,4 +7,11 @@ module Weather
 
 		(above_dt < below_dt) ? above : below
 	end
+
+	def self.icon_url icon, date=Time.now
+		hour = date.strftime("%k").to_i
+		icon = "nt_#{icon}" if hour < 7 || hour > 19
+
+		"http://icons.wxug.com/i/c/i/#{icon}.gif"
+	end
 end

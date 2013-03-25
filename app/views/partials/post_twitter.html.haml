@@ -14,7 +14,7 @@
 			- if tweet["in_reply_to_screen_name"]
 				in reply to
 				%a{ href: "https://twitter.com/#{tweet["in_reply_to_screen_name"]}/status/#{tweet["in_reply_to_status_id_str"]}" }
-					#{tweet["in_reply_to_screen_name"]}
+					@#{tweet["in_reply_to_screen_name"]}
 
 	%section.entry-content
 		%blockquote

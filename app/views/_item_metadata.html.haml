@@ -4,7 +4,7 @@
 
 %time.updated{ datetime: time.iso8601, pubdate: "" }
 	%a.time{ href: permalink, rel: "bookmark" }><
-		= time.strftime "%l:%M"
+		= time.strftime "%l:%M %P"
 	%span.day_month
 		= time.strftime "%e %B"
 	%span.year
@@ -12,12 +12,8 @@
 
 - weather = Weather::nearest_observation(locals["created_at"])["data"]
 %span.observation
-	%span.conditions
-		= weather["conds"]
-	%span.temp
-		#{weather["tempi"].to_i}°F
 	%span.icon
-		%img{ src: "http://icons.wxug.com/i/c/i/#{weather["icon"]}.gif" }
+		%img{ src: Weather::icon_url(weather["icon"]) }
 
 %section.meta
 	- unless tags.empty?
