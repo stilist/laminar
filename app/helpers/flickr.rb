@@ -4,8 +4,14 @@ module Flickr
 	end
 
 	def self.photo_url data
-		# Detect stringified `Hash`
-		person = (data["owner"] =~ /{/) ? eval(data["owner"])["nsid"] : data["owner"]
+		# http://stackoverflow.com/a/3908411/672403
+		person = case data["owner"]
+			when String then data["owner"]
+			when Hash then data["owner"]["nsid"]
+			# stringified `Hash`
+			else eval(data["owner"])["nsid"]
+		end
+
 		"http://www.flickr.com/photos/#{person}/#{data["id"]}/"
 	end
 
