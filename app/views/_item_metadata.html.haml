@@ -10,6 +10,15 @@
 	%span.year
 		= time.strftime "0%Y"
 
+- weather = Weather::nearest_observation(locals["created_at"])["data"]
+%span.observation
+	%span.conditions
+		= weather["conds"]
+	%span.temp
+		#{weather["tempi"].to_i}°F
+	%span.icon
+		%img{ src: "http://icons.wxug.com/i/c/i/#{weather["icon"]}.gif" }
+
 %section.meta
 	- unless tags.empty?
 		%ul.keywords

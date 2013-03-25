@@ -7,5 +7,5 @@ App.configure do |app|
 end
 require "carrierwave/orm/activerecord"
 
-models = %w(activity)
+models = %w(activity weather_observation)
 models.each { |model| require_relative model }

@@ -1,4 +1,27 @@
 module Laminar
+	@@conditions = {
+		sunny: 80,
+		mostlysunny: 73,
+		partlysunny: 70,
+		clear: 63,
+		partlycloudy: 60,
+		mostlycloudy: 55,
+		cloudy: 50,
+		fog: 45,
+		hazy: 40,
+		rain: 40,
+		tstorms: 37,
+		chancetstorms: 35,
+		chancerain: 30,
+		chanceflurries: 20,
+		chancesnow: 17,
+		flurries: 15,
+		snow: 10,
+		sleet: 7,
+		chancesleet: 10,
+		unknown: 0
+	}.freeze
+
 	def item_classes data
 		hsl = calculate_hsl data
 		luminance = case
@@ -23,8 +46,8 @@ module Laminar
 		# TODO Start from 240
 		hue = [360, date.yday].min
 
-		# TODO
-		saturation = data["data"]["id"][-2..-1].to_i
+		wo = Weather::nearest_observation data["created_at"]
+		saturation = @@conditions[wo["data"]["icon"].to_sym] || 0
 
 		pct_of_day = (((date.hour * 60) + date.min) / 1400.0) * 100
 		# Peak at midday
