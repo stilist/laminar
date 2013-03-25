@@ -24,14 +24,14 @@ module Laminar
 
 	def item_classes data
 		hsl = calculate_hsl data
-		lower = 45
+		lower = 50
 		upper = 65
 
 		avg = (hsl[:saturation] + hsl[:luminance]) / 2
 
 		brightness = if avg < lower || hsl[:saturation] < lower || hsl[:luminance] < lower
 			"dark"
-		elsif avg >= 65
+		elsif avg >= upper
 			"light"
 		else
 			"mid"
@@ -51,7 +51,8 @@ module Laminar
 		date = data["created_at"]
 
 		# TODO Start from 240
-		hue = [360, date.yday].min
+		hue = [360, date.yday].min + 240
+		hue = (hue > 360) ? (hue - 360) : hue
 
 		wo = Weather::nearest_observation data["created_at"]
 		saturation = @@conditions[wo["data"]["icon"].to_sym] || 0

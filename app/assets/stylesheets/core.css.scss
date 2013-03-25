@@ -24,8 +24,9 @@ body {color:#ab8876; cursor:default; font-family:museo-sans-1, museo-sans-2, "Tr
 }
 /* *** 640px+ *** */
 @media all and (min-width:641px) {
-	body {padding-top:90px;}
-	#nameplate {position:fixed;}
+	body {padding-bottom:62px; padding-top:90px;}
+	#nameplate,
+	.pagination {position:fixed;}
 	.hentry .meta {font-size:0.8em;}
 }
 @media all and (min-width:641px) and (max-width:1024px) {
@@ -116,10 +117,7 @@ strong {font-weight:normal;}
 
 .album, .book, .film, .game, .magazine, .newspaper, .programme {font-style:italic;}
 
-#nextprev {height:1em; margin:4.5em auto; position:relative;}
-#nextprev span {display:block; position:absolute; width:49%;}
-#nextprev #nextpage {right:0;}
-#nextprev #prevpage {text-align:right;}
+.pagination {@include shadow(0 -3px 3px 0 rgba(0, 0, 0, 0.2)); background-color:#371d10; bottom:0; padding:20px 0; text-align:center; width:100%; z-index:10;}
 
 .bottom {margin-top:5.05em;}
 .bottom .copyright {margin-top:22px;}
