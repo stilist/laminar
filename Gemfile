@@ -35,8 +35,6 @@ group :app do
 	gem "haml"
 	gem "json"
 	gem "sinatra-respond_to", require: "sinatra/respond_to"
-	# server-side rendering
-	gem "steering", require: "steering"
 
 	# console
 	gem "tux"
