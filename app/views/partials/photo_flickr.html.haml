@@ -1,15 +1,18 @@
 - photo = locals["data"]
-
 %section{ class: item_classes(locals), style: item_hsl(locals) }
 	%h1.entry-title
-		- type = (photo.has_key? "video") ? "video" : "photo"
-		posted the #{type} ‘
-		%a{ href: locals["url"] }<>
-			= locals["data"]["title"]
-		’
+		- if photo["title"].empty?
+			posted a photo
+		- else
+			- type = (photo.has_key? "video") ? "video" : "photo"
+			posted the #{type}
+			= surround "‘", "’" do
+				%a{ href: locals["url"] }<>
+					= h photo["title"]
 
 	%section.entry-content
-		%img{ src: photo_source_url(photo, "b") }
+		%a{ href: photo_url(photo) }
+			%img{ src: photo_source_url(photo, "m") }
 
 		- description = photo["description"]
 		- unless description.empty?

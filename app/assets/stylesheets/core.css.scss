@@ -94,8 +94,9 @@ strong {font-weight:normal;}
 .hentry + .hentry .entry-title {margin-bottom:14px;}
 .hentry .entry-title a {border:none; margin-left:-1px;}
 .hentry .entry-title code, h2 code {font-size:inherit;}
+.hentry .entry-content {word-wrap:break-word;}
 .hentry .entry-content > figure:first-child, .hentry .entry-content > p:first-child, .hentry .entry-content > blockquote:first-child > p:first-child {margin-top:9px;}
-.hentry .entry-content img {display:block; margin:0 auto; max-width:100%;}
+.hentry .entry-content img {display:inline-block; margin:0 auto; max-width:100%;}
 /* left/right margins compensate for 1px padding on links */
 .hentry .entry-content a img {background-color:#371d10; border:2px solid #c12d2d; margin-bottom:-5px; margin-left:-1px; margin-right:-1px; padding:2px;}
 .hentry .entry-content pre {margin-bottom:-1px; padding-top:1px;}

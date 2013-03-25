@@ -1,4 +1,4 @@
-helpers = %w(flickr laminar partial)
+helpers = %w(flickr h laminar partial)
 modules = []
 helpers.each do |helper|
 	require_relative helper

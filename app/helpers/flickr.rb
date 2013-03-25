@@ -3,6 +3,12 @@ module Flickr
 		"http://www.flickr.com/photos/#{data["owner"]}"
 	end
 
+	def photo_url data
+		# Detect stringified `Hash`
+		person = (data["owner"] =~ /{/) ? eval(data["owner"])["nsid"] : data["owner"]
+		"http://www.flickr.com/photos/#{person}/#{data["id"]}/"
+	end
+
 	def photo_source_url data, size="o"
 		data = eval(data) unless data.is_a? Hash
 		secret = (size == "o") ? data["originalsecret"] : data["secret"]

@@ -5,7 +5,7 @@ App.configure do |app|
 		@page_type = :index
 		@permalink = "/"
 
-		items = Activity.limit(50).all
+		items = Activity.limit(100).all
 		page_out items
 	end
 end

@@ -7,14 +7,17 @@
 			- user = photo["owner"]
 			- username = user["realname"].empty? ? user["username"] : user["realname"]
 			%a{ href: person_url(locals["data"]) }><
-				= "#{username}’s"
-		= (photo.has_key? "video") ? "video" : "photo"
-		= surround "‘", "’" do
-			%a{ href: locals["url"] }><
-				= locals["data"]["title"]
+				= "#{h username}’s"
+		- type = (photo.has_key? "video") ? "video" : "photo"
+		= type
+		- unless photo["title"].empty?
+			= surround "‘", "’" do
+				%a{ href: locals["url"] }><
+					= h photo["title"]["_content"]
 
 	%section.entry-content
-		%img{ src: photo_source_url(photo, "b") }
+		%a{ href: photo_url(photo) }
+			%img{ src: photo_source_url(photo, "m") }
 
 		- description = photo["description"]["_content"]
 		- unless description.empty?
