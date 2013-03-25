@@ -4,4 +4,4 @@
 .bundle/
 vendor/gems/
 
-latest.dump
+*.dump
