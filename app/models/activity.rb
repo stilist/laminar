@@ -1,5 +1,6 @@
 class Activity < ActiveRecord::Base
-	default_scope order("activities.updated_at DESC, activities.id DESC")
+	default_scope where(is_private: false).
+			order("activities.updated_at DESC, activities.id DESC")
 	serialize :data, ActiveRecord::Coders::Hstore
 
 	def for_json recurse=true
