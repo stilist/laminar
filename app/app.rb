@@ -3,6 +3,13 @@ class App < Sinatra::Base
 	register Sinatra::StaticAssets
 	register Sinatra::RespondTo
 
+	# pagination
+	require "will_paginate"
+	require "will_paginate/array"
+	require "will_paginate/view_helpers/sinatra"
+	require "will_paginate/active_record"
+	helpers WillPaginate::Sinatra::Helpers
+
 	require_relative "helpers/json_api"
 	helpers Sinatra::JsonApi
 

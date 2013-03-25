@@ -3,6 +3,9 @@ class Activity < ActiveRecord::Base
 			order("activities.updated_at DESC, activities.id DESC")
 	serialize :data, ActiveRecord::Coders::Hstore
 
+	# will_paginate
+	self.per_page = 100
+
 	def for_json recurse=true
 		data = self.attributes
 

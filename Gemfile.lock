@@ -129,6 +129,7 @@ GEM
       ripl-rack (>= 0.2.0)
       sinatra (>= 1.2.1)
     tzinfo (0.3.37)
+    will_paginate (3.0.4)
 
 PLATFORMS
   ruby
@@ -155,3 +156,4 @@ DEPENDENCIES
   sprockets-sass (~> 0.5)
   thin
   tux
+  will_paginate (~> 3.0.0)

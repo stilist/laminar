@@ -3,9 +3,13 @@ module Weather
 		above = WeatherObservation.where("created_at >= ?", date).first
 		above_dt = above["created_at"] - date
 		below = WeatherObservation.where("created_at <= ?", date).first
-		below_dt = below["created_at"] - date
+		if below
+			below_dt = below["created_at"] - date
 
-		(above_dt < below_dt) ? above : below
+			(above_dt < below_dt) ? above : below
+		else
+			above
+		end
 	end
 
 	def self.icon_url icon, date=Time.now

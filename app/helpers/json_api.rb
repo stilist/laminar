@@ -89,7 +89,7 @@ module Sinatra
 		def page_out data={}, status_code=200
 			output = case
 				when data.respond_to?(:for_json) then data.for_json
-				when data.class == Array
+				when data.class == Array || data.class == WillPaginate::Collection
 					data.map { |i| i.respond_to?(:for_json) ? i.for_json : i }
 				else data
 			end
@@ -140,7 +140,7 @@ module Sinatra
 
 		def send_page data, status_code=200
 			output = ""
-			if data.class == Array
+			if data.class == Array || data.class == WillPaginate::Collection
 				data.each { |item| output << prerender_data(item) }
 			elsif data != {}
 				output << prerender_data(data)

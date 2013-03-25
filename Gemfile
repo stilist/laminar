@@ -36,6 +36,9 @@ group :app do
 	gem "json"
 	gem "sinatra-respond_to", require: "sinatra/respond_to"
 
+	# pagination
+	gem "will_paginate", "~> 3.0.0"
+
 	# console
 	gem "tux"
 end
