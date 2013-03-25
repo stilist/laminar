@@ -19,7 +19,6 @@ body {color:#ab8876; cursor:default; font-family:museo-sans-1, museo-sans-2, "Tr
 }
 @media all and (max-width:640px) {
 	#nameplate {position:relative;}
-	.hentry .entry-title {font-size:12pt;}
 	.bottom {margin-left:25px; margin-right:25px;}
 	.hentry .meta {font-size:0.9em; margin-right:10px;}
 }
@@ -39,7 +38,6 @@ body {color:#ab8876; cursor:default; font-family:museo-sans-1, museo-sans-2, "Tr
 /* *** 1024px+ *** */
 @media all and (min-width:1025px) {
 	body {font-size:13pt;}
-	.hentry .entry-title {font-size:15pt; margin-bottom:17px;}
 	.hentry .entry-content h2 {font-size:1em; margin-bottom:25px; margin-top:52px;}
 	.hentry .entry-content h2 + p {margin-top:25px;}
 	.hentry .entry-content figure, .hentry .entry-content ol, .hentry .entry-content p, .hentry .entry-content ul {margin-bottom:26px; margin-top:26px;}
@@ -106,7 +104,7 @@ strong {font-weight:normal;}
 .hentry .keywords {line-height:1.55em; list-style:none;}
 .hentry .keywords li {float:right; margin-left:0.5em;}
 .hentry .meta {line-height:1.25em; margin-top:25px; text-align:right;}
-.hentry .updated {left:10px; position:absolute; top:10px; width:70px;}
+.hentry .updated {font-size:11pt; left:10px; line-height:1.55em; position:absolute; top:10px; width:80px;}
 .hentry .updated .time,
 .hentry .updated .day_month,
 .hentry .updated .year {display:inline-block;}
