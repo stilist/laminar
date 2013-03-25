@@ -17,6 +17,8 @@
 					@#{tweet["in_reply_to_screen_name"]}
 
 	%section.entry-content
+		= Twitter::media tweet
+
 		%blockquote
 			%p
 				= Twitter::text tweet
