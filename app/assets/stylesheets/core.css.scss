@@ -104,8 +104,12 @@ strong {font-weight:normal;}
 .hentry .keywords li {float:right; margin-left:0.5em;}
 .hentry .meta {line-height:1.25em; margin-top:25px; text-align:right;}
 .hentry .updated {left:10px; position:absolute; top:10px; width:70px;}
-.hentry .date {}
-.hentry .time {}
+.hentry .updated .time,
+.hentry .updated .day_month,
+.hentry .updated .year {display:inline-block;}
+.hentry .updated .time {}
+.hentry .updated .day_month {font-size:0.9em;}
+.hentry .updated .year {}
 .hentry .meta ul, .hentry .meta p {margin:0.5em 0;}
 
 .album, .book, .film, .game, .magazine, .newspaper, .programme {font-style:italic;}
