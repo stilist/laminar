@@ -50,7 +50,6 @@ module Laminar
 	def calculate_hsl data
 		date = data["created_at"]
 
-		# TODO Start from 240
 		hue = [360, date.yday].min + 240
 		hue = (hue > 360) ? (hue - 360) : hue
 
