@@ -79,6 +79,7 @@ GEM
     rack-test (0.6.2)
       rack (>= 1.0)
     rake (10.0.3)
+    rinku (1.7.2)
     ripl (0.7.0)
       bond (~> 0.4.2)
     ripl-multi_line (0.3.0)
@@ -144,6 +145,7 @@ DEPENDENCIES
   json
   pg
   rake
+  rinku
   rmagick
   sass
   sinatra

@@ -7,7 +7,14 @@ module Twitter
 		person_url(data) << "/status/#{data["id_str"]}"
 	end
 
-	def self.text data=""
-		data.gsub(/@(\w+)/, %Q{@<a href="http://twitter.com/\\1">\\1</a>})
+	def self.text data={}
+		tweet = data["text"]
+
+		urls = eval(data["entities"])["urls"]
+		urls.each { |url| tweet[url["url"]] = url["expanded_url"] }
+
+		out = tweet.gsub /@(\w+)/, %Q{@<a href="http://twitter.com/\\1">\\1</a>}
+
+		Rinku.auto_link out
 	end
 end

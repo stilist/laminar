@@ -35,6 +35,7 @@ group :app do
 	gem "haml"
 	gem "json"
 	gem "sinatra-respond_to", require: "sinatra/respond_to"
+	gem "rinku", require: "rinku"
 
 	# pagination
 	gem "will_paginate", "~> 3.0.0"
