@@ -3,7 +3,7 @@
 - time = locals["updated_at"]
 
 %time.updated{ datetime: time.iso8601, pubdate: "" }
-	%a.time{ href: permalink, rel: "bookmark" }
+	%a.time{ href: permalink, rel: "bookmark" }><
 		= time.strftime "%l:%M"
 	%span.day_month
 		= time.strftime "%e %B"
