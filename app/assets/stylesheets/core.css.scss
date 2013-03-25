@@ -39,7 +39,7 @@ body {color:#ab8876; font-family:museo-sans-1, museo-sans-2, "Trebuchet MS", Ari
 /* *** 1024px+ *** */
 @media all and (min-width:1025px) {
 	body {font-size:13pt;}
-	.hentry .entry-title {font-size:20pt; margin-bottom:17px;}
+	.hentry .entry-title {font-size:15pt; margin-bottom:17px;}
 	.hentry .entry-content h2 {font-size:1em; margin-bottom:25px; margin-top:52px;}
 	.hentry .entry-content h2 + p {margin-top:25px;}
 	.hentry .entry-content figure, .hentry .entry-content ol, .hentry .entry-content p, .hentry .entry-content ul {margin-bottom:26px; margin-top:26px;}
@@ -80,11 +80,11 @@ strong {font-weight:normal;}
 #nameplate #logo {font-size:40px;}
 
 .hfeed {position:relative; z-index:5;}
-.hentry {padding:10px 10px 10px 100px; position:relative;}
+.hentry {@include vertical_gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.0)); padding:10px 10px 10px 100px; position:relative;}
 .hentry.light {color:#000;}
 .hentry.mid {color:#666;}
 .hentry.dark {color:#d0d0d0;}
-.hentry + .hentry {@include shadow(inset 0 1px 1px 0 rgba(0, 0, 0, 0.2));}
+.hentry + .hentry {@include shadow(inset 0 1px 0 0 rgba(255, 255, 255, 0.2), inset 0 -1px 0 0 rgba(0, 0, 0, 0.2));}
 .hentry blockquote {border-left:1px solid transparent; border-right:1px solid transparent; margin:0 auto; max-width:500px; padding:0 2em;}
 .hentry.light blockquote {border-color:#000;}
 .hentry.mid blockquote {border-color:#666;}
@@ -97,19 +97,13 @@ strong {font-weight:normal;}
 .hentry .entry-content {word-wrap:break-word;}
 .hentry .entry-content > figure:first-child, .hentry .entry-content > p:first-child, .hentry .entry-content > blockquote:first-child > p:first-child {margin-top:9px;}
 .hentry .entry-content img {display:inline-block; margin:0 auto; max-width:100%;}
-/* left/right margins compensate for 1px padding on links */
-.hentry .entry-content a img {background-color:#371d10; border:2px solid #c12d2d; margin-bottom:-5px; margin-left:-1px; margin-right:-1px; padding:2px;}
+.hentry .entry-content a img {background-color:#371d10; border:2px solid #c12d2d;}
 .hentry .entry-content pre {margin-bottom:-1px; padding-top:1px;}
 .hentry .keywords, .hentry .keywords li {display:inline;}
 .hentry .keywords {line-height:1.55em; list-style:none;}
 .hentry .keywords li {float:right; margin-left:0.5em;}
 .hentry .meta {line-height:1.25em; margin-top:25px; text-align:right;}
-.hentry .updated {
-	left:10px;
-	position:absolute;
-	top:10px;
-	width:70px;
-}
+.hentry .updated {left:10px; position:absolute; top:10px; width:70px;}
 .hentry .date {}
 .hentry .time {}
 .hentry .meta ul, .hentry .meta p {margin:0.5em 0;}
