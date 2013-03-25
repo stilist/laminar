@@ -1,10 +1,20 @@
 - permalink = "/items/#{locals["id"]}"
+- tags = locals["data"]["tags"] ? eval(locals["data"]["tags"]) : []
+- time = locals["updated_at"]
+
+%time.updated{ datetime: time.iso8601, pubdate: "" }
+	%a.time{ href: permalink, rel: "bookmark" }
+		= time.strftime "%l:%M"
+	%span.day_month
+		= time.strftime "%e %B"
+	%span.year
+		= time.strftime "0%Y"
 
 %section.meta
-	%p.signoff
-		%a{ href: permalink }
-			%time.updated{ datetime: locals["updated_at"].iso8601, pubdate: "" }
-				= locals["updated_at"].strftime "%l:%M:%S %P on %e %B, 0%Y"
-		•
-		%a.pilcrow{ href: permalink, rel: "bookmark" }
-			⁋
+	- unless tags.empty?
+		%ul.keywords
+			- tags.each do |tag|
+				%li
+					%a{ href: "/tags/#{tag["_content"]}", rel: "tag" }
+						= tag["raw"]
+		.clear

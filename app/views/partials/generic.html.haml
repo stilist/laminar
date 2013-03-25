@@ -1,5 +1,5 @@
 %section{ class: item_classes(locals), style: item_hsl(locals) }
 	%h1.entry-title
-		= "hsl(#{hue}, #{condition}%, #{luminance}%)"
+		= item_hsl(locals)
 
 	= partial "_item_metadata", locals

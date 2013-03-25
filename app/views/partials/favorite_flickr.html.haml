@@ -1,16 +1,17 @@
 - photo = eval locals["data"]["photo"]
+
 %section{ class: item_classes(locals), style: item_hsl(locals) }
 	%h1.entry-title
 		favorited
-		%a{ href: person_url(locals["data"]) }>
+		= precede " " do
 			- user = photo["owner"]
 			- username = user["realname"].empty? ? user["username"] : user["realname"]
-			= "#{username}’s"
-		- type = (photo.has_key? "video") ? "video" : "photo"
-		#{type} ‘
-		%a{ href: locals["url"] }<>
-			= locals["data"]["title"]
-		’
+			%a{ href: person_url(locals["data"]) }><
+				= "#{username}’s"
+		= (photo.has_key? "video") ? "video" : "photo"
+		= surround "‘", "’" do
+			%a{ href: locals["url"] }><
+				= locals["data"]["title"]
 
 	%section.entry-content
 		%img{ src: photo_source_url(photo, "b") }

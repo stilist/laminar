@@ -5,19 +5,8 @@
 
 	%body
 		%nav#nameplate
-			%ul
-				%li
-					%a#logo{ href: "//ratafia.info", rel: "home index" }
-						Ratafia Currant
-				%li
-					%a#archives{ href: "/ratafia.info/archive", rel: "archives" }
-						Archives
-				%li
-					%a#code{ href: "//github.com/stilist", rel: "external" }
-						Code
-				%li
-					%a#links{ href: "//pinboard.in/u:stilist", rel: "me" }
-						Links
+			%a#logo{ href: "//ratafia.info", rel: "home index" }
+				Ratafia Currant
 
 		#content.hfeed
 			= yield
