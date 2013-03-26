@@ -1,4 +1,4 @@
-module Twitter
+module Twttr
 	def self.person_url data
 		"https://twitter.com/#{data["user"]["screen_name"]}"
 	end

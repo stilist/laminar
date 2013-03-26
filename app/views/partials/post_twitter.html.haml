@@ -5,11 +5,11 @@
 			- retweet = eval(tweet["retweeted_status"])
 			retweeted
 			= precede "@" do
-				%a{ href: Twitter::person_url(retweet) }><
+				%a{ href: Twttr::person_url(retweet) }><
 					= retweet["user"]["screen_name"]
 		- else
 			posted a
-			%a{ href: Twitter::tweet_url(tweet) }
+			%a{ href: Twttr::tweet_url(tweet) }
 				tweet
 			- if tweet["in_reply_to_screen_name"]
 				in reply to
@@ -17,10 +17,10 @@
 					@#{tweet["in_reply_to_screen_name"]}
 
 	%section.entry-content
-		= Twitter::media tweet
+		= Twttr::media tweet
 
 		%blockquote
 			%p
-				= Twitter::text tweet
+				= Twttr::text tweet
 
 	= partial "_item_metadata", locals
