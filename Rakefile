@@ -1,4 +1,8 @@
 Dir.glob("#{File.dirname(__FILE__)}/lib/**/*.rb") { |file| require file }
+import "#{File.dirname(__FILE__)}/lib/tasks/scheduler.rake"
+
+# scheduler debug
+puts "***************** IN RAKEFILE"
 
 # https://github.com/janko-m/sinatra-activerecord
 require "sinatra/activerecord/rake"
