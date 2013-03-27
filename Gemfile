@@ -33,7 +33,7 @@ group :app do
 
 	# content
 	gem "haml"
-	gem "json"
+	gem "oj"
 	gem "sinatra-respond_to", require: "sinatra/respond_to"
 	gem "rinku", require: "rinku"
 
