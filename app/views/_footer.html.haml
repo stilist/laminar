@@ -1,5 +1,5 @@
 - if @items
-	= will_paginate @items
+	= will_paginate @items, { inner_window: 2 }
 
 / Libraries
 = javascript_script_tag "assets/vendor.js"
