@@ -6,11 +6,14 @@ module Twttr
 	def self.media data
 		out = ""
 
-		media = eval(data["entities"])["media"]
-		media.each do |item|
-			out << "<a href='#{item["expanded_url"]}'>
-				<img src='#{item["media_url_https"]}'>
-			</a>"
+		entities = eval(data["entities"])
+		media = entities["media"] || entities[:media]
+		if media
+			media.each do |item|
+				e_url = item["expanded_url"] || item[:expanded_url]
+				https = item["media_url_https"] || item[:media_url_https]
+				out << "<a href='#{e_url}'><img src='#{https}'></a>"
+			end
 		end
 
 		out
@@ -22,12 +25,21 @@ module Twttr
 
 	def self.text data={}
 		tweet = data["text"]
+		entities = eval(data["entities"])
 
-		urls = eval(data["entities"])["urls"]
-		urls.each { |url| tweet[url["url"]] = url["expanded_url"] }
+		urls = entities["urls"] || entities[:urls]
+		if urls
+			urls.each do |url|
+				tweet[url["url"] || url[:url]] = url["expanded_url"] || url[:expanded_url]
+			end
+		end
 
-		media = eval(data["entities"])["media"]
-		media.each { |url| tweet[url["url"]] = url["expanded_url"] }
+		media = entities["media"] || entities[:media]
+		if media
+			media.each do |url|
+				tweet[url["url"] || url[:url]] = url["expanded_url"] || url[:expanded_url]
+			end
+		end
 
 		out = tweet.gsub /@(\w+)/, %Q{@<a href="http://twitter.com/\\1">\\1</a>}
 

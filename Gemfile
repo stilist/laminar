@@ -33,7 +33,7 @@ group :app do
 
 	# content
 	gem "haml"
-	gem "oj"
+	gem "json"
 	gem "sinatra-respond_to", require: "sinatra/respond_to"
 	gem "rinku", require: "rinku"
 
@@ -42,4 +42,7 @@ group :app do
 
 	# console
 	gem "tux"
+
+	# services
+	gem "twitter"
 end
