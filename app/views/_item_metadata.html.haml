@@ -10,10 +10,11 @@
 	%span.year
 		= time.strftime "0%Y"
 
-- weather = Weather::nearest_observation(locals["created_at"])["data"]
-%span.observation
-	%span.icon
-		%img{ src: Weather::icon_url(weather["icon"]) }
+- weather = Weather::nearest_observation(locals["created_at"])
+- if weather
+	%span.observation
+		%span.icon
+			%img{ src: Weather::icon_url(weather["data"]["icon"]) }
 
 %section.meta
 	- unless tags.empty?

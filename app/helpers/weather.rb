@@ -1,14 +1,16 @@
 module Weather
+	# TODO Don't make 2n queries
 	def self.nearest_observation date=Time.now
 		above = WeatherObservation.where("created_at >= ?", date).first
-		above_dt = above["created_at"] - date
-		below = WeatherObservation.where("created_at <= ?", date).first
-		if below
-			below_dt = below["created_at"] - date
+		above_dt = above ? (above["created_at"] - date) : nil
 
+		below = WeatherObservation.where("created_at <= ?", date).first
+		below_dt = below ? (below["created_at"] - date) : nil
+
+		if above_dt && below_dt
 			(above_dt < below_dt) ? above : below
 		else
-			above
+			above || below || nil
 		end
 	end
 

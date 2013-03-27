@@ -54,7 +54,7 @@ module Laminar
 		hue = (hue > 360) ? (hue - 360) : hue
 
 		wo = Weather::nearest_observation data["created_at"]
-		saturation = @@conditions[wo["data"]["icon"].to_sym] || 0
+		saturation = wo ? (@@conditions[wo["data"]["icon"].to_sym] || 0) : 0
 
 		pct_of_day = (((date.hour * 60) + date.min) / 1400.0) * 100
 		# Peak at midday
