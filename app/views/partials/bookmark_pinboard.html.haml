@@ -1,0 +1,8 @@
+- data = locals["data"]
+%section{ class: item_classes(locals), style: item_hsl(locals) }
+	%h1.entry-title
+		bookmarked
+		%a{ href: locals["url"] }
+			= data["description"]
+
+	= partial "_item_metadata", locals

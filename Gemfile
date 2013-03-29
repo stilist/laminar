@@ -45,4 +45,5 @@ group :app do
 
 	# services
 	gem "twitter"
+	gem "pinboard"
 end
