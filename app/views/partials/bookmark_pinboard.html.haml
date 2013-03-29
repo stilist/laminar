@@ -3,6 +3,6 @@
 	%h1.entry-title
 		bookmarked
 		%a{ href: locals["url"] }
-			= data["description"]
+			= data["description"].empty? ? locals["url"] : data["description"]
 
 	= partial "_item_metadata", locals
