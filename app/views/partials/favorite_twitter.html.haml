@@ -1,0 +1,17 @@
+- tweet = locals["data"]
+%section{ class: item_classes(locals), style: item_hsl(locals) }
+	%h1.entry-title
+		favorited
+		= succeed "’s" do
+			= Twttr::person_link tweet
+		%a{ href: Twttr::tweet_url(tweet) }
+			tweet
+
+	%section.entry-content
+		= Twttr::media tweet
+
+		%blockquote
+			%p
+				= Twttr::text tweet
+
+	= partial "_item_metadata", locals

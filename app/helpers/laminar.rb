@@ -45,6 +45,11 @@ module Laminar
 		"background-color:hsl(#{hsl[:hue]}, #{hsl[:saturation]}%, #{hsl[:luminance]}%);"
 	end
 
+	def self.sym2s h
+		# http://stackoverflow.com/a/8380073/672403
+		Hash === h ? Hash[h.map { |k, v| [k.to_s, Laminar.sym2s(v)] }] : h
+	end
+
 	private
 
 	def calculate_hsl data

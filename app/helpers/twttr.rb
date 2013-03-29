@@ -1,6 +1,12 @@
 module Twttr
 	def self.person_url data
-		"https://twitter.com/#{data["user"]["screen_name"]}"
+		user = data["user"].is_a?(String) ? eval(data["user"]) : data["user"]
+		"https://twitter.com/#{user["screen_name"]}"
+	end
+
+	def self.person_link data
+		user = data["user"].is_a?(String) ? eval(data["user"]) : data["user"]
+		"<a href='https://twitter.com/#{user["screen_name"]}'>#{user["name"]}</a>"
 	end
 
 	def self.media data
@@ -44,5 +50,20 @@ module Twttr
 		out = tweet.gsub /@(\w+)/, %Q{@<a href="http://twitter.com/\\1">\\1</a>}
 
 		Rinku.auto_link out
+	end
+
+	def self.client
+		client = Twitter::Client.new({
+			consumer_key: ENV["TWITTER_APP_KEY"],
+			consumer_secret: ENV["TWITTER_APP_SECRET"],
+			oauth_token: ENV["TWITTER_USER_KEY"],
+			oauth_token_secret: ENV["TWITTER_USER_SECRET"]
+		})
+
+		# https://github.com/sferik/twitter/issues/370#issuecomment-15495843
+		# (also: https://dev.twitter.com/discussions/15989)
+		client.send(:connection).headers["Connection"] = ""
+
+		client
 	end
 end
