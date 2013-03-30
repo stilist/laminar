@@ -23,7 +23,9 @@ module Laminar
 	}.freeze
 
 	def item_classes data
-		hsl = calculate_hsl data
+		observations = data["extras"] ? data["extras"]["observations"] : nil
+
+		hsl = calculate_hsl data, observations
 		lower = 50
 		upper = 65
 
@@ -41,7 +43,9 @@ module Laminar
 	end
 
 	def item_hsl data
-		hsl = calculate_hsl data
+		observations = data["extras"] ? data["extras"]["observations"] : nil
+
+		hsl = calculate_hsl data, observations
 		"background-color:hsl(#{hsl[:hue]}, #{hsl[:saturation]}%, #{hsl[:luminance]}%);"
 	end
 
@@ -52,15 +56,16 @@ module Laminar
 
 	private
 
-	def calculate_hsl data
+	def calculate_hsl data, observations=nil
 		date = data["created_at"]
 
 		hue = [360, date.yday].min + 240
 		hue = (hue > 360) ? (hue - 360) : hue
 
-		wo = Weather::nearest_observation data["created_at"]
+		wo = Weather::nearest_observation data["created_at"], observations
 		saturation = wo ? (@@conditions[wo["data"]["icon"].to_sym] || 0) : 0
 
+		# minutes...   [       through day       ]   [in day]
 		pct_of_day = (((date.hour * 60) + date.min) / 1400.0) * 100
 		# Peak at midday
 		luminance = (pct_of_day > 50 ? (100 - pct_of_day) : pct_of_day).floor

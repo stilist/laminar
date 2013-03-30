@@ -6,6 +6,10 @@ App.configure do |app|
 		@permalink = "/"
 
 		@items = Activity.page(params[:page]).all
-		page_out @items
+
+		observations = Weather.prefetch @items.first.created_at, @items.last.created_at
+		extras = { "observations" => observations }
+
+		page_out @items, 200, extras
 	end
 end

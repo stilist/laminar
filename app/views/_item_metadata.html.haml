@@ -1,6 +1,7 @@
 - permalink = "/activities/#{locals["id"]}"
 - tags = locals["data"]["tags"] ? eval(locals["data"]["tags"]) : []
 - time = locals["updated_at"]
+- extras = locals["extras"]
 
 %time.updated{ datetime: time.iso8601, pubdate: "" }
 	%a.time{ href: permalink, rel: "bookmark" }><
@@ -10,7 +11,8 @@
 	%span.year
 		= time.strftime "0%Y"
 
-- weather = Weather::nearest_observation(locals["created_at"])
+- weather = Weather::nearest_observation locals["created_at"],
+		extras["observations"]
 - if weather
 	%span.observation
 		%span.icon

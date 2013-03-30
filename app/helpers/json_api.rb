@@ -86,7 +86,7 @@ module Sinatra
 		# Simply define a `for_json` method in the ActiveRecord model and return
 		# a `Hash` with the desired fields. Convenient for filtering out passwords
 		# or embedding associations.
-		def page_out data={}, status_code=200
+		def page_out data={}, status_code=200, extras={}
 			output = case
 				when data.respond_to?(:for_json) then data.for_json
 				when data.class == Array || data.class == WillPaginate::Collection
@@ -110,7 +110,7 @@ module Sinatra
 				respond_to do |format|
 					format.js { send_json output, status_code }
 					format.json { send_json output, status_code }
-					format.html { send_page output, status_code }
+					format.html { send_page output, status_code, extras }
 				end
 			end
 		end
@@ -128,22 +128,24 @@ module Sinatra
 			body({ data: data, status: status_code }.to_json)
 		end
 
-		def prerender_data data
+		def prerender_data data, extras={}
 			type = data["activity_type"]
 			source = data["source"]
 
 			template = App.templates["#{type}_#{source}"] ||
 					App.templates["#{source}"] || App.templates["generic"] || ""
 
-			partial template, locals: data
+			locals = data.merge("extras" => extras)
+
+			partial template, locals: locals
 		end
 
-		def send_page data, status_code=200
+		def send_page data, status_code=200, extras={}
 			output = ""
 			if data.class == Array || data.class == WillPaginate::Collection
-				data.each { |item| output << prerender_data(item) }
+				data.each { |item| output << prerender_data(item, extras) }
 			elsif data != {}
-				output << prerender_data(data)
+				output << prerender_data(data, extras)
 			end
 
 			status status_code
