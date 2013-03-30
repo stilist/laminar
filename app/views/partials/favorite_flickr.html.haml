@@ -10,7 +10,7 @@
 				= "#{h username}’s"
 		- type = (photo.has_key? "video") ? "video" : "photo"
 		= type
-		- unless photo["title"].empty?
+		- unless photo["title"]["_content"].empty?
 			= surround "‘", "’" do
 				%a{ href: locals["url"] }><
 					= h photo["title"]["_content"]

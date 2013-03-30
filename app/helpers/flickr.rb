@@ -5,11 +5,12 @@ module Flickr
 
 	def self.photo_url data
 		# http://stackoverflow.com/a/3908411/672403
-		person = case data["owner"]
-			when String then data["owner"]
-			when Hash then data["owner"]["nsid"]
-			# stringified `Hash`
-			else eval(data["owner"])["nsid"]
+		owner = data["owner"]
+		if owner.is_a?(String)
+			# Catch serialized `Hash`
+			person = owner[0] == "{" ? eval(data["owner"])["nsid"] : owner
+		else
+			person = data["owner"]["nsid"]
 		end
 
 		"http://www.flickr.com/photos/#{person}/#{data["id"]}/"
