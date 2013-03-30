@@ -4,6 +4,19 @@
 %meta{ content: "initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0, user-scalable=no, width=device-width", name: "viewport" }
 %meta{ content: "yes", name: "apple-mobile-web-app-capable" }
 %meta{ content: "black-transluscent", name: "apple-mobile-web-app-status-bar-style" }
+-# iOS: 57 72 114 144
+- %w(57 72 114 144).each do |size|
+	%link{ rel: "apple-touch-icon-precomposed", sizes: "#{size}x#{size}",
+			href: "/assets/app_icon/#{size}.png" }
+/ iPhone 1/3/3G
+%link{ href: "/assets/app_splash/iphone.png", rel: "apple-touch-startup-image",
+		media: "(device-width: 320px) and (device-height: 480px) and (-webkit-device-pixel-ratio: 1)" }
+/ iPhone 4/4S
+%link{ href: "/assets/app_splash/iphone4.png", rel: "apple-touch-startup-image",
+		media: "(device-width: 320px) and (device-height: 480px) and (-webkit-device-pixel-ratio: 2)" }
+/ iPhone 5
+%link{ href: "/assets/app_splash/iphone5.png", rel: "apple-touch-startup-image",
+		media: "(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)" }
 
 / Google Webmaster Tool
 %meta{ content: "fBP5k+EA4BFJx2aaK3hiOymbZSUbEAkp8OcEdeK/Fk8=", name: "verify-v1" }
@@ -66,9 +79,6 @@
 
 / pavatar
 %link{ href: "//static.ratafia.info/bird_80x80.png", rel: "pavatar avatar logo" }
-
-/ iOS
-%link{ href: "//static.ratafia.info/bird_200x200.png", rel: "apple-touch-icon" }
 
 / give Facebook a default image when this URL is shared
 %link{ href: "//static.ratafia.info/bird_80x80.png", rel: "image_src" }
