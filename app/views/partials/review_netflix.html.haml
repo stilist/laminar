@@ -1,0 +1,13 @@
+- data = locals["data"]
+%section{ class: item_classes(locals), style: item_hsl(locals) }
+	%h1.entry-title
+		reviewed
+		%em.film
+			= eval(data["title"])[:attributes][:regular]
+		= surround "(", "):" do
+			= data["release_year"]
+
+		= data["user_rating"].to_i
+		stars
+
+	= partial "_item_metadata", locals
