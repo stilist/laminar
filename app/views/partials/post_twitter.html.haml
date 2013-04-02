@@ -4,9 +4,8 @@
 		- if tweet["retweeted_status"]
 			- retweet = eval(tweet["retweeted_status"])
 			retweeted
-			= precede "@" do
-				%a{ href: Twttr::person_url(retweet) }><
-					= retweet["user"]["screen_name"]
+			%a{ href: Twttr::person_url(retweet) }><
+				= retweet["user"]["name"]
 		- else
 			posted a
 			%a{ href: Twttr::tweet_url(tweet) }
@@ -14,7 +13,7 @@
 			- if tweet["in_reply_to_status_id"]
 				in reply to
 				%a{ href: "https://twitter.com/#{tweet["in_reply_to_screen_name"]}/status/#{tweet["in_reply_to_status_id_str"]}" }
-					@#{tweet["in_reply_to_screen_name"]}
+					= eval(tweet["entities"])["user_mentions"].first[:name]
 
 	%section.entry-content
 		= Twttr::media tweet
