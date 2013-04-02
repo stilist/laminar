@@ -2,7 +2,7 @@
 %section{ class: item_classes(locals), style: item_hsl(locals) }
 	%h1.entry-title
 		reviewed
-		%em.film
+		%a.film{ href: locals["url"] }
 			= eval(data["title"])[:attributes][:regular]
 		= surround "(", "):" do
 			= data["release_year"]
