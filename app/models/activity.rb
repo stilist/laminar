@@ -66,20 +66,20 @@ class Activity < ActiveRecord::Base
 			title = "bookmarked a URL"
 
 			description = "bookmarked"
-			description << data["description"].empty? ? locals["url"] : data["description"]
+			description << (data["description"].empty? ? self.url : data["description"])
 		when "twitter"
 			if self.activity_type == "favorite"
 				user = data["user"].is_a?(String) ? eval(data["user"]) : data["user"]
-				title = "favorited #{user}’s tweet"
+				title = "favorited #{user["name"]}’s tweet"
 			else
 				if data["retweeted_status"]
 					retweet = eval(data["retweeted_status"])
 					title = "retweeted #{retweet["user"]["name"]}"
 				else
 					title = "posted a tweet"
-					description = "tweeted #{Twttr::text data, false}"
 				end
 			end
+			description = "#{title}: #{Twttr::text data, false}"
 		# fallback
 		else
 			vowels = %w(a e i o u)

@@ -30,20 +30,29 @@ module Twttr
 	end
 
 	def self.text data={}, autolink=true
+		data = eval(data["retweeted_status"]) if data["retweeted_status"]
 		tweet = data["text"]
-		entities = eval(data["entities"])
+		if data["entities"].is_a? String
+			entities = eval(data["entities"])
+		else
+			entities = data["entities"]
+		end
 
 		urls = entities["urls"] || entities[:urls]
 		if urls
 			urls.each do |url|
-				tweet[url["url"] || url[:url]] = url["expanded_url"] || url[:expanded_url]
+				if tweet[url["url"] || url[:url]]
+					tweet[url["url"] || url[:url]] = url["expanded_url"] || url[:expanded_url]
+				end
 			end
 		end
 
 		media = entities["media"] || entities[:media]
 		if media
 			media.each do |url|
-				tweet[url["url"] || url[:url]] = url["expanded_url"] || url[:expanded_url]
+				if tweet[url["url"] || url[:url]]
+					tweet[url["url"] || url[:url]] = url["expanded_url"] || url[:expanded_url]
+				end
 			end
 		end
 
