@@ -82,7 +82,7 @@ namespace :twitter do
 			items.each_with_index do |item, idx|
 				puts "  * #{item.id} [#{idx + 1}/#{total}]"
 
-				existing = Activity.where(original_id: item.id).first
+				existing = Activity.where(original_id: item.id.to_s).first
 				existing_name = existing ? "#{existing.id}#{existing.activity_type}" : ""
 
 				unless existing && existing_name == "#{item.id}#{activity_type}"
