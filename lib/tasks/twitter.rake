@@ -81,16 +81,21 @@ namespace :twitter do
 		items.each_with_index do |item, idx|
 			puts "  * #{item.id} [#{idx + 1}/#{total}]"
 
-			Activity.create({
-				source: "twitter",
-				activity_type: activity_type,
-				url: "https://twitter.com/#{item["user"]["screen_name"]}/status/#{item.id}",
-				created_at: item["created_at"],
-				updated_at: item["created_at"],
-				# `.attrs` use: http://stackoverflow.com/a/13249551/672403
-				data: Laminar.sym2s(item.attrs)
-			})
+			existing = Activity.where(original_id: item.id).first
+			existing_name = existing ? "#{existing.id}#{existing.activity_type}" : ""
+
+			unless existing && existing_name == "#{item.id}#{activity_type}"
+				Activity.create({
+					source: "twitter",
+					activity_type: activity_type,
+					url: "https://twitter.com/#{item["user"]["screen_name"]}/status/#{item.id}",
+					created_at: item["created_at"],
+					updated_at: item["created_at"],
+					# `.attrs` use: http://stackoverflow.com/a/13249551/672403
+					data: Laminar.sym2s(item.attrs),
+					original_id: item.id
+				})
+			end
 		end
-		ActiveRecord::Base.record_timestamps = true
 	end
 end
