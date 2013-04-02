@@ -1,3 +1,4 @@
+- @domain = request.host
 - @page_title ||= "Recent Activity"
 - @page_summary ||= "Jordan Cole’s lifestream. Follow my digital activities."
 - @page_type ||= :index
@@ -48,12 +49,12 @@
 	%meta{ content: "website", property: "og:type" }
 	%meta{ content: "http://static.ratafia.info/bird_200x200.png", property: "twitter:image" }
 	/ TODO
-	%meta{ content: "http://ratafia.info", property: "og:url" }
-	%meta{ content: "http://ratafia.info", property: "twitter:url" }
+	%meta{ content: "http://#{@domain}", property: "og:url" }
+	%meta{ content: "http://#{@domain}", property: "twitter:url" }
 - else
 	%meta{ content: "article", property: "og:type" }
-	%meta{ content: @permalink, property: "og:url" }
-	%meta{ content: @permalink, property: "twitter:url" }
+	%meta{ content: "http://#{@domain}#{@permalink}", property: "og:url" }
+	%meta{ content: "http://#{@domain}#{@permalink}", property: "twitter:url" }
 	/ TODO
 	%meta{ content: "http://static.ratafia.info/bird_200x200.png", property: "twitter:image" }
 
