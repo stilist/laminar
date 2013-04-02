@@ -31,6 +31,8 @@ class App < Sinatra::Base
 	end
 
 	configure do
+		use Rack::Deflater
+
 		set :root, File.dirname(__FILE__)
 		set :templates, self.get_templates
 
