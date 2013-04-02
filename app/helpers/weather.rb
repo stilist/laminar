@@ -3,6 +3,13 @@ module Weather
 	def self.prefetch start_date=nil, end_date=nil
 		return [] unless start_date && end_date
 
+		if start_date == end_date
+			# Ideal would be start/end of day, but this is close enough.
+			day = 60 * 60 * 24
+			start_date = start_date - day
+			end_date = start_date + day
+		end
+
 		start_date, end_date = end_date, start_date if start_date > end_date
 
 		WeatherObservation.where("created_at >= ?", start_date).
