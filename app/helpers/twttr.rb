@@ -29,7 +29,7 @@ module Twttr
 		person_url(data) << "/status/#{data["id_str"]}"
 	end
 
-	def self.text data={}
+	def self.text data={}, autolink=true
 		tweet = data["text"]
 		entities = eval(data["entities"])
 
@@ -47,9 +47,13 @@ module Twttr
 			end
 		end
 
-		out = tweet.gsub /@(\w+)/, %Q{@<a href="http://twitter.com/\\1">\\1</a>}
+		if autolink
+			out = tweet.gsub /@(\w+)/, %Q{@<a href="http://twitter.com/\\1">\\1</a>}
 
-		Rinku.auto_link out
+			Rinku.auto_link out
+		else
+			out
+		end
 	end
 
 	def self.client
