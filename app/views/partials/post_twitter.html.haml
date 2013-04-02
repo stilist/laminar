@@ -4,7 +4,7 @@
 		- if tweet["retweeted_status"]
 			- retweet = eval(tweet["retweeted_status"])
 			retweeted
-			%a{ href: Twttr::person_url(retweet) }><
+			%a{ href: Twttr::person_url(retweet) }<
 				= retweet["user"]["name"]
 		- else
 			posted a
