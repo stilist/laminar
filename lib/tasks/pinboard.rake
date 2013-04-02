@@ -18,25 +18,28 @@ namespace :pinboard do
 		puts
 		puts "*** #{total} new #{activity_type}(s)"
 
-		ActiveRecord::Base.record_timestamps = false
-		items.each_with_index do |item, idx|
-			puts "  * #{item.href} [#{idx + 1}/#{total}]"
+		begin
+			ActiveRecord::Base.record_timestamps = false
+			items.each_with_index do |item, idx|
+				puts "  * #{item.href} [#{idx + 1}/#{total}]"
 
-			existing = Activity.where(url: item.href).count
+				existing = Activity.where(url: item.href).count
 
-			if existing == 0
-				Activity.create({
-					source: "pinboard",
-					activity_type: activity_type,
-					url: item.href,
-					created_at: item.time,
-					updated_at: item.time,
-					is_private: !item.shared.nil?,
-					data: construct_pinboard_data(item)
-				})
+				if existing == 0
+					Activity.create({
+						source: "pinboard",
+						activity_type: activity_type,
+						url: item.href,
+						created_at: item.time,
+						updated_at: item.time,
+						is_private: !item.shared.nil?,
+						data: construct_pinboard_data(item)
+					})
+				end
 			end
+		ensure
+			ActiveRecord::Base.record_timestamps = true
 		end
-		ActiveRecord::Base.record_timestamps = true
 	end
 
 	def construct_pinboard_data item

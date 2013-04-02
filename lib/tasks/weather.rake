@@ -36,34 +36,37 @@ namespace :weather do
 			puts "  * fetching weather from #{start_date} to #{end_date}"
 		end
 
-		ActiveRecord::Base.record_timestamps = false
-		(start_date..end_date).to_a.each do |date|
-			_date = date.to_s.gsub "-", ""
-			url = "http://api.wunderground.com/api/#{key}/history_#{_date}/q/#{location}.json"
+		begin
+			ActiveRecord::Base.record_timestamps = false
+			(start_date..end_date).to_a.each do |date|
+				_date = date.to_s.gsub "-", ""
+				url = "http://api.wunderground.com/api/#{key}/history_#{_date}/q/#{location}.json"
 
-			data = JSON.parse open(url).read
-			observations = data["history"]["observations"]
+				data = JSON.parse open(url).read
+				observations = data["history"]["observations"]
 
-			observations.each do |observation|
-				d = observation["utcdate"]
-				timestamp = DateTime.parse("#{d["year"]}-#{d["mon"]}-#{d["mday"]} #{d["hour"]}:#{d["min"]} UTC")
+				observations.each do |observation|
+					d = observation["utcdate"]
+					timestamp = DateTime.parse("#{d["year"]}-#{d["mon"]}-#{d["mday"]} #{d["hour"]}:#{d["min"]} UTC")
 
-				existing = WeatherObservation.where(created_at: timestamp).count
-				if existing == 0
-					WeatherObservation.create({
-						source: "wunderground",
-						lat: lat,
-						lng: lng,
-						created_at: timestamp,
-						updated_at: timestamp,
-						data: observation
-					})
+					existing = WeatherObservation.where(created_at: timestamp).count
+					if existing == 0
+						WeatherObservation.create({
+							source: "wunderground",
+							lat: lat,
+							lng: lng,
+							created_at: timestamp,
+							updated_at: timestamp,
+							data: observation
+						})
+					end
 				end
-			end
 
-			# Rate limit: 10 calls/minute
-			sleep 10
+				# Rate limit: 10 calls/minute
+				sleep 10
+			end
+		ensure
+			ActiveRecord::Base.record_timestamps = true
 		end
-		ActiveRecord::Base.record_timestamps = true
 	end
 end
