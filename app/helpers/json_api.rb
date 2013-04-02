@@ -142,10 +142,13 @@ module Sinatra
 
 		def send_page data, status_code=200, extras={}
 			output = ""
-			if data.class == Array || data.class == WillPaginate::Collection
-				data.each { |item| output << prerender_data(item, extras) }
-			elsif data != {}
-				output << prerender_data(data, extras)
+
+			if status_code != 404
+				if data.class == Array || data.class == WillPaginate::Collection
+					data.each { |item| output << prerender_data(item, extras) }
+				elsif data != {}
+					output << prerender_data(data, extras)
+				end
 			end
 
 			status status_code
