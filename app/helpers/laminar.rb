@@ -22,6 +22,8 @@ module Laminar
 		unknown: 0
 	}.freeze
 
+	def nl2br text ; text.gsub /[\n|\r]/, "<br>" end
+
 	def item_classes data, extra_classes=[]
 		observations = data["extras"] ? data["extras"]["observations"] : nil
 
