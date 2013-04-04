@@ -39,14 +39,19 @@ module Laminar
 			"mid"
 		end
 
-		"hentry hnews type-#{data["activity_type"]} source-#{data["source"]} #{brightness}"
+		"hentry hnews type-#{data["activity_type"]} source-#{data["source"]} #{brightness} #{extra_classes.join(" ")}"
 	end
 
-	def item_hsl data
+	def item_hsl data, as_style=true
 		observations = data["extras"] ? data["extras"]["observations"] : nil
 
 		hsl = calculate_hsl data, observations
-		"background-color:hsl(#{hsl[:hue]}, #{hsl[:saturation]}%, #{hsl[:luminance]}%);"
+
+		if as_style
+			"background-color:hsl(#{hsl[:hue]}, #{hsl[:saturation]}%, #{hsl[:luminance]}%);"
+		else
+			[hsl[:hue], (hsl[:saturation] / 100.0), (hsl[:luminance] / 100.0)]
+		end
 	end
 
 	def self.sym2s h

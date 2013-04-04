@@ -44,6 +44,9 @@ group :app do
 	gem "tux"
 
 	# services
-	gem "twitter"
 	gem "pinboard"
+	gem "twitter"
+	gem "vimeo"
+
+	gem "colormath"
 end

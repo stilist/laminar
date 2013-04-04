@@ -80,6 +80,11 @@ class Activity < ActiveRecord::Base
 				end
 			end
 			description = "#{title}: #{Twttr::text data, false}"
+		when "vimeo"
+			if self.activity_type == "like"
+				title = "liked user’s video"
+			end
+			description = "#{title}: #{data["title"]}"
 		# fallback
 		else
 			vowels = %w(a e i o u)
