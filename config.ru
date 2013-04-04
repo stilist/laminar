@@ -48,5 +48,5 @@ CarrierWave.configure do |config|
 end
 
 map "/" do
-	run App
+	run App.new
 end

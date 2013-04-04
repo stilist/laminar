@@ -1,5 +1,4 @@
 class App < Sinatra::Base
-	register Sinatra::Synchrony
 	register Sinatra::StaticAssets
 	register Sinatra::RespondTo
 
