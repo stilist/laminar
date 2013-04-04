@@ -6,6 +6,10 @@
 			= Twttr::person_link tweet
 		%a{ href: Twttr::tweet_url(tweet) }
 			tweet
+		- if tweet["in_reply_to_status_id"]
+			in reply to
+			%a{ href: "https://twitter.com/#{tweet["in_reply_to_screen_name"]}/status/#{tweet["in_reply_to_status_id_str"]}" }
+				= eval(tweet["entities"])["user_mentions"].first[:name]
 
 	%section.entry-content
 		= Twttr::media tweet
