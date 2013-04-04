@@ -5,4 +5,11 @@
 		%a{ href: locals["url"] }
 			= data["description"].empty? ? locals["url"] : data["description"]
 
+	%section.entry-content
+		- description = data["extended"]
+		- unless description.empty?
+			%blockquote
+				%p
+					= description
+
 	= partial "_item_metadata", locals
