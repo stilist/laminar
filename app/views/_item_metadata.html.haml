@@ -1,5 +1,4 @@
 - permalink = "/activities/#{locals["id"]}"
-- tags = locals["data"]["tags"] ? eval(locals["data"]["tags"]) : []
 - time = locals["updated_at"]
 - extras = locals["extras"]
 
@@ -17,12 +16,3 @@
 	%span.observation
 		%span.icon
 			%img{ src: Weather::icon_url(weather["data"]["icon"]) }
-
-%section.meta
-	- unless tags.empty?
-		%ul.keywords
-			- tags.each do |tag|
-				%li
-					%a{ href: "/tags/#{tag["_content"]}", rel: "tag" }
-						= tag["raw"]
-		.clear
