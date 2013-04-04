@@ -33,6 +33,40 @@ namespace :vimeo do
 		add_vimeo_items items, "like"
 	end
 
+	task :backfill_videos do
+		vimeo = LVimeo.client
+		opts = { full_response: 1, sort: "oldest" }
+
+		total = vimeo.get_uploaded(ENV["VIMEO_USER"],
+				opts.merge({ page: 1, per_page: 1 }))["videos"]["total"].to_i
+		per_page = 50 # max: 50
+		pages = (total / per_page.to_f).ceil
+
+		puts "*** #{total} videos"
+
+		pages.downto(1).each_with_index do |page, p_idx|
+			items = vimeo.get_uploaded(ENV["VIMEO_USER"],
+					opts.merge({ page: page, per_page: per_page }))["videos"]["video"]
+
+			add_vimeo_items items, "video"
+
+			# 1500 requests per user per 5 minutes (= 5 per second)
+			sleep 1
+		end
+	end
+
+	task :videos do
+		vimeo = LVimeo.client
+		opts = { full_response: 1, sort: "newest", per_page: 50 }
+
+		items = vimeo.get_uploaded(ENV["VIMEO_USER"],
+				opts.merge({ page: 1 }))["videos"]["video"]
+
+		puts items
+
+		add_vimeo_items items, "video"
+	end
+
 	private
 
 	def add_vimeo_items items, activity_type
@@ -52,7 +86,8 @@ namespace :vimeo do
 				if existing == 0
 					# Comes through without a time zone specified, but seems to be in
 					# Eastern Time. Pick an offset; close enough.
-					time = DateTime.parse("#{item["liked_on"]} +0500")
+					time_field = activity_type == "like" ? "liked_on" : "upload_date"
+					time = DateTime.parse("#{item[time_field]} +0500")
 
 					Activity.create({
 						source: "vimeo",

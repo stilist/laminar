@@ -83,6 +83,8 @@ class Activity < ActiveRecord::Base
 		when "vimeo"
 			if self.activity_type == "like"
 				title = "liked user’s video"
+			elsif self.activity_type == "video"
+				title = "posted a video"
 			end
 			description = "#{title}: #{data["title"]}"
 		# fallback
