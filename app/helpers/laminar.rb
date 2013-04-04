@@ -22,7 +22,7 @@ module Laminar
 		unknown: 0
 	}.freeze
 
-	def item_classes data
+	def item_classes data, extra_classes=[]
 		observations = data["extras"] ? data["extras"]["observations"] : nil
 
 		hsl = calculate_hsl data, observations
