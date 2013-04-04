@@ -47,7 +47,7 @@ class Activity < ActiveRecord::Base
 			if self.activity_type == "favorite"
 				title = "favorited a #{media_type}"
 
-				user = data["owner"]
+				user = eval(data["photo"])["owner"]
 				username = user["realname"].empty? ? user["username"] : user["realname"]
 				description = "favorited #{h username}’s #{media_type} ‘#{h data["title"]["_content"]}’"
 			else
