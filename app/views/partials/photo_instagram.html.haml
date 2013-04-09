@@ -1,0 +1,15 @@
+- data = locals["data"]
+%section{ class: item_classes(locals), style: item_hsl(locals) }
+	%h1.entry-title
+		posted a photo
+
+	%section.entry-content
+		%a{ href: locals["url"] }
+			%img{ src: eval(data["images"])["standard_resolution"]["url"] }
+
+		- if data["caption"]
+			%blockquote
+				%p
+					= nl2br eval(data["caption"])["text"]
+
+	= partial "_item_metadata", locals

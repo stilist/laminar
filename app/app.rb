@@ -35,6 +35,11 @@ class App < Sinatra::Base
 		set :root, File.dirname(__FILE__)
 		set :templates, self.get_templates
 
+		Instagram.configure do |config|
+			config.client_id = ENV["INSTAGRAM_APP_KEY"]
+			config.client_secret = ENV["INSTAGRAM_APP_SECRET"]
+		end
+
 		# Kill ActiveRecord's default of wrapping `Foo`'s JSON with `"foo"` key
 		ActiveRecord::Base.include_root_in_json = false
 	end
