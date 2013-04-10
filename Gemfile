@@ -45,6 +45,7 @@ group :app do
 
 	# services
 	gem "instagram"
+	gem "lastfm"
 	gem "pinboard"
 	gem "twitter"
 	gem "vimeo"

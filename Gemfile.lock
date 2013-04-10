@@ -66,6 +66,10 @@ GEM
       multi_json (~> 1.0, >= 1.0.3)
     json (1.7.6)
     kgio (2.8.0)
+    lastfm (1.17.0)
+      activesupport (>= 3.0.3)
+      httparty
+      xml-simple
     mime-types (1.21)
     multi_json (1.5.0)
     multipart-post (1.2.0)
@@ -142,6 +146,7 @@ GEM
       multipart-post (>= 1.0.1)
       oauth (>= 0.4.3)
     will_paginate (3.0.4)
+    xml-simple (1.1.2)
 
 PLATFORMS
   ruby
@@ -157,6 +162,7 @@ DEPENDENCIES
   handlebars_assets
   instagram
   json
+  lastfm
   pg
   pinboard
   rake
