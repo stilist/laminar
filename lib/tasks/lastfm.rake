@@ -1,25 +1,24 @@
 namespace :lastfm do
 	$lastfm = Lastfm.new ENV["LASTFM_API_KEY"], ENV["LASTFM_API_SECRET"]
-	$long_sleep = 5
-	$session = ENV["LASTFM_CLIENT_KEY"]
-	$source = "lastfm"
-	$token = $lastfm.auth.get_token
-	$user = ENV["LASTFM_USER"]
+	$lastfm_long_sleep = 5
+	$lastfm_session = ENV["LASTFM_CLIENT_KEY"]
+	$lastfm_token = $lastfm.auth.get_token
+	$lastfm_user = ENV["LASTFM_USER"]
 
-	if $session
-		$lastfm.session = $session
+	if $lastfm_session
+		$lastfm.session = $lastfm_session
 	else
 		abort "You need to authorize Laminar on last.fm. Run: rake lastfm:authorize"
 	end
 
 	task :authorize do
 		puts "Open this URL in your browser to authorize Laminar:"
-		puts "http://www.last.fm/api/auth/?api_key=#{ENV["LASTFM_API_KEY"]}&token=#{$token}"
+		puts "http://www.last.fm/api/auth/?api_key=#{ENV["LASTFM_API_KEY"]}&token=#{$lastfm_token}"
 		puts
 		puts "Hit return/enter after granting access"
 		STDIN.gets
 
-		client_key = $lastfm.auth.get_session(token: $token)["key"]
+		client_key = $lastfm.auth.get_session(token: $lastfm_token)["key"]
 		puts "export LASTFM_CLIENT_KEY=#{client_key}"
 	end
 
@@ -29,7 +28,7 @@ namespace :lastfm do
 	private
 
 	def get_lastfm_plays paginate=false
-		total = $lastfm.user.get_info(user: $user)["playcount"].to_i
+		total = $lastfm.user.get_info(user: $lastfm_user)["playcount"].to_i
 		per_page = 200 # max: 200
 		pages = paginate ? (total / per_page.to_f).ceil : 1
 
@@ -41,7 +40,7 @@ namespace :lastfm do
 
 			items = $lastfm.user.get_recent_tracks({
 				limit: per_page,
-				user: $user,
+				user: $lastfm_user,
 				page: page,
 				extended: 1
 			})
@@ -51,7 +50,7 @@ namespace :lastfm do
 
 			add_lastfm_items items, "play"
 
-			sleep $long_sleep if paginate
+			sleep $lastfm_long_sleep if paginate
 		end
 	end
 
@@ -75,7 +74,7 @@ namespace :lastfm do
 
 				unless existing && existing_name == "#{timestamp}#{activity_type}"
 					Activity.create({
-						source: $source,
+						source: "lastfm",
 						activity_type: activity_type,
 						url: item["url"],
 						created_at: timestamp,
