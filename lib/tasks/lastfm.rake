@@ -66,13 +66,14 @@ namespace :lastfm do
 			items.each_with_index do |item, idx|
 				puts "  * #{item["artist"]["name"]}--#{item["name"]} [#{idx + 1}/#{total}]"
 
-				original_id = item["mbid"]
+				# Also used as `original_id` because `item` doesn't have an actual
+				# `id`.
+				timestamp = Time.at item["date"]["uts"].to_i
 
-				existing = Activity.where(original_id: original_id).first
+				existing = Activity.where(original_id: timestamp).first
 				existing_name = existing ? "#{existing.original_id}#{existing.activity_type}" : ""
 
-				unless existing && existing_name == "#{original_id}#{activity_type}"
-					timestamp = Time.at item["date"]["uts"].to_i
+				unless existing && existing_name == "#{timestamp}#{activity_type}"
 					Activity.create({
 						source: $source,
 						activity_type: activity_type,
@@ -80,7 +81,7 @@ namespace :lastfm do
 						created_at: timestamp,
 						updated_at: timestamp,
 						data: item,
-						original_id: original_id
+						original_id: timestamp
 					})
 				end
 			end
