@@ -65,11 +65,9 @@ namespace :lastfm do
 			items.each_with_index do |item, idx|
 				puts "  * #{item["artist"]["name"]}--#{item["name"]} [#{idx + 1}/#{total}]"
 
-				# Also used as `original_id` because `item` doesn't have an actual
-				# `id`.
-				timestamp = Time.at item["date"]["uts"].to_i
+				timestamp = DateTime.parse("#{item["date"]["content"]} GMT").to_time
 
-				existing = Activity.where(original_id: timestamp).first
+				existing = Activity.where(original_id: item["date"]["uts"]).first
 				existing_name = existing ? "#{existing.original_id}#{existing.activity_type}" : ""
 
 				unless existing && existing_name == "#{timestamp}#{activity_type}"
@@ -80,7 +78,9 @@ namespace :lastfm do
 						created_at: timestamp,
 						updated_at: timestamp,
 						data: item,
-						original_id: timestamp
+						# Data doesn't have a reliable `id`, so hope the UNIX timestamp is
+						# unique.
+						original_id: item["date"]["uts"]
 					})
 				end
 			end
