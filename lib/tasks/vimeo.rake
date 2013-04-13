@@ -81,7 +81,8 @@ namespace :vimeo do
 				puts "  * #{item["title"]} [#{idx + 1}/#{total}]"
 
 				existing = Activity.where(source: "vimeo").
-						where(activity_type: "like").where(original_id: item["id"]).count
+						where(activity_type: activity_type).
+						where(original_id: item["id"]).count
 
 				if existing == 0
 					# Comes through without a time zone specified, but seems to be in
