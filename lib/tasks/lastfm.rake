@@ -70,7 +70,7 @@ namespace :lastfm do
 				existing = Activity.where(original_id: item["date"]["uts"]).first
 				existing_name = existing ? "#{existing.original_id}#{existing.activity_type}" : ""
 
-				unless existing && existing_name == "#{timestamp}#{activity_type}"
+				unless existing && existing_name == "#{item["date"]["uts"]}#{activity_type}"
 					Activity.create({
 						source: "lastfm",
 						activity_type: activity_type,
