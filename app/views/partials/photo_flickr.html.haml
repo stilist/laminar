@@ -1,21 +1,22 @@
-- photo = locals["data"]
+- item = locals["data"]
+
 %section{ class: item_classes(locals), style: item_hsl(locals) }
 	%h1.entry-title
-		- type = (photo.has_key? "video") ? "video" : "photo"
-		- if photo["title"].empty?
+		- type = (item.has_key? "video") ? "video" : "photo"
+		- if item["title"].empty?
 			posted a #{type}
 		- else
 			posted the #{type}
 			= surround "‘", "’" do
-				%a{ href: locals["url"] }<>
-					= h photo["title"]
+				%a{ href: locals["url"] }><
+					= h item["title"]
 
 	- if locals["extras"]["full_view"]
 		%section.entry-content
-			%a{ href: LFlickr::photo_url(photo) }
-				%img{ src: LFlickr::photo_source_url(photo, "b") }
+			%a{ href: LFlickr::photo_url(item) }
+				%img{ src: LFlickr::photo_source_url(item, "b") }
 
-			- description = photo["description"]
+			- description = item["description"]
 			- unless description.empty?
 				%blockquote
 					%p

@@ -1,26 +1,24 @@
-- photo = eval locals["data"]["photo"]
+- item = eval locals["data"]["photo"]
+- user = item["owner"]
+- username = user["realname"].empty? ? user["username"] : user["realname"]
 
 %section{ class: item_classes(locals), style: item_hsl(locals) }
 	%h1.entry-title
 		favorited
-		= precede " " do
-			- user = photo["owner"]
-			- username = user["realname"].empty? ? user["username"] : user["realname"]
-			%a{ href: LFlickr::person_url(locals["data"]) }><
-				= "#{h username}’s"
-		- type = (photo.has_key? "video") ? "video" : "photo"
-		= type
-		- unless photo["title"]["_content"].empty?
+		%a{ href: LFlickr::person_url(locals["data"]) }
+			= "#{h username}’s"
+		= (item.has_key? "video") ? "video" : "photo"
+		- unless item["title"]["_content"].empty?
 			= surround "‘", "’" do
 				%a{ href: locals["url"] }><
-					= h photo["title"]["_content"]
+					= h item["title"]["_content"]
 
 	- if locals["extras"]["full_view"]
 		%section.entry-content
-			%a{ href: LFlickr::photo_url(photo) }
-				%img{ src: LFlickr::photo_source_url(photo, "b") }
+			%a{ href: LFlickr::photo_url(item) }
+				%img{ src: LFlickr::photo_source_url(item, "b") }
 
-			- description = photo["description"]["_content"]
+			- description = item["description"]["_content"]
 			- unless description.empty?
 				%blockquote
 					%p
