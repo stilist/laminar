@@ -10,9 +10,10 @@
 	%span.year
 		= time.strftime "0%Y"
 
-- weather = Weather::nearest_observation locals["created_at"],
-		extras["observations"]
-- if weather
-	%span.observation
-		%span.icon
-			%img{ src: Weather::icon_url(weather["data"]["icon"]) }
+- if locals["extras"]["full_view"]
+	- weather = Weather::nearest_observation locals["created_at"],
+			extras["observations"]
+	- if weather
+		%span.observation
+			%span.icon
+				%img{ src: Weather::icon_url(weather["data"]["icon"]) }

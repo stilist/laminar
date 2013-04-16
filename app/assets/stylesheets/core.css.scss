@@ -79,7 +79,8 @@ strong {font-weight:normal;}
 #nameplate #logo {font-size:40px;}
 
 .hfeed {position:relative; z-index:5;}
-.hentry {@include vertical_gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.0)); min-height:120px; padding:10px 10px 10px 100px; position:relative;}
+.hentry {@include vertical_gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.0)); min-height:45px; padding:10px 10px 10px 100px; position:relative;}
+.hentry.full_view {min-height:120px;}
 .hentry.light {color:#000;}
 .hentry.light a {color:#333;}
 .hentry.mid {color:#555;}
@@ -92,12 +93,11 @@ strong {font-weight:normal;}
 .hentry.mid blockquote {border-color:#666;}
 .hentry.dark blockquote {border-color:#d0d0d0;}
 .hentry figure, .hentry ol, .hentry p, .hentry ul {clear:both; margin:22px 0;}
-.hentry .entry-title {font-weight:normal; line-height:1.9em; margin-bottom:13px;}
+.hentry .entry-title {font-weight:normal; line-height:1.9em;}
 .hentry .entry-title {word-wrap:break-word;}
-.hentry + .hentry .entry-title {margin-bottom:14px;}
 .hentry .entry-title a {border:none; margin-left:-1px;}
 .hentry .entry-title code, h2 code {font-size:inherit;}
-.hentry .entry-content {word-wrap:break-word;}
+.hentry .entry-content { margin-top:13px; word-wrap:break-word;}
 .hentry .entry-content > figure:first-child, .hentry .entry-content > p:first-child, .hentry .entry-content > blockquote:first-child > p:first-child {margin-top:9px;}
 .hentry .entry-content img {display:inline-block; margin:0 auto; max-width:100%;}
 .hentry .entry-content a img {background-color:#371d10; border:2px solid #c12d2d;}
