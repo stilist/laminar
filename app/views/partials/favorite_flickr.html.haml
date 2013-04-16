@@ -6,6 +6,7 @@
 	%h1.entry-title
 		favorited
 		%a{ href: LFlickr::person_url(locals["data"]) }
+			%span.avatar{ style: "background-image:url('#{LFlickr::avatar_url user}')" }
 			= "#{h username}’s"
 		= (item.has_key? "video") ? "video" : "photo"
 		- unless item["title"]["_content"].empty?

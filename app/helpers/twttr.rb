@@ -1,11 +1,15 @@
 module Twttr
+	def self.get_user data
+		data["user"].is_a?(String) ? eval(data["user"]) : data["user"]
+	end
+
 	def self.person_url data
-		user = data["user"].is_a?(String) ? eval(data["user"]) : data["user"]
+		user = get_user data
 		"https://twitter.com/#{user["screen_name"]}"
 	end
 
 	def self.person_link data
-		user = data["user"].is_a?(String) ? eval(data["user"]) : data["user"]
+		user = get_user data
 		"<a href='https://twitter.com/#{user["screen_name"]}'>#{user["name"]}</a>"
 	end
 

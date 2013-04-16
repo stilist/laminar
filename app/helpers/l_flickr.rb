@@ -1,6 +1,6 @@
 module LFlickr
 	# http://www.flickr.com/services/api/misc.buddyicons.html
-	def self.avatar data
+	def self.avatar_url data
 		if data["iconfarm"] > 0
 			"http://farm#{data["iconfarm"]}.staticflickr.com/#{data["iconserver"]}/buddyicons/#{data["nsid"]}.jpg"
 		else
