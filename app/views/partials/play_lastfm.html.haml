@@ -1,15 +1,17 @@
-- data = locals["data"]
+- item = locals["data"]
+- album = item["album"] ? eval(item["album"]) : nil
+- artist = eval(item["artist"])
+
 %section{ class: item_classes(locals), style: item_hsl(locals) }
 	%h1.entry-title
 		listened to
 		= succeed "’s" do
-			= eval(data["artist"])["name"]
-		%a{ href: locals["url"] }
-			= data["name"]
-		- if data["album"]
-			= surround "(from", ")" do
-				%span.album
-					= eval(data["album"])["content"]
-
+			= artist["name"]
+		%a{ href: locals["url"] }<
+			= item["name"]
+		- if album
+			= surround "(from ", ")" do
+				%span.album<
+					= album["content"]
 
 	= partial "_item_metadata", locals
