@@ -1,26 +1,27 @@
-- tweet = locals["data"]
+- item = locals["data"]
+
 %section{ class: item_classes(locals), style: item_hsl(locals) }
 	%h1.entry-title
-		- if tweet["retweeted_status"]
-			- retweet = eval(tweet["retweeted_status"])
+		- if item["retweeted_status"]
+			- retweet = eval(item["retweeted_status"])
 			retweeted
 			%a{ href: Twttr::person_url(retweet) }<
 				= retweet["user"]["name"]
 		- else
 			posted a
-			%a{ href: Twttr::tweet_url(tweet) }
+			%a{ href: Twttr::tweet_url(item) }
 				tweet
-			- if tweet["in_reply_to_status_id"]
+			- if item["in_reply_to_status_id"]
 				in reply to
-				%a{ href: "https://twitter.com/#{tweet["in_reply_to_screen_name"]}/status/#{tweet["in_reply_to_status_id_str"]}" }
+				%a{ href: "https://twitter.com/#{item["in_reply_to_screen_name"]}/status/#{item["in_reply_to_status_id_str"]}" }
 					= eval(item["entities"])["user_mentions"].first["name"]
 
 	- if locals["extras"]["full_view"]
 		%section.entry-content
-			= Twttr::media tweet
+			= Twttr::media item
 
 			%blockquote
 				%p
-					= nl2br Twttr::text tweet
+					= nl2br Twttr::text item
 
 	= partial "_item_metadata", locals
