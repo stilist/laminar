@@ -1,4 +1,4 @@
-helpers = %w(flickr h laminar l_instagram partial twttr weather l_vimeo)
+helpers = %w(h laminar l_flickr l_instagram partial twttr weather l_vimeo)
 modules = []
 helpers.each do |helper|
 	require_relative helper

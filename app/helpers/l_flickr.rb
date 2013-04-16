@@ -1,4 +1,13 @@
-module Flickr
+module LFlickr
+	# http://www.flickr.com/services/api/misc.buddyicons.html
+	def self.avatar data
+		if data["iconfarm"] > 0
+			"http://farm#{data["iconfarm"]}.staticflickr.com/#{data["iconserver"]}/buddyicons/#{data["nsid"]}.jpg"
+		else
+			"http://www.flickr.com/images/buddyicon.gif"
+		end
+	end
+
 	def self.person_url data
 		"http://www.flickr.com/photos/#{data["owner"]}"
 	end

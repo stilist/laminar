@@ -6,7 +6,7 @@
 		= precede " " do
 			- user = photo["owner"]
 			- username = user["realname"].empty? ? user["username"] : user["realname"]
-			%a{ href: Flickr::person_url(locals["data"]) }><
+			%a{ href: LFlickr::person_url(locals["data"]) }><
 				= "#{h username}’s"
 		- type = (photo.has_key? "video") ? "video" : "photo"
 		= type
@@ -16,8 +16,8 @@
 					= h photo["title"]["_content"]
 
 	%section.entry-content
-		%a{ href: Flickr::photo_url(photo) }
-			%img{ src: Flickr::photo_source_url(photo, "b") }
+		%a{ href: LFlickr::photo_url(photo) }
+			%img{ src: LFlickr::photo_source_url(photo, "b") }
 
 		- description = photo["description"]["_content"]
 		- unless description.empty?

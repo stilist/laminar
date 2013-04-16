@@ -11,8 +11,8 @@
 					= h photo["title"]
 
 	%section.entry-content
-		%a{ href: Flickr::photo_url(photo) }
-			%img{ src: Flickr::photo_source_url(photo, "b") }
+		%a{ href: LFlickr::photo_url(photo) }
+			%img{ src: LFlickr::photo_source_url(photo, "b") }
 
 		- description = photo["description"]
 		- unless description.empty?
