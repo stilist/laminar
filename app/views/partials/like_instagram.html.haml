@@ -8,13 +8,14 @@
 				= user["full_name"]
 		photo
 
-	%section.entry-content
-		%a{ href: locals["url"] }
-			%img{ src: eval(data["images"])["standard_resolution"]["url"] }
+	- if locals["extras"]["full_view"]
+		%section.entry-content
+			%a{ href: locals["url"] }
+				%img{ src: eval(data["images"])["standard_resolution"]["url"] }
 
-		- if data["caption"]
-			%blockquote
-				%p
-					= nl2br eval(data["caption"])["text"]
+			- if data["caption"]
+				%blockquote
+					%p
+						= nl2br eval(data["caption"])["text"]
 
 	= partial "_item_metadata", locals

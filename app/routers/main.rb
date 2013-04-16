@@ -6,7 +6,10 @@ App.configure do |app|
 		@items = Activity.page(params[:page]).all
 
 		observations = Weather.prefetch @items.first.created_at, @items.last.created_at
-		extras = { "observations" => observations }
+		extras = {
+			"full_view" => false,
+			"observations" => observations
+		}
 
 		page_out @items, 200, extras
 	end

@@ -7,11 +7,10 @@ App.configure do |app|
 		@page_type = :permalink
 		@permalink = "/activities/#{params[:id]}"
 
+		extras = { "full_view" => true }
 		if item
 			observations = Weather.prefetch item.created_at, item.created_at
-			extras = { "observations" => observations }
-		else
-			extras = {}
+			extras.merge!({ "observations" => observations })
 		end
 
 		page_out item, ->{ 404 unless item }, extras

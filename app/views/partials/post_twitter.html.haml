@@ -15,11 +15,12 @@
 				%a{ href: "https://twitter.com/#{tweet["in_reply_to_screen_name"]}/status/#{tweet["in_reply_to_status_id_str"]}" }
 					= eval(tweet["entities"])["user_mentions"].first[:name]
 
-	%section.entry-content
-		= Twttr::media tweet
+	- if locals["extras"]["full_view"]
+		%section.entry-content
+			= Twttr::media tweet
 
-		%blockquote
-			%p
-				= nl2br Twttr::text tweet
+			%blockquote
+				%p
+					= nl2br Twttr::text tweet
 
 	= partial "_item_metadata", locals

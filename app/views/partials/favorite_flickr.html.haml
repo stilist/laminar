@@ -15,14 +15,15 @@
 				%a{ href: locals["url"] }><
 					= h photo["title"]["_content"]
 
-	%section.entry-content
-		%a{ href: LFlickr::photo_url(photo) }
-			%img{ src: LFlickr::photo_source_url(photo, "b") }
+	- if locals["extras"]["full_view"]
+		%section.entry-content
+			%a{ href: LFlickr::photo_url(photo) }
+				%img{ src: LFlickr::photo_source_url(photo, "b") }
 
-		- description = photo["description"]["_content"]
-		- unless description.empty?
-			%blockquote
-				%p
-					= nl2br description
+			- description = photo["description"]["_content"]
+			- unless description.empty?
+				%blockquote
+					%p
+						= nl2br description
 
 	= partial "_item_metadata", locals
