@@ -7,8 +7,9 @@
 		= time.strftime "%l:%M %P"
 	%span.day_month
 		= time.strftime "%e %B"
-	%span.year
-		= time.strftime "0%Y"
+	- if locals["extras"]["full_view"]
+		%span.year
+			= time.strftime "0%Y"
 
 - if locals["extras"]["full_view"]
 	- weather = Weather::nearest_observation locals["created_at"],
