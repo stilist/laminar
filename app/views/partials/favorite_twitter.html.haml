@@ -13,7 +13,6 @@
 			in reply to
 			%a{ href: "https://twitter.com/#{item["in_reply_to_screen_name"]}/status/#{item["in_reply_to_status_id_str"]}" }
 				- reply_user = eval(item["entities"])["user_mentions"].first
-				%span.avatar{ style: "background-image:url('#{Twttr.avatar_for_user reply_user}')" }
 				= reply_user[:name]
 
 	- if locals["extras"]["full_view"]

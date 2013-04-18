@@ -39,7 +39,16 @@ module Laminar
 		hsl = calculate_hsl data, observations
 
 		if as_style
-			"background-color:hsl(#{hsl[:hue]}, #{hsl[:saturation]}%, #{hsl[:luminance]}%);"
+			lum = hsl[:luminance]
+			# For the upper and lower third it's enough to use the inverse. For the
+			# remaining third there's not enough contrast, so cheat a bit.
+			counter_lum = 100 - lum
+			if (33..66).include? counter_lum
+				counter_lum = (counter_lum > 50) ? (counter_lum + 25) : (counter_lum - 25)
+			end
+
+			"background-color:hsl(#{hsl[:hue]}, #{hsl[:saturation]}%, #{lum}%);
+			color:hsl(#{hsl[:hue]}, #{hsl[:saturation]}%, #{counter_lum}%);"
 		else
 			[hsl[:hue], (hsl[:saturation] / 100.0), (hsl[:luminance] / 100.0)]
 		end
