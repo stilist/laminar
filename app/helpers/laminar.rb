@@ -81,7 +81,7 @@ module Laminar
 		# minutes...   [       through day       ]   [in day]
 		pct_of_day = (((date.hour * 60) + date.min) / 1400.0) * 100
 		# Peak at midday
-		luminance = (pct_of_day > 50 ? (100 - pct_of_day) : pct_of_day).floor
+		luminance = (pct_of_day > 50 ? (100 - pct_of_day) : pct_of_day).floor.abs
 
 		{ hue: hue, saturation: saturation, luminance: luminance }
 	end
