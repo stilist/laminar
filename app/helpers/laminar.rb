@@ -28,25 +28,8 @@ module Laminar
 
 	def item_classes data, extra_classes=[]
 		classes = %w(hentry hnews) << extra_classes.join(" ")
-		classes << "full_view" if data["extras"]["full_view"]
-
-		observations = data["extras"] ? data["extras"]["observations"] : nil
-		hsl = calculate_hsl data, observations
-		avg = (hsl[:saturation] + hsl[:luminance]) / 2
-		lower = 50
-		upper = 65
-
-		brightness = if avg < lower || hsl[:saturation] < lower || hsl[:luminance] < 45
-			"dark"
-		elsif avg >= upper
-			"light"
-		else
-			"mid"
-		end
-		classes << brightness
-
 		classes << "type-#{data["activity_type"]} source-#{data["source"]}"
-
+		classes << "full_view" if data["extras"]["full_view"]
 		classes.join " "
 	end
 

@@ -6,7 +6,10 @@
 	%a.time{ href: permalink, rel: "bookmark" }><
 		= time.strftime "%l:%M %P"
 	%span.day_month
-		= time.strftime "%e %B"
+		- if locals["extras"]["full_view"]
+			= time.strftime "%e %B"
+		- else
+			= time.strftime "%e %b"
 	- if locals["extras"]["full_view"]
 		%span.year
 			= time.strftime "0%Y"
