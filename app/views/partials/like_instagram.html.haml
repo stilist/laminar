@@ -6,7 +6,8 @@
 	= succeed "’s" do
 		%a{ href: "http://instagram.com/#{user["username"]}" }><
 			= user["full_name"]
-	photo
+	%a{ href: locals["url"] }
+		photo
 
 - if locals["extras"]["full_view"]
 	%section.entry-content

@@ -1,7 +1,9 @@
 - item = locals["data"]
 
 %h1.entry-title
-	posted a photo
+	posted a
+	%a{ href: locals["url"] }
+		photo
 
 - if locals["extras"]["full_view"]
 	%section.entry-content
