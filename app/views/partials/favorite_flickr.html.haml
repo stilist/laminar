@@ -1,14 +1,20 @@
-- item = eval locals["data"]["photo"]
-- user = item["owner"]
-- username = user["realname"].empty? ? user["username"] : user["realname"]
+:ruby
+	item = eval locals["data"]["photo"]
+	user = item["owner"]
+	username = user["realname"].empty? ? user["username"] : user["realname"]
+	type = (item.has_key? "video") ? "video" : "photo"
 
 %h1.entry-title
 	favorited
-	%a{ href: LFlickr::person_url(locals["data"]) }
-		%span.avatar{ style: "background-image:url('#{LFlickr::avatar_url user}')" }
-		= "#{h username}’s"
-	= (item.has_key? "video") ? "video" : "photo"
-	- unless item["title"]["_content"].empty?
+	= succeed "’s" do
+		%a{ href: LFlickr::person_url(locals["data"]) }
+			%span.avatar{ style: "background-image:url('#{LFlickr::avatar_url user}')" }
+		= h username
+	- if item["title"]["_content"].empty?
+		%a{ href: locals["url"] }
+			= type
+	- else
+		= type
 		= surround "‘", "’" do
 			%a{ href: locals["url"] }><
 				= h item["title"]["_content"]
