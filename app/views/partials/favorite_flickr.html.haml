@@ -9,7 +9,7 @@
 	= succeed "’s" do
 		%a{ href: LFlickr::person_url(locals["data"]) }
 			%span.avatar{ style: "background-image:url('#{LFlickr::avatar_url user}')" }
-		= h username
+			= h username
 	- if item["title"]["_content"].empty?
 		%a{ href: locals["url"] }
 			= type
