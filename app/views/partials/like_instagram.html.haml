@@ -1,21 +1,19 @@
-- data = locals["data"]
-%section{ class: item_classes(locals), style: item_hsl(locals) }
-	%h1.entry-title
-		liked
-		- user = eval(data["user"])
-		= succeed "’s" do
-			%a{ href: "http://instagram.com/#{user["username"]}" }><
-				= user["full_name"]
-		photo
+- item = locals["data"]
 
-	- if locals["extras"]["full_view"]
-		%section.entry-content
-			%a{ href: locals["url"] }
-				%img{ src: eval(data["images"])["standard_resolution"]["url"] }
+%h1.entry-title
+	liked
+	- user = eval(item["user"])
+	= succeed "’s" do
+		%a{ href: "http://instagram.com/#{user["username"]}" }><
+			= user["full_name"]
+	photo
 
-			- if data["caption"]
-				%blockquote
-					%p
-						= nl2br eval(data["caption"])["text"]
+- if locals["extras"]["full_view"]
+	%section.entry-content
+		%a{ href: locals["url"] }
+			%img{ src: eval(item["images"])["standard_resolution"]["url"] }
 
-	= partial "_item_metadata", locals
+		- if item["caption"]
+			%blockquote
+				%p
+					= nl2br eval(item["caption"])["text"]

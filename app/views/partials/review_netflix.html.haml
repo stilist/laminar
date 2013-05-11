@@ -1,20 +1,18 @@
-- data = locals["data"]
-%section{ class: item_classes(locals, %w(hreview)), style: item_hsl(locals) }
-	%h1.entry-title.item
-		reviewed
-		%a.fn.film{ href: locals["url"] }
-			= eval(data["title"])[:attributes][:regular]
-		= surround "(", "):" do
-			= data["release_year"]
+- item = locals["data"]
 
-		- rating = data["user_rating"].to_i
-		%span.rating{ title: rating }
-			- case rating
-			- when 0
-				not interested
-			- when 1
-				1 star
-			- else
-				#{rating} stars
+%h1.entry-title.item
+	reviewed
+	%a.fn.film{ href: locals["url"] }
+		= eval(item["title"])[:attributes][:regular]
+	= surround "(", "):" do
+		= item["release_year"]
 
-	= partial "_item_metadata", locals
+	- rating = item["user_rating"].to_i
+	%span.rating{ title: rating }
+		- case rating
+		- when 0
+			not interested
+		- when 1
+			1 star
+		- else
+			#{rating} stars

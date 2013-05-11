@@ -1,17 +1,15 @@
-- data = locals["data"]
-%section{ class: item_classes(locals), style: item_hsl(locals) }
-	%h1.entry-title
-		posted the video
-		%a{ href: locals["url"] }
-			%em.film
-				= data["title"]
+- item = locals["data"]
 
-	- if locals["extras"]["full_view"]
-		%section.entry-content
-			= LVimeo::media data, item_hsl(locals, false)
+%h1.entry-title
+	posted the video
+	%a{ href: locals["url"] }
+		%em.film
+			= item["title"]
 
-			%blockquote
-				%p
-					= nl2br data["description"]
+- if locals["extras"]["full_view"]
+	%section.entry-content
+		= LVimeo::media item, item_hsl(locals, false)
 
-	= partial "_item_metadata", locals
+		%blockquote
+			%p
+				= nl2br item["description"]

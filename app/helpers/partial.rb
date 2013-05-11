@@ -1,5 +1,7 @@
 module Partial
 	def partial view, variables={}
-		haml view.to_sym, { layout: false }, variables
+		layout = variables.delete(:layout) || false
+
+		haml view.to_sym, { layout: layout }, variables
 	end
 end

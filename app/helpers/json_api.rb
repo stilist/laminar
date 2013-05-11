@@ -135,9 +135,9 @@ module Sinatra
 			template = App.templates["#{type}_#{source}"] ||
 					App.templates["#{source}"] || App.templates["generic"] || ""
 
-			locals = data.merge("extras" => extras)
+			locals = data.merge({ "template" => template, "extras" => extras })
 
-			partial template, locals: locals
+			partial template, { layout: :template_wrapper, locals: locals }
 		end
 
 		def send_page data, status_code=200, extras={}

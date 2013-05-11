@@ -1,0 +1,38 @@
+:ruby
+	item = locals["data"]
+	time = locals["updated_at"]
+	extras = locals["extras"]
+
+%section{ class: item_classes(locals), style: item_hsl(locals),
+			id: "item_#{locals["id"]}" }
+	= partial locals["template"], locals: locals
+
+	%time.updated{ datetime: time.iso8601, pubdate: "" }
+		%a.time{ href: "/activities/#{locals["id"]}", rel: "bookmark" }><
+			= time.strftime "%l:%M %P"
+		%span.day_month
+			- if locals["extras"]["full_view"]
+				= time.strftime "%e %B"
+			- else
+				= time.strftime "%e %b"
+		- if locals["extras"]["full_view"]
+			%span.year
+				= time.strftime "0%Y"
+
+	- if locals["extras"]["full_view"]
+		- weather = Weather::nearest_observation locals["created_at"],
+				extras["observations"]
+		- if weather
+			%span.observation
+				%span.icon
+					%img{ src: Weather::icon_url(weather["data"]["icon"]) }
+
+:ruby
+	hsl = item_hsl locals, false
+	color = ColorMath::HSL.new *hsl
+	lum = 1.0 - hsl[2]
+	delta = ((hsl[1] * hsl[2]) > 0.6) ? -0.35 : 0.35
+	link_color = ColorMath::Adjust.luminance(color, lum + delta).hex
+
+:css
+	#item_#{locals["id"]} a { color: #{link_color}; }

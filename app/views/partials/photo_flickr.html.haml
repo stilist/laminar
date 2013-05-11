@@ -1,25 +1,22 @@
 - item = locals["data"]
 
-%section{ class: item_classes(locals), style: item_hsl(locals) }
-	%h1.entry-title
-		- type = (item.has_key? "video") ? "video" : "photo"
-		- if item["title"].empty?
-			posted a #{type}
-		- else
-			posted the #{type}
-			= surround "‘", "’" do
-				%a{ href: locals["url"] }><
-					= h item["title"]
+%h1.entry-title
+	- type = (item.has_key? "video") ? "video" : "photo"
+	- if item["title"].empty?
+		posted a #{type}
+	- else
+		posted the #{type}
+		= surround "‘", "’" do
+			%a{ href: locals["url"] }><
+				= h item["title"]
 
-	- if locals["extras"]["full_view"]
-		%section.entry-content
-			%a{ href: LFlickr::photo_url(item) }
-				%img{ src: LFlickr::photo_source_url(item, "b") }
+- if locals["extras"]["full_view"]
+	%section.entry-content
+		%a{ href: LFlickr::photo_url(item) }
+			%img{ src: LFlickr::photo_source_url(item, "b") }
 
-			- description = item["description"]
-			- unless description.empty?
-				%blockquote
-					%p
-						= nl2br description
-
-	= partial "_item_metadata", locals
+		- description = item["description"]
+		- unless description.empty?
+			%blockquote
+				%p
+					= nl2br description

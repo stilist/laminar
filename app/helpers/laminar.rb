@@ -26,10 +26,11 @@ module Laminar
 
 	def nl2br(text) ; text.gsub(/[\n|\r]/, "<br>") end
 
-	def item_classes data, extra_classes=[]
-		classes = %w(hentry hnews) << extra_classes.join(" ")
+	def item_classes data
+		classes = %w(hentry hnews)
 		classes << "type-#{data["activity_type"]} source-#{data["source"]}"
 		classes << "full_view" if data["extras"]["full_view"]
+		classes << "hreview" if data["activity_type"] == "review"
 		classes.join " "
 	end
 
