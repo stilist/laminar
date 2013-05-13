@@ -2,6 +2,9 @@
 
 %h1.entry-title
 	favorited
+	= succeed "’s" do
+		= eval(item["author"]).first["name"]["$t"]
+	video
 	%a{ href: locals["url"] }
 		%em.film
 			= LYoutube::get_t item["title"]

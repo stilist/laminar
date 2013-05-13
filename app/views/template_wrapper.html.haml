@@ -15,9 +15,11 @@
 				= time.strftime "%e %B"
 			- else
 				= time.strftime "%e %b"
-		- if locals["extras"]["full_view"]
-			%span.year
+		%span.year
+			- if locals["extras"]["full_view"]
 				= time.strftime "0%Y"
+			- else
+				= time.strftime "’%y"
 
 	- if locals["extras"]["full_view"]
 		- weather = Weather::nearest_observation locals["created_at"],
