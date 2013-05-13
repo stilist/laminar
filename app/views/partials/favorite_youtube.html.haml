@@ -1,0 +1,16 @@
+- item = locals["data"]
+
+%h1.entry-title
+	favorited
+	%a{ href: locals["url"] }
+		%em.film
+			= LYoutube::get_t item["title"]
+
+- if locals["extras"]["full_view"]
+	%section.entry-content
+		= LYoutube::media item
+
+		- if item["content"]
+			%blockquote
+				%p
+					= nl2br LYoutube::get_t item["content"]
