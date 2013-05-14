@@ -50,6 +50,7 @@ group :app do
 	gem "pinboard"
 	gem "twitter"
 	gem "vimeo"
+	gem "youtube_it"
 
 	gem "colormath"
 	# http://stackoverflow.com/a/9531191/672403
