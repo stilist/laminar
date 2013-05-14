@@ -56,6 +56,8 @@ namespace :github do
 					data = {}
 					item.each { |k,v| data[k] = v.is_a?(Hashie::Mash) ? v.to_hash : v }
 
+					public = item.public.is_a?(String) ? eval(item.public) : item.public
+
 					Activity.create({
 						source: "github",
 						activity_type: activity_type,
@@ -63,7 +65,7 @@ namespace :github do
 						created_at: time,
 						updated_at: time,
 						# comes through as string
-						is_private: eval(item.public),
+						is_private: !public,
 						data: data,
 						original_id: item.id
 					})
