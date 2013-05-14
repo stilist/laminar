@@ -44,6 +44,7 @@ group :app do
 	gem "tux"
 
 	# services
+	gem "github_api"
 	gem "instagram"
 	gem "lastfm"
 	gem "pinboard"
@@ -51,4 +52,6 @@ group :app do
 	gem "vimeo"
 
 	gem "colormath"
+	# http://stackoverflow.com/a/9531191/672403
+	gem "certified"
 end

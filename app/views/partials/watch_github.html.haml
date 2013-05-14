@@ -1,0 +1,12 @@
+- item = locals["data"]
+- repo = eval item["repo"]
+
+%h1.entry-title
+	starred
+	= succeed "’s" do
+		- owner = LGithub.repo_owner item
+		%a{ href: "//github.com/#{owner}" }><
+			= owner
+	repository
+	%a{ href: LGithub.sanitize_url(repo["url"]) }
+		= repo["name"]

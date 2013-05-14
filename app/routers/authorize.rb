@@ -13,10 +13,16 @@ App.configure do |app|
 
 	def get_output params={}
 		case params[:service]
+		when "github"
+			response = LGithub.client.get_token(params[:code],
+				redirect_uri: ENV["GITHUB_AUTHORIZE_URL"])
+			token = response.token
 		when "instagram"
 			response = Instagram.get_access_token(params[:code],
 				redirect_uri: ENV["INSTAGRAM_AUTHORIZE_URL"])
-			"<code>export INSTAGRAM_CLIENT_KEY=#{response.access_token}</code>"
+			token = response.access_token
 		end
+
+		"<code>export #{params[:service].upcase}_CLIENT_KEY=#{token}</code>"
 	end
 end

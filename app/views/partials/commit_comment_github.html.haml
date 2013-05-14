@@ -1,0 +1,21 @@
+- item = locals["data"]
+- payload = eval item["payload"]
+- repo = eval item["repo"]
+
+%h1.entry-title
+	%a{ href: payload["comment"]["html_url"] }
+		commented on a commit
+	to
+	= succeed "’s" do
+		- owner = LGithub.repo_owner item
+		%a{ href: "//github.com/#{owner}" }><
+			= owner
+	repository
+	%a{ href: LGithub.sanitize_url(repo["url"]) }
+		= repo["name"]
+
+- if locals["extras"]["full_view"]
+	%section.entry-content
+		%p
+			%blockquote
+				= nl2br payload["comment"]["body"]
