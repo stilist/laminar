@@ -62,7 +62,8 @@ namespace :github do
 						url: item.repo.url,
 						created_at: time,
 						updated_at: time,
-						is_private: item.public,
+						# comes through as string
+						is_private: eval(item.public),
 						data: data,
 						original_id: item.id
 					})
