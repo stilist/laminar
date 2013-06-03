@@ -82,7 +82,7 @@ namespace :vimeo do
 
 				existing = Activity.where(source: "vimeo").
 						where(activity_type: activity_type).
-						where(original_id: item["id"]).count
+						where(original_id: item["id"]).unscoped.count
 
 				if existing == 0
 					# Comes through without a time zone specified, but seems to be in

@@ -67,7 +67,7 @@ namespace :youtube do
 
 				existing = Activity.where(source: "youtube").
 						where(activity_type: activity_type).
-						where(original_id: item["id"]["$t"]).count
+						where(original_id: item["id"]["$t"]).unscoped.count
 
 				if existing == 0
 					time = DateTime.parse item["published"]["$t"]

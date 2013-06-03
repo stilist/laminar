@@ -66,10 +66,11 @@ namespace :instagram do
 			items.each_with_index do |item, idx|
 				puts "  * #{item.id} [#{idx + 1}/#{total}]"
 
-				existing = Activity.where(original_id: item.id.to_s).first
-				existing_name = existing ? "#{existing.original_id}#{existing.activity_type}" : ""
+				existing = Activity.where(source: "instagram").
+						where(activity_type: activity_type).
+						where(original_id: item.id.to_s).unscoped.count
 
-				unless existing && existing_name == "#{item.id}#{activity_type}"
+				if existing == 0
 					timestamp = Time.at item["created_time"].to_i
 
 					data = {}

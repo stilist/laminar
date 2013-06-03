@@ -48,7 +48,7 @@ namespace :github do
 
 				existing = Activity.where(source: "github").
 						where(activity_type: activity_type).
-						where(original_id: item["id"]).count
+						where(original_id: item["id"]).unscoped.count
 
 				if existing == 0
 					time = DateTime.parse item.created_at

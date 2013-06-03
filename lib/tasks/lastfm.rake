@@ -67,10 +67,11 @@ namespace :lastfm do
 
 				timestamp = DateTime.parse("#{item["date"]["content"]} GMT").to_time
 
-				existing = Activity.where(original_id: item["date"]["uts"]).first
-				existing_name = existing ? "#{existing.original_id}#{existing.activity_type}" : ""
+				existing = Activity.where(source: "sleep_cycle").
+						where(activity_type: activity_type).
+						where(original_id: item["date"]["uts"]).count
 
-				unless existing && existing_name == "#{item["date"]["uts"]}#{activity_type}"
+				if existing == 0
 					Activity.create({
 						source: "lastfm",
 						activity_type: activity_type,
