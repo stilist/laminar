@@ -43,6 +43,9 @@ group :app do
 	# console
 	gem "tux"
 
+	# for Sleep Cycle
+	gem "sqlite3"
+
 	# services
 	gem "github_api"
 	gem "instagram"

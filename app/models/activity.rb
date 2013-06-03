@@ -67,6 +67,10 @@ class Activity < ActiveRecord::Base
 
 			description = "bookmarked"
 			description << (data["description"].empty? ? self.url : data["description"])
+		when "sleep_cycle"
+			title = "recorded a sleep session"
+			time = data["duration"].to_f / 60 / 60
+			description = "#{time} hours, #{data["quality"].to_f / 10.0}/10"
 		when "twitter"
 			if self.activity_type == "favorite"
 				user = data["user"].is_a?(String) ? eval(data["user"]) : data["user"]

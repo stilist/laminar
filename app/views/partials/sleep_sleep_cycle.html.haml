@@ -1,0 +1,73 @@
+:ruby
+	item = locals["data"]
+	duration = item["duration"].to_f / 60 / 60
+	time_series = eval(item["events"]).map do |e|
+		timestamp = Time.parse(e["timestamp"]).localtime.strftime("%D %T")
+		"'#{timestamp},#{e["intensity"]}\\n'"
+	end
+
+%h1.entry-title
+	woke up after #{sprintf("%0.01f", duration)} hours, with a quality of #{item["quality"].to_f / 10.0}/10
+
+- if locals["extras"]["full_view"]
+	%section.entry-content
+		- notes = eval(item["notes"])
+		- rating = item["rating"].to_i
+
+		- if notes != [] && rating != 0
+			%blockquote
+				- unless notes == []
+					%p
+						%em
+							Notes:
+						= notes.join ", "
+
+				- unless rating == 0
+					%p
+						%em
+							Sleep satisfaction:
+						:ruby
+							puts case item["rating"].to_i
+								when 1 then "positive"
+								when 2 then "neutral"
+								when 3 then "negative"
+								else item["rating"]
+							end
+
+		%div{ id: "graph_#{locals["id"]}" }
+		:ruby
+			hsl = item_hsl locals, false
+			color = ColorMath::HSL.new *hsl
+			graph_color = ColorMath::Adjust.luminance(color, 1 - hsl[2]).hex
+
+		:javascript
+			function kill_dygraph_event(e) { Dygraph.cancelEvent(e); }
+
+			new Dygraph(
+				document.getElementById("graph_#{locals["id"]}"),
+				#{time_series.join("+")},
+				{
+					axisLineColor: "#{graph_color}",
+					colors: ["#{graph_color}"],
+					drawXGrid: false,
+					drawYAxis: false,
+					drawYGrid: false,
+					height: 100,
+					highlightCircleSize: 0,
+					rollPeriod: 1,
+					showLabelsOnHighlight: false,
+					valueRange: [0, 0.3],
+					width: "100%",
+					interactionModel: {
+						"mousedown": kill_dygraph_event,
+						"mousemove": kill_dygraph_event,
+						"mouseup": kill_dygraph_event,
+						"click": kill_dygraph_event,
+						"dblclick": kill_dygraph_event,
+						"mousewheel": function () { return; }
+					}
+				}
+			);
+
+		:css
+			#graph_#{locals["id"]} .dygraph-axis-label {color:#{graph_color}; opacity:0.5;}
