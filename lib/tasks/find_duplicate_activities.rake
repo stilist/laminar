@@ -4,7 +4,7 @@ task :find_duplicate_activities do
 
 	begin
 		ActiveRecord::Base.record_timestamps = false
-		Activity.all.each do |a|
+		Activity.unscoped.all.each do |a|
 			next unless a.original_id
 
 			name = [a.source, a.activity_type, a.original_id.to_s].join "-"
