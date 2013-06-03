@@ -13,7 +13,9 @@ namespace :db do
 	# Load gems
 	require "rubygems"
 	require "bundler"
-	Bundler.require :app
+
+	env = ENV["RACK_ENV"] || "development"
+	Bundler.require :app, env.to_sym
 
 	# Load app
 	require_relative "app/app.rb"

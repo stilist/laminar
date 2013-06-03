@@ -6,6 +6,11 @@ gem "rake"
 gem "unicorn"
 gem "foreman"
 
+group :development do
+	# for Sleep Cycle
+	gem "sqlite3"
+end
+
 group :app do
 	# server
 	gem "sinatra", require: "sinatra/base"
@@ -42,9 +47,6 @@ group :app do
 
 	# console
 	gem "tux"
-
-	# for Sleep Cycle
-	gem "sqlite3"
 
 	# services
 	gem "github_api"

@@ -1,7 +1,9 @@
 # Load gems
 require "rubygems"
 require "bundler"
-Bundler.require :app
+
+env = ENV["RACK_ENV"] || "development"
+Bundler.require :app, env.to_sym
 
 Dir.glob("#{File.dirname(__FILE__)}/lib/**/*.rb") { |file| require file }
 
