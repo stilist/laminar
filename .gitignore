@@ -5,3 +5,4 @@
 vendor/gems/
 
 *.dump
+sleep_cycle_temp.sqlite
