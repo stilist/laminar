@@ -1,9 +1,18 @@
 namespace :pinboard do
+	task :backfill_bookmarks do
+		pinboard = Pinboard::Client.new(username: ENV["PINBOARD_USER"],
+				password: ENV["PINBOARD_PASSWORD"])
+
+		items = pinboard.posts
+
+		add_pinboard_items items, "bookmark"
+	end
+
 	task :bookmarks do
 		pinboard = Pinboard::Client.new(username: ENV["PINBOARD_USER"],
 				password: ENV["PINBOARD_PASSWORD"])
 
-		existing = Activity.where(source: "pinboard")
+		existing = Activity.unscoped.where(source: "pinboard")
 				.where(activity_type: "bookmark").count
 
 		# This runs every ten minutes, so pulling the 100 most recent results
