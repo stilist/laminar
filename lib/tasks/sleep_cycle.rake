@@ -1,24 +1,32 @@
-# require "sqlite3"
-
 # http://www.sleepcycle.com
 #
-# Getting your data:
-# 1) manually back up your phone using iTunes
+# Getting the database is vastly more complicated than it needs to be.
+#
+# 1) manually back up your phone with iTunes
 # 2) download iPhone Backup Extractor (http://supercrazyawesome.com)
 # 3) read the backup you just made
 # 4) extract `com.lexwarelabs.goodmorning`
-# 5) copy out `Documents/eventlog.sqlite`
-# 6) upload the file somewhere
-# 7) `export SLEEP_CYCLE_URL=that_place`
-# 8) `bundle exec rake sleep_cycle:sleeps`
+# 5) copy `Documents/eventlog.sqlite` into this app's directory
 
 namespace :sleep_cycle do
-	task :sleeps do
+	task :sleeps => [:local, :remote]
+
+	task :local do
 		begin
-			fetch_database
-			db = SQLite3::Database.new "sleep_cycle_temp.sqlite"
+			db = SQLite3::Database.new "sleep_cycle.sqlite"
 
 			items = process_sleep_data db
+			upload_to_remote items
+		rescue => e
+			puts "Sleep Cycle processing failed:"
+			puts e
+		end
+	end
+
+	task :remote do
+		begin
+			items = fetch_sleep_json
+
 			add_sleep_cycle_items items, "sleep"
 		rescue => e
 			puts "Sleep Cycle import failed:"
@@ -34,15 +42,15 @@ namespace :sleep_cycle do
 		db.results_as_hash = true
 		sessions = db.execute("select * from ZSLEEPSESSION")
 
-		sessions.each do |session|
+		sessions.reverse.each do |session|
 			session_id = session["Z_PK"]
 
 			movements = session["ZSTATMOVEMENTSPERHOUR"]
 			quality = session["ZSTATSLEEPQUALITY"]
 			data = {
 				"id" => session_id,
-				"sleep_start" => adjust_time(session["ZSESSIONSTART"]),
-				"sleep_end" => adjust_time(session["ZSESSIONEND"]),
+				"sleep_start" => adjust_sleep_timestamp(session["ZSESSIONSTART"]).to_s,
+				"sleep_end" => adjust_sleep_timestamp(session["ZSESSIONEND"]).to_s,
 				"duration" => session["ZSTATTOTALDURATION"],
 				"rating" => session["ZRATING"] || 0,
 				# seems to be a newer column
@@ -60,7 +68,7 @@ namespace :sleep_cycle do
 			data["events"] = events.map do |event|
 				{
 					"intensity" => event["ZINTENSITY"],
-					"timestamp" => adjust_time(event["ZTIME"]).to_s,
+					"timestamp" => adjust_sleep_timestamp(event["ZTIME"]).to_s,
 					# TODO don't know what this represents, but it does change sometimes
 					"type" => event["ZTYPE"]
 				}
@@ -70,6 +78,44 @@ namespace :sleep_cycle do
 		end
 
 		sleep_sessions
+	end
+
+	def adjust_sleep_timestamp time
+		# Cocoa (and thus Core Data) epoch is midnight UTC on 1 January 2001
+		time_base = DateTime.new 2001, 01, 01, 0, 0, 0
+
+		Time.at(time_base.to_time + time).iso8601
+	end
+
+	def upload_to_remote items
+		storage = Fog::Storage.new({
+			provider: ENV["FOG_PROVIDER"],
+			aws_access_key_id: ENV["AWS_ACCESS_KEY_ID"],
+			aws_secret_access_key: ENV["AWS_SECRET_ACCESS_KEY"]
+		})
+
+		directory = storage.directories.get ENV["FOG_DIRECTORY"]
+
+		file = directory.files.get ENV["SLEEP_CYCLE_FILENAME"]
+
+		json = items.to_json
+
+		if file
+			file.body = json
+			file.public = true
+		else
+			file = directory.files.create({
+				key: ENV["SLEEP_CYCLE_FILENAME"],
+				body: json,
+				public: true
+			})
+			puts "export SLEEP_CYCLE_URL=#{file.public_url}"
+		end
+
+		file.save
+	rescue => e
+		puts "Failed to upload data:"
+		puts e
 	end
 
 	def add_sleep_cycle_items items, activity_type
@@ -94,7 +140,6 @@ namespace :sleep_cycle do
 						activity_type: activity_type,
 						created_at: item["sleep_end"],
 						updated_at: item["sleep_end"],
-						# `.attrs` use: http://stackoverflow.com/a/13249551/672403
 						data: item,
 						original_id: id
 					})
@@ -105,28 +150,18 @@ namespace :sleep_cycle do
 		end
 	end
 
-	def adjust_time time
-		# Cocoa (and thus Core Data) epoch is midnight UTC on 1 January 2001
-		time_base = DateTime.new 2001, 01, 01, 0, 0, 0
-
-		Time.at(time_base.to_time + time)
-	end
-
-	def fetch_database
+	def fetch_sleep_json
 		unless ENV["SLEEP_CYCLE_URL"]
 			puts "Please set the SLEEP_CYCLE_URL environment variable"
-			puts "e.g. export SLEEP_CYCLE_URL=http://foobar.s3.amazonaws.com/sleep_cycle.sqlite"
+			puts "e.g. export SLEEP_CYCLE_URL=http://foobar.s3.amazonaws.com/sleep_cycle.json"
 			abort
 		end
 
-		open("sleep_cycle_temp.sqlite", "wb") do |file|
-			open(ENV["SLEEP_CYCLE_URL"]) do |uri|
-				file.write uri.read
-			end
-		end
+		data = open(ENV["SLEEP_CYCLE_URL"]).read
+		JSON.parse data
 	rescue OpenURI::HTTPError => e
-		puts "Unable to fetch database from SLEEP_CYCLE_URL"
+		abort "Unable to fetch database from SLEEP_CYCLE_URL"
 	rescue => e
-		puts e
+		abort e
 	end
 end
