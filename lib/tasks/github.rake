@@ -51,7 +51,7 @@ namespace :github do
 						where(original_id: item["id"]).count
 
 				if existing == 0
-					time = DateTime.parse item.created_at
+					time = Time.parse item.created_at
 
 					data = {}
 					item.each { |k,v| data[k] = v.is_a?(Hashie::Mash) ? v.to_hash : v }
