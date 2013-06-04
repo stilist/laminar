@@ -135,11 +135,13 @@ namespace :sleep_cycle do
 						where(original_id: id).count
 
 				if existing == 0
+					timestamp = Time.parse item["sleep_end"]
+
 					Activity.create({
 						source: "sleep_cycle",
 						activity_type: activity_type,
-						created_at: item["sleep_end"],
-						updated_at: item["sleep_end"],
+						created_at: timestamp,
+						updated_at: timestamp,
 						data: item,
 						original_id: id
 					})
