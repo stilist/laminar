@@ -66,9 +66,9 @@ namespace :instagram do
 			items.each_with_index do |item, idx|
 				puts "  * #{item.id} [#{idx + 1}/#{total}]"
 
-				existing = Activity.where(source: "instagram").
+				existing = Activity.unscoped.where(source: "instagram").
 						where(activity_type: activity_type).
-						where(original_id: item.id.to_s).unscoped.count
+						where(original_id: item.id.to_s).count
 
 				if existing == 0
 					timestamp = Time.at item["created_time"].to_i

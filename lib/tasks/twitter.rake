@@ -82,9 +82,9 @@ namespace :twitter do
 			items.each_with_index do |item, idx|
 				puts "  * #{item.id} [#{idx + 1}/#{total}]"
 
-				existing = Activity.where(source: "twitter").
+				existing = Activity.unscoped.where(source: "twitter").
 						where(activity_type: activity_type).
-						where(original_id: item.id.to_s).unscoped.count
+						where(original_id: item.id.to_s).count
 
 				if existing == 0
 					Activity.create({

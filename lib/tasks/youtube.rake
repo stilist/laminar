@@ -65,9 +65,9 @@ namespace :youtube do
 			items.each_with_index do |item, idx|
 				puts "  * #{item["title"]["$t"]} [#{idx + 1}/#{total}]"
 
-				existing = Activity.where(source: "youtube").
+				existing = Activity.unscoped.where(source: "youtube").
 						where(activity_type: activity_type).
-						where(original_id: item["id"]["$t"]).unscoped.count
+						where(original_id: item["id"]["$t"]).count
 
 				if existing == 0
 					time = DateTime.parse item["published"]["$t"]

@@ -46,9 +46,9 @@ namespace :github do
 
 				puts "       #{activity_type} #{item.repo.name} [#{idx + 1}/#{total}]"
 
-				existing = Activity.where(source: "github").
+				existing = Activity.unscoped.where(source: "github").
 						where(activity_type: activity_type).
-						where(original_id: item["id"]).unscoped.count
+						where(original_id: item["id"]).count
 
 				if existing == 0
 					time = DateTime.parse item.created_at

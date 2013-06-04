@@ -80,9 +80,9 @@ namespace :vimeo do
 			items.each_with_index do |item, idx|
 				puts "  * #{item["title"]} [#{idx + 1}/#{total}]"
 
-				existing = Activity.where(source: "vimeo").
+				existing = Activity.unscoped.where(source: "vimeo").
 						where(activity_type: activity_type).
-						where(original_id: item["id"]).unscoped.count
+						where(original_id: item["id"]).count
 
 				if existing == 0
 					# Comes through without a time zone specified, but seems to be in
