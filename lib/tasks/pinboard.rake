@@ -23,7 +23,7 @@ namespace :pinboard do
 			items.each_with_index do |item, idx|
 				puts "  * #{item.href} [#{idx + 1}/#{total}]"
 
-				existing = Activity.where(url: item.href).count
+				existing = Activity.unscoped.where(url: item.href).count
 
 				if existing == 0
 					Activity.create({
