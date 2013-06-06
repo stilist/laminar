@@ -4,13 +4,14 @@
 
 %h1.entry-title
 	listened to
-	%span.avatar{ style: "background-image:url('#{artist["image"][0]["content"]}')" }
 	= succeed "’s" do
 		= artist["name"]
 	%a{ href: locals["url"] }<
 		= item["name"]
 	- if album
 		= surround "(from ", ")" do
-			%span.avatar{ style: "background-image:url('#{eval(item["image"])[0]["content"]}')" }
+			- artwork = eval(item["image"])[0]["content"]
+			- if artwork && !artwork.blank?
+				%span.avatar{ style: "background-image:url('#{artwork}')" }
 			%span.album<
 				= album["content"]
