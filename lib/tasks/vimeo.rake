@@ -88,7 +88,7 @@ namespace :vimeo do
 					# Comes through without a time zone specified, but seems to be in
 					# Eastern Time. Pick an offset; close enough.
 					time_field = activity_type == "like" ? "liked_on" : "upload_date"
-					time = DateTime.parse("#{item[time_field]} +0500")
+					time = Time.parse("#{item[time_field]} +0500").iso8601
 
 					Activity.create({
 						source: "vimeo",
