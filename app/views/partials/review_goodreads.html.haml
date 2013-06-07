@@ -1,0 +1,17 @@
+- item = eval(locals["data"]["book"])
+- rating = locals["data"]["rating"].to_i
+
+%h1.entry-title.item
+	- if rating == 0
+		has read
+	- else
+		reviewed
+	%a.fn.book{ href: locals["url"] }
+		= (item["publication_year"] || rating == 0) ? item["title"] : "#{item["title"]}:"
+	- if item["publication_year"]
+		= surround "(", "):" do
+			= item["publication_year"]
+
+	- if rating > 0
+		%span.rating{ title: rating }
+			#{rating} stars
