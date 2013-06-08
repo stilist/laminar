@@ -1,0 +1,20 @@
+- item = locals["data"]
+
+%h1.entry-title
+	- if item["parentid"] == "0"
+		created
+	- else
+		made
+		%a{ href: locals["url"] }
+			an edit
+		to
+	%a{ href: "https://en.wikipedia.org/wiki/#{item["title"]}" }
+		= item["title"]
+
+- if locals["extras"]["full_view"] && !item["comment"].blank?
+	%section.entry-content
+		%blockquote
+			%p
+				%em
+					Comment:
+				= item["comment"]
