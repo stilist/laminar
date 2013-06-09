@@ -97,10 +97,8 @@ strong {font-weight:normal;}
 .hentry .keywords li {float:right; margin-left:0.5em;}
 .hentry .meta {line-height:1.25em; margin-top:25px; text-align:right;}
 .hentry .updated {font-size:11pt; left:10px; line-height:1.55em; position:absolute; top:10px; width:80px;}
-.hentry .updated .time,
-.hentry .updated .date {display:inline-block;}
-.hentry .updated .date {font-size:0.8em;}
-.hentry .updated .time {}
+.hentry .updated .date {display:inline-block; font-size:0.8em;}
+.hentry .updated .time {display:block;}
 .hentry .observation .icon {left:10px; position:absolute; top:81px;}
 .hentry .meta ul, .hentry .meta p {margin:0.5em 0;}
 .hentry .entry-content ol {list-style:decimal inside;}
