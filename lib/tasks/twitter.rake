@@ -111,6 +111,9 @@ namespace :twitter do
 						where(activity_type: activity_type).
 						where(original_id: id.to_s).count
 
+				# `.attrs` use: http://stackoverflow.com/a/13249551/672403
+				data = item.respond_to?(:attrs) ? item.attrs : item
+
 				if existing == 0
 					Activity.create({
 						source: "twitter",
@@ -118,8 +121,7 @@ namespace :twitter do
 						url: "https://twitter.com/#{item["user"]["screen_name"]}/status/#{id}",
 						created_at: item["created_at"],
 						updated_at: item["created_at"],
-						# `.attrs` use: http://stackoverflow.com/a/13249551/672403
-						data: Laminar.sym2s(item.attrs),
+						data: Laminar.sym2s(data),
 						original_id: id
 					})
 				end
