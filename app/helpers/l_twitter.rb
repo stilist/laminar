@@ -1,4 +1,4 @@
-module Twttr
+module LTwitter
 	def self.get_user data
 		data["user"].is_a?(String) ? eval(data["user"]) : data["user"]
 	end
@@ -11,6 +11,11 @@ module Twttr
 	def self.person_link data
 		user = get_user data
 		"<a href='https://twitter.com/#{user["screen_name"]}'>#{user["name"]}</a>"
+	end
+
+	def self.first_mention data
+		mention = eval(data["entities"])["user_mentions"].first
+		Laminar.sym2s(mention)["name"]
 	end
 
 	def self.media data

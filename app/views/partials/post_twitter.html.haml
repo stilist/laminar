@@ -4,21 +4,22 @@
 	- if item["retweeted_status"]
 		- retweet = eval(item["retweeted_status"])
 		retweeted
-		%a{ href: Twttr::person_url(retweet) }<
+		%a{ href: LTwitter::person_url(retweet) }<
 			= retweet["user"]["name"]
 	- else
 		posted a
-		%a{ href: Twttr::tweet_url(item) }
+		%a{ href: LTwitter::tweet_url(item) }
 			tweet
-		- if item["in_reply_to_status_id"]
+		- mentions = eval(item["entities"])["user_mentions"]
+		- if item["in_reply_to_status_id"] && !mentions.empty?
 			in reply to
 			%a{ href: "https://twitter.com/#{item["in_reply_to_screen_name"]}/status/#{item["in_reply_to_status_id_str"]}" }
-				= eval(item["entities"])["user_mentions"].first["name"]
+				= LTwitter::first_mention item
 
 - if locals["extras"]["full_view"]
 	%section.entry-content
-		= Twttr::media item
+		= LTwitter::media item
 
 		%blockquote
 			%p
-				= nl2br Twttr::text item
+				= nl2br LTwitter::text item
