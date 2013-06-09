@@ -1,0 +1,48 @@
+namespace :flickr do
+	task :static_photos do
+		items = fetch_flickr_data ENV["FLICKR_STATIC_PHOTOS_URL"]
+		add_flickr_photos items, "photo"
+	end
+
+	private
+
+	def add_flickr_photos items, activity_type=""
+		total = items.length
+
+		puts
+		puts "*** #{total} new #{activity_type}(s)"
+
+		begin
+			ActiveRecord::Base.record_timestamps = false
+			items.each_with_index do |item, idx|
+				puts "  * #{item["id"]} [#{idx + 1}/#{total}]"
+
+				existing = Activity.where(source: "flickr").
+						where(activity_type: activity_type).
+						where(original_id: item["id"]).count
+
+				if existing == 0
+					Activity.create({
+						source: "flickr",
+						activity_type: activity_type,
+						created_at: Time.parse(item["dates"]["taken"]).iso8601,
+						updated_at: Time.at(item["dateuploaded"].to_i).iso8601,
+						data: item,
+						original_id: item["id"]
+					})
+				end
+			end
+		ensure
+			ActiveRecord::Base.record_timestamps = true
+		end
+	end
+
+	def fetch_flickr_data url=""
+		data = open(url).read
+		JSON.parse data
+	rescue OpenURI::HTTPError => e
+		abort "Unable to fetch data from #{url}"
+	rescue => e
+		abort e
+	end
+end
