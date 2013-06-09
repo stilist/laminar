@@ -3,10 +3,10 @@
 %h1.entry-title
 	favorited
 	= succeed "’s" do
-		%a{ href: Twttr::person_url(item) }
-			%span.avatar{ style: "background-image:url('#{Twttr::get_user(item)["profile_image_url_https"]}')" }
-			= Twttr::get_user(item)["name"]
-	%a{ href: Twttr::tweet_url(item) }
+		%a{ href: LTwitter::person_url(item) }
+			%span.avatar{ style: "background-image:url('#{LTwitter::get_user(item)["profile_image_url_https"]}')" }
+			= LTwitter::get_user(item)["name"]
+	%a{ href: LTwitter::tweet_url(item) }
 		tweet
 	- if item["in_reply_to_status_id"]
 		in reply to
@@ -16,8 +16,8 @@
 
 - if locals["extras"]["full_view"]
 	%section.entry-content
-		= Twttr::media item
+		= LTwitter::media item
 
 		%blockquote
 			%p
-				= nl2br Twttr::text item
+				= nl2br LTwitter::text item

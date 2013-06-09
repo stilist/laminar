@@ -57,7 +57,7 @@ namespace :twitter do
 			opts.merge!({ since_id: newest["data"]["id"] }) if newest
 		end
 
-		items = Twttr.client.user_timeline ENV["TWITTER_USER"], opts
+		items = LTwitter.client.user_timeline ENV["TWITTER_USER"], opts
 		add_items items, activity_type
 
 		if items.length == opts[:count] and use_max_id
@@ -84,7 +84,7 @@ namespace :twitter do
 			opts.merge!({ since_id: newest["data"]["id"] }) if newest
 		end
 
-		items = Twttr.client.favorites ENV["TWITTER_USER"], opts
+		items = LTwitter.client.favorites ENV["TWITTER_USER"], opts
 		add_items items, activity_type
 
 		if items.length == opts[:count] and use_max_id

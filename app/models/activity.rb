@@ -83,7 +83,7 @@ class Activity < ActiveRecord::Base
 					title = "posted a tweet"
 				end
 			end
-			description = "#{title}: #{Twttr::text data, false}"
+			description = "#{title}: #{LTwitter::text data, false}"
 		when "vimeo"
 			if self.activity_type == "like"
 				title = "liked user’s video"
