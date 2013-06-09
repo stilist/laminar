@@ -36,21 +36,24 @@
 	background-image: url("/assets/" + $name + "." + $type);
 	background-repeat: no-repeat;
 	background-size: #{$width}px #{$height}px;
-	-moz-background-size: #{$width}px #{$height}px;
-	-ms-background-size: #{$width}px #{$height}px;
-	-o-background-size: #{$width}px #{$height}px;
-	-webkit-background-size: #{$width}px #{$height}px;
 
 	@media (min-device-pixel-ratio:1.5), (-webkit-min-device-pixel-ratio:1.5) {
 		background-image: url("/assets/" + $name + "@2x." + $type);
 	}
 }
+@mixin global_sprite($x:0, $y:0) {
+	@include sprite("sprite", "png", 250, 250);
+	background-position: -#{$x}px -#{$y}px;
+}
+
+@mixin transition($transitions...) {
+	transition: $transitions;
+	-webkit-transition: $transitions;
+}
 
 //ROUNDED CORNERS
 @mixin round($radius:5) {
 	border-radius: #{$radius}px;
-	-moz-border-radius: #{$radius}px;
-	-webkit-border-radius: #{$radius}px;
 }
 @mixin square {
 	@include round(0);
@@ -59,13 +62,9 @@
 //BOX SHADOWS
 @mixin no_shadow {
 	box-shadow: none;
-	-mozilla-box-shadow: none;
-	-webkit-box-shadow: none;
 }
 @mixin shadow($shadows...) {
 	box-shadow: $shadows;
-	-moz-box-shadow: $shadows;
-	-webkit-box-shadow: $shadows;
 }
 
 //GRADIENTS

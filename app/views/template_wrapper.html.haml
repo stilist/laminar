@@ -2,26 +2,25 @@
 	item = locals["data"]
 	time = locals["updated_at"].localtime
 	extras = locals["extras"]
+	full_view = locals["extras"]["full_view"]
 
 %section{ class: item_classes(locals), style: item_hsl(locals),
 			id: "item_#{locals["id"]}" }
 	= partial locals["template"], locals: locals
+	- unless full_view
+		%a.permalink{ href: "/activities/#{locals["id"]}", rel: "bookmark" }
 
 	%time.updated{ datetime: time.iso8601, pubdate: "" }
-		%a.time{ href: "/activities/#{locals["id"]}", rel: "bookmark" }><
+		%span.time
 			= time.strftime "%l:%M %P"
-		%span.day_month
-			- if locals["extras"]["full_view"]
-				= time.strftime "%e %B"
-			- else
-				= time.strftime "%e %b"
-		%span.year
-			- if locals["extras"]["full_view"]
-				= time.strftime "0%Y"
-			- else
-				= time.strftime "’%y"
+		- if full_view
+			%span.date
+				= time.strftime "%e %b ’%y"
+		- else
+			%a.date{ href: time.strftime("/0%Y/%m/%d") }
+				= time.strftime "%e %b ’%y"
 
-	- if locals["extras"]["full_view"]
+	- if full_view
 		- weather = Weather::nearest_observation locals["created_at"],
 				extras["observations"]
 		- if weather

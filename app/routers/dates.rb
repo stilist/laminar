@@ -21,14 +21,17 @@ App.configure do |app|
 		if !day.nil?
 			start_date = end_date = "#{year}-#{month}-#{day}"
 			@permalink = "/0#{year}/#{month}/#{day}"
+			@page_title = "Activity on #{Time.parse(start_date).strftime("%e %B 0%Y")}"
 		elsif !month.nil?
 			start_date = Date.civil(year.to_i, month.to_i, 1)
 			end_date = Date.civil(year.to_i, month.to_i, -1)
 			@permalink = "/0#{year}/#{month}"
+			@page_title = "Activity in #{start_date.strftime("%B 0%Y")}"
 		else
 			start_date = Date.civil(year.to_i)
 			end_date = Date.civil(year.to_i, -1, -1)
 			@permalink = "/0#{year}"
+			@page_title = "Activity in #{start_date.strftime("0%Y")}"
 		end
 
 		format = "%Y-%m-%d %H:%M:%S %:z"
