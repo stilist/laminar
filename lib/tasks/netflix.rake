@@ -128,7 +128,6 @@ namespace :netflix do
 		end
 
 		data = open(ENV["NETFLIX_STATIC_RATINGS_URL"]).read
-		puts data
 		JSON.parse data
 	rescue OpenURI::HTTPError => e
 		abort "Unable to fetch database from NETFLIX_STATIC_RATINGS_URL"
