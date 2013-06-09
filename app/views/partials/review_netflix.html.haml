@@ -3,7 +3,7 @@
 %h1.entry-title.item
 	reviewed
 	%a.fn.film{ href: locals["url"] }
-		= eval(item["title"])[:attributes][:regular]
+		= eval(item["title"])["attributes"]["regular"]
 	= surround "(", "):" do
 		= item["release_year"]
 
