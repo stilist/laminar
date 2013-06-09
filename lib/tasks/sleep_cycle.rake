@@ -13,7 +13,7 @@ namespace :sleep_cycle do
 
 	task :local do
 		begin
-			db = SQLite3::Database.new "sleep_cycle.sqlite"
+			db = SQLite3::Database.new "sources/sleep_cycle.sqlite"
 
 			items = process_sleep_data db
 			upload_to_remote items

@@ -29,7 +29,7 @@ namespace :netflix do
 		# work around `Activity` with an `updated_at` on the Unix epoch
 		oldest = Activity.where("updated_at > '1970-01-03'").last.created_at
 
-		data_path = File.expand_path "netflix"
+		data_path = File.expand_path "sources/netflix"
 		out = []
 
 		Dir.chdir(data_path) do
@@ -73,7 +73,6 @@ namespace :netflix do
 		})
 
 		directory = storage.directories.get ENV["FOG_DIRECTORY"]
-
 		file = directory.files.get ENV["NETFLIX_RATINGS_FILENAME"]
 
 		json = items.to_json
@@ -130,7 +129,7 @@ namespace :netflix do
 		data = open(ENV["NETFLIX_STATIC_RATINGS_URL"]).read
 		JSON.parse data
 	rescue OpenURI::HTTPError => e
-		abort "Unable to fetch database from NETFLIX_STATIC_RATINGS_URL"
+		abort "Unable to fetch data from NETFLIX_STATIC_RATINGS_URL"
 	rescue => e
 		abort e
 	end
