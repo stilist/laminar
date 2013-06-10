@@ -53,6 +53,7 @@ group :app do
 	gem "instagram"
 	gem "lastfm"
 	gem "pinboard"
+	gem "tumblr_client"
 	gem "twitter"
 	gem "vimeo"
 	gem "youtube_it"

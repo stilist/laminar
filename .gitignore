@@ -4,5 +4,7 @@
 .bundle/
 vendor/gems/
 
+tumblr_token.yaml
+
 *.dump
 sources/
