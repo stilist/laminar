@@ -1,0 +1,21 @@
+- item = locals["data"]
+
+%h1.entry-title
+	liked
+	= succeed "’s" do
+		%a{ href: "http://#{item["blog_name"]}.tumblr.com" }><
+			= item["blog_name"]
+	%a{ href: locals["url"] }
+		= item["type"]
+
+- if locals["extras"]["full_view"]
+	%section.entry-content
+		- if item["image_permalink"]
+			%a{ href: item["image_permalink"] }
+				- photos = eval(item["photos"])
+				- photos.each do |photo|
+					%img{ src: photo["original_size"]["url"] }
+
+		- if item["caption"]
+			%blockquote
+				= item["caption"]
