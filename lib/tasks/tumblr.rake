@@ -43,7 +43,7 @@ namespace :tumblr do
 		data = get_tumblr_data("likes")["response"]
 		total = data["liked_count"].to_i
 		per_page = 20 # max: 20
-		pages = (total / per_page.to_f).ceil
+		pages = backfill ? (total / per_page.to_f).ceil : 1
 
 		puts "       #{total} likes"
 
