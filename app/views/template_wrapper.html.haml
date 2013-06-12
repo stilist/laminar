@@ -6,27 +6,27 @@
 
 %section{ class: item_classes(locals), style: item_hsl(locals),
 			id: "item_#{locals["id"]}" }
-	= partial locals["template"], locals: locals
-	- unless full_view
-		%a.permalink{ href: "/activities/#{locals["id"]}", rel: "bookmark" }
+	.meta
+		%time.updated{ datetime: time.iso8601, pubdate: "" }
+			- if full_view
+				%span.date
+					= time.strftime "%e %B 0%Y"
+			- else
+				%a.date{ href: time.strftime("/0%Y/%m/%d") }
+					= time.strftime "%e %B 0%Y"
+			@
+			%span.time
+				= time.strftime "%l:%M %P"
 
-	%time.updated{ datetime: time.iso8601, pubdate: "" }
-		%span.time
-			= time.strftime "%l:%M %P"
-		- if full_view
-			%span.date
-				= time.strftime "%e %b ’%y"
-		- else
-			%a.date{ href: time.strftime("/0%Y/%m/%d") }
-				= time.strftime "%e %b ’%y"
-
-	- if full_view
 		- weather = Weather::nearest_observation locals["created_at"],
 				extras["observations"]
 		- if weather
 			%span.observation
-				%span.icon
-					%img{ src: Weather::icon_url(weather["data"]["icon"]) }
+				%span.icon{ style:"background-image:url('#{Weather::icon_url weather["data"]["icon"]}');" }
+
+	= partial locals["template"], locals: locals
+	- unless full_view
+		%a.permalink{ href: "/activities/#{locals["id"]}", rel: "bookmark" }
 
 :ruby
 	hsl = item_hsl locals, false

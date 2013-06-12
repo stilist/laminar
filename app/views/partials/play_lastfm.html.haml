@@ -11,7 +11,5 @@
 	- if album
 		= surround "(from ", ")" do
 			- artwork = eval(item["image"])[0]["content"]
-			- if artwork && !artwork.blank?
-				%span.avatar{ style: "background-image:url('#{artwork}')" }
 			%span.album<
 				= album["content"]
