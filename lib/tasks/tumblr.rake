@@ -58,7 +58,7 @@ namespace :tumblr do
 	end
 
 	def get_tumblr_data path="", extras={}
-		url = "http://api.tumblr.com/v2/blog/#{ENV["TUMBLR_BLOG"]}/#{path}?api_key=#{ENV["TUMBLR_APP_KEY"]}"
+		url = "http://api.tumblr.com/v2/blog/#{ENV["TUMBLR_BLOG"]}/#{path}?api_key=#{ENV["TUMBLR_API_KEY"]}"
 		extras.each { |k,v| url << "&#{k}=#{v}" }
 		data = open(url).read
 
