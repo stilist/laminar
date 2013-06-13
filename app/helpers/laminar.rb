@@ -22,6 +22,16 @@ module Laminar
 		unknown: 0
 	}.freeze
 
+	def markdown text=""
+		markdown = Redcarpet::Markdown.new Redcarpet::Render::HTML, autolink: true
+
+		# Hack: Redcarpet specifically refuses to process Markdown inside of
+		# `<figure>` tags, though absolutely any other tag seems to be fine.
+		temp_text = text.gsub(/<(\/?figure)>/, "<\\1_temp>")
+		out = markdown.render temp_text
+		out.gsub /_temp>/, ">"
+	end
+
 	def h(text="") ; Rack::Utils.escape_html(text) end
 
 	def nl2br(text) ; text.gsub(/(\r\n|\r|\n)/, "<br>") end

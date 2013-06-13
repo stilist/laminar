@@ -58,6 +58,7 @@ group :app do
 	gem "vimeo"
 	gem "youtube_it"
 
+	gem "redcarpet"
 	gem "colormath"
 	# http://stackoverflow.com/a/9531191/672403
 	gem "certified"

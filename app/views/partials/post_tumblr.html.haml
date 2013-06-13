@@ -1,12 +1,9 @@
 - item = locals["data"]
 
 %h1.entry-title
-	liked
-	= succeed "’s" do
-		%a{ href: "http://#{item["blog_name"]}.tumblr.com" }><
-			= item["blog_name"]
-	%a{ href: locals["url"] }
-		= item["type"]
+	posted
+	%a{ href: item["url"] }>
+		= item["title"]
 
 - if locals["extras"]["full_view"]
 	%section.entry-content
@@ -20,4 +17,7 @@
 			%blockquote
 				= item["caption"]
 
-				= item["body"]
+				- if item["format"] == "markdown"
+					= markdown item["body"]
+				- else
+					= item["body"]
