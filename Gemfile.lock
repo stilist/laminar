@@ -171,6 +171,9 @@ GEM
       multipart-post (>= 1.0.1)
       oauth (>= 0.4.3)
     will_paginate (3.0.4)
+    withings-api (0.0.3)
+      json
+      oauth (~> 0.4.5)
     xml-simple (1.1.2)
     youtube_it (2.2.1)
       builder
@@ -218,4 +221,5 @@ DEPENDENCIES
   unicorn
   vimeo
   will_paginate (~> 3.0.0)
+  withings-api
   youtube_it

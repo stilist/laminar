@@ -56,6 +56,7 @@ group :app do
 	gem "tumblr_client"
 	gem "twitter"
 	gem "vimeo"
+	gem "withings-api"
 	gem "youtube_it"
 
 	gem "redcarpet"
