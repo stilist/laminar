@@ -1,5 +1,8 @@
 .DS_Store
 
+# heroku-config
+.env
+
 # Bundler
 .bundle/
 vendor/gems/
