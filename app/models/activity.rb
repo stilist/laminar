@@ -64,6 +64,13 @@ class Activity < ActiveRecord::Base
 
 			description = "reviewed #{eval(data["title"])[:attributes][:regular]}"
 			description << "(#{data["release_year"]}): #{data["user_rating"].to_i} stars"
+		when "openpaths"
+			title = "was triangulated"
+
+			lat = data["lat"].to_f.round 2
+			lng = data["lon"].to_f.round 2
+
+			description = "was at #{lat}° N, #{lng}° W"
 		when "pinboard"
 			title = "bookmarked a URL"
 
