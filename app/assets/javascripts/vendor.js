@@ -1,4 +1,5 @@
-//= require zepto
+//= require jquery
+
 //= require modernizr.custom.02814
 
 //= require moment
