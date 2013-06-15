@@ -13,3 +13,6 @@
 
 /[if IE]
 	= javascript_script_tag "//html5shiv.googlecode.com/svn/trunk/html5.js"
+
+:javascript
+	var timeline_dates = #{ @items.map { |item| item.created_at.to_s } };

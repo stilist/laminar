@@ -1,3 +1,7 @@
+#= depend_on ./timeline
+
+#= require ./timeline
+
 (($, window) -> $ ->
 	set_video_size = ->
 		$(".hfeed .video").each ->
@@ -10,4 +14,5 @@
 				width: width
 	$(window).on "resize.video", set_video_size
 	set_video_size()
+
 )(window.$ or window.jQuery or window.Zepto, window)
