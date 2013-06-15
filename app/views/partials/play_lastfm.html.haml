@@ -1,6 +1,7 @@
-- item = locals["data"]
-- album = item["album"] ? eval(item["album"]) : nil
-- artist = eval(item["artist"])
+:ruby
+	item = locals["data"]
+	album = item["album"] ? eval(item["album"]) : nil
+	artist = eval(item["artist"])
 
 %h1.entry-title
 	listened to
@@ -10,6 +11,5 @@
 		= item["name"]
 	- if album
 		= surround "(from ", ")" do
-			- artwork = eval(item["image"])[0]["content"]
 			%span.album<
 				= album["content"]
