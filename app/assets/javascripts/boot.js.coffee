@@ -1,4 +1,4 @@
-(($, window, undef) ->
+(($, window) -> $ ->
 	set_video_size = ->
 		$(".hfeed .video").each ->
 			$video = $(@)
