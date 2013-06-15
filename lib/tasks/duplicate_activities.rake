@@ -13,7 +13,7 @@ namespace :duplicate_activities do
 
 		puts "*** removing #{dups.length} duplicates"
 
-		dups.each_slice(100) { |ids| Activity.where(id: ids).delete_all }
+		dups.each_slice(100) { |ids| Activity.unscoped.where(id: ids).delete_all }
 	end
 
 	def find_dups

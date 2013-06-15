@@ -106,7 +106,7 @@ namespace :netflix do
 			items.each_with_index do |item, idx|
 				puts "  * #{item["original_id"]} [#{idx + 1}/#{total}]"
 
-				existing = Activity.where(source: "netflix").
+				existing = Activity.unscoped.where(source: "netflix").
 						where(activity_type: activity_type).
 						where(original_id: item["original_id"]).count
 

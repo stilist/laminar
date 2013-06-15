@@ -130,7 +130,7 @@ namespace :sleep_cycle do
 				id = item["id"].to_s
 				puts "  * #{id} [#{idx + 1}/#{total}]"
 
-				existing = Activity.where(source: "sleep_cycle").
+				existing = Activity.unscoped.where(source: "sleep_cycle").
 						where(activity_type: activity_type).
 						where(original_id: id).count
 
