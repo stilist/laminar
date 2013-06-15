@@ -19,6 +19,10 @@ App.configure do |app|
 			# only applies to the Unicorn worker handling this request, which
 			# probably won't be the same one to handle the post-auth redirect.
 			File.open("#{params[:service]}_token.yaml", "w") { |f| f.write request_token.to_yaml }
+
+			puts "*** saved request token for #{params[:service]}"
+		else
+			puts "*** didn't save request token for #{params[:service]}"
 		end
 
 		if authorize_url
