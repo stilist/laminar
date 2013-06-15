@@ -49,6 +49,6 @@ class App < Sinatra::Base
 
 	# http://stackoverflow.com/a/5030173/672403
 	# `uploaders` comes before `models` due to dependencies
-	includes = %w(helpers uploaders models routers)
+	includes = %w(helpers initializers uploaders models routers)
 	includes.each { |include| require_relative "#{include}/init" }
 end

@@ -1,0 +1,9 @@
+:ruby
+	item = locals["data"]
+	data = LWithing.height eval(item["measures"]), true
+
+	feet = data.to_i
+	inches = ((data - feet) * 12).to_i
+
+%h1.entry-title
+	measured #{feet}′#{inches}″ tall
