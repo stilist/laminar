@@ -14,5 +14,13 @@
 /[if IE]
 	= javascript_script_tag "//html5shiv.googlecode.com/svn/trunk/html5.js"
 
+
+:ruby
+	if @items
+		timestamps = @items.map { |item| item.created_at.to_s }
+	elsif @item
+		timestamps = [@item.created_at.to_s]
+	end
+
 :javascript
-	var timeline_dates = #{ @items.map { |item| item.created_at.to_s } };
+	var timeline_dates = #{timestamps || []};
