@@ -5,7 +5,9 @@
 * {margin:0; padding:0;}
 
 html,
-body {background:#371d10;}
+body,
+#nameplate,
+.pagination {background:#111;}
 body {color:#ab8876; cursor:default; font-family:museo-sans-1, museo-sans-2, "Trebuchet MS", Arial, sans-serif; font-weight:500; line-height:1.55em;}
 
 /* 22px baseline */
@@ -48,7 +50,7 @@ body {color:#ab8876; cursor:default; font-family:museo-sans-1, museo-sans-2, "Tr
 @media all and (min-width:1400px) {
 }
 
-a {border-bottom:1px solid #c12d2d; color:#c12d2d; padding:1px 1px 0 1px; text-decoration:none;}
+a {border-bottom:1px solid #ccc; color:#ccc; padding:1px 1px 0 1px; text-decoration:none;}
 a:hover {color:#ffa2a2;}
 abbr.smallcaps, strong {font-size:0.8em; letter-spacing:0.1em; line-height:1.25em; text-transform:uppercase;}
 address, cite {font-style:normal;}
@@ -71,7 +73,7 @@ q:lang(ru), q:lang(rus) {quotes:"«" "»" "„" "“";}
 strong {font-weight:normal;}
 .clear {clear:both;}
 
-#nameplate {@include shadow(0 3px 3px 0 rgba(0, 0, 0, 0.2)); background-color:#371d10; border-top:10px solid #aa5a32; padding:20px 0; text-align:center; top:0; width:100%; z-index:10;}
+#nameplate {@include shadow(0 3px 3px 0 rgba(0, 0, 0, 0.2)); border-top:10px solid transparent; padding:20px; top:0; width:100%; z-index:10;}
 #nameplate a {background:none; border-bottom:none; font-family:chaparral-pro-1,chaparral-pro-2, "Chaparral Pro", Times, "Times New Roman", serif; line-height:1em; text-transform:lowercase;}
 #nameplate #logo {font-size:40px;}
 
@@ -110,7 +112,7 @@ strong {font-weight:normal;}
 
 .album, .book, .film, .game, .magazine, .newspaper, .programme {font-style:italic;}
 
-.pagination {@include shadow(0 -3px 3px 0 rgba(0, 0, 0, 0.2)); background-color:#371d10; bottom:0; padding:20px 0; text-align:center; width:100%; z-index:10;}
+.pagination {@include shadow(0 -3px 3px 0 rgba(0, 0, 0, 0.2)); bottom:0; padding:20px 0; text-align:center; width:100%; z-index:10;}
 
 .bottom {margin-top:5.05em;}
 .bottom .copyright {margin-top:22px;}
