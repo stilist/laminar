@@ -22,7 +22,10 @@
 		data.projects.push project
 
 	if data.projects.length > 0
-		start_date = data.projects[0].startDate.subtract "hours", 10
+		sorted = _.sortBy data.projects, (project) ->
+			project.startDate.unix()
+
+		start_date = sorted[0].startDate.subtract "hours", 10
 	else
 		start_date = null
 
