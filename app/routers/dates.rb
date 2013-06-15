@@ -40,8 +40,8 @@ App.configure do |app|
 
 		@page_type = :index
 
-		@items = Activity.page(params[:page]).
-				where("updated_at BETWEEN ? AND ?", start_timestamp, end_timestamp).all
+		activities = Laminar.activities params
+		@items = activities.where("updated_at BETWEEN ? AND ?", start_timestamp, end_timestamp).all
 
 		if @items.count > 0
 			observations = Weather.prefetch @items.first.created_at, @items.last.created_at
@@ -54,6 +54,7 @@ App.configure do |app|
 			"observations" => observations
 		}
 
+		extras["private_data_key"] = params[:private_data_key]
 		page_out @items, ->{ 404 unless @items.count > 0 }, extras
 	end
 end

@@ -1,7 +1,9 @@
 App.configure do |app|
 	app.get "/sources/:name" do
 		@page_type = :index
-		@items = Activity.where(source: params[:name]).page(params[:page]).all
+
+		activities = Laminar.activities params
+		@items = activities.where(source: params[:name]).all
 
 		if !@items.empty?
 			@permalink = "/sources/#{params[:name]}"
@@ -16,6 +18,7 @@ App.configure do |app|
 			extras = {}
 		end
 
+		extras["private_data_key"] = params[:private_data_key]
 		page_out @items, ->{ 404 unless @items }, extras
 	end
 end

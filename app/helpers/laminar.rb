@@ -22,6 +22,14 @@ module Laminar
 		unknown: 0
 	}.freeze
 
+	def self.activities params
+		key = params[:private_data_key]
+		include_private = key && key == ENV["PRIVATE_DATA_KEY"]
+
+		out = include_private ? Activity.unscoped : Activity
+		out.page params[:page]
+	end
+
 	def markdown text=""
 		markdown = Redcarpet::Markdown.new Redcarpet::Render::HTML, autolink: true
 

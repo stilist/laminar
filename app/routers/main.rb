@@ -3,7 +3,8 @@ App.configure do |app|
 		@page_type = :index
 		@permalink = "/"
 
-		@items = Activity.page(params[:page]).all
+		activities = Laminar.activities params
+		@items = activities.all
 
 		observations = Weather.prefetch @items.first.created_at, @items.last.created_at
 		extras = {
@@ -11,6 +12,7 @@ App.configure do |app|
 			"observations" => observations
 		}
 
+		extras["private_data_key"] = params[:private_data_key]
 		page_out @items, 200, extras
 	end
 end

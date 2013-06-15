@@ -1,6 +1,7 @@
 App.configure do |app|
 	app.get "/activities/:id" do
-		item = Activity.find_by_id params[:id]
+		activities = Laminar.activities params
+		item = activities.find_by_id params[:id]
 
 		@page_title = item ? item.title : 404
 		@page_summary = item ? item.description : ""
@@ -13,6 +14,7 @@ App.configure do |app|
 			extras.merge!({ "observations" => observations })
 		end
 
+		extras["private_data_key"] = params[:private_data_key]
 		page_out item, ->{ 404 unless item }, extras
 	end
 end
