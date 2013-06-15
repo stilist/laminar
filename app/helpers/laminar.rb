@@ -26,7 +26,7 @@ module Laminar
 		key = params[:private_data_key]
 		include_private = key && key == ENV["PRIVATE_DATA_KEY"]
 
-		out = include_private ? Activity.unscoped : Activity
+		out = include_private ? Activity : Activity.where(is_private: false)
 		out.page params[:page]
 	end
 

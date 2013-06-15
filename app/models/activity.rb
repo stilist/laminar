@@ -1,8 +1,10 @@
 # encoding: utf-8
 
 class Activity < ActiveRecord::Base
-	default_scope where(is_private: false).
-			order("activities.updated_at DESC, activities.id DESC")
+	# has_and_belongs_to_many :tags
+
+	default_scope order("activities.updated_at DESC, activities.id DESC")
+
 	serialize :data, ActiveRecord::Coders::Hstore
 
 	# will_paginate
