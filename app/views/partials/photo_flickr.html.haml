@@ -1,4 +1,6 @@
-- item = locals["data"]
+:ruby
+	item = locals["data"]
+	url = LFlickr.photo_url item
 
 %h1.entry-title
 	- type = (item.has_key? "video") ? "video" : "photo"
@@ -7,7 +9,7 @@
 	- else
 		posted the #{type}
 		= surround "‘", "’" do
-			%a{ href: locals["url"] }><
+			%a{ href: url }><
 				= h item["title"]
 
 - if locals["extras"]["full_view"]

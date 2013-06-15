@@ -3,6 +3,7 @@
 	user = item["owner"]
 	username = user["realname"].empty? ? user["username"] : user["realname"]
 	type = (item.has_key? "video") ? "video" : "photo"
+	url = LFlickr.photo_url item
 
 %h1.entry-title
 	favorited
@@ -16,7 +17,7 @@
 	- else
 		= type
 		= surround "‘", "’" do
-			%a{ href: locals["url"] }><
+			%a{ href: url }><
 				= h item["title"]["_content"]
 
 - if locals["extras"]["full_view"]
