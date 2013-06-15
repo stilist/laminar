@@ -29,6 +29,8 @@ GEM
     coffee-script-source (1.4.0)
     colormath (0.1.2)
     crack (0.1.8)
+    crazylegs (0.1.2)
+      ruby-hmac (~> 0.4.0)
     excon (0.20.1)
     execjs (1.4.0)
       multi_json (~> 1.0)
@@ -192,6 +194,7 @@ DEPENDENCIES
   certified
   coffee-script
   colormath
+  crazylegs
   fog
   foreman
   github_api

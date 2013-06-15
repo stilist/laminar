@@ -59,6 +59,9 @@ group :app do
 	gem "withings-api"
 	gem "youtube_it"
 
+	# helpers
+	# https://gist.github.com/pdarche/5034801
+	gem "crazylegs"
 	gem "redcarpet"
 	gem "colormath"
 	# http://stackoverflow.com/a/9531191/672403
