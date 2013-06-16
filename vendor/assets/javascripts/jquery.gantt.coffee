@@ -13,17 +13,17 @@
 		views:
 			hour:
 				dayOffset: 1
-				format: "hh:mm"
+				format: "h:mm a"
 				grid: { x: 50, y: 10 }
 				highlightDays: 1
-				labelEvery: "hour"
+				labelEvery: "minute"
 				preloadDays: 1
 			day:
 				dayOffset: 1
-				format: "hh:mm"
+				format: "h:mm a"
 				grid: { x: 50, y: 10 }
 				highlightDays: 1
-				labelEvery: "day"
+				labelEvery: "hour"
 				preloadDays: 15
 			week:
 				dayOffset: 1
