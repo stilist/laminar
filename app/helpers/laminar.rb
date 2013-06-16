@@ -40,9 +40,9 @@ module Laminar
 		out.gsub /_temp>/, ">"
 	end
 
-	def h(text="") ; Rack::Utils.escape_html(text) end
+	def h text="" ; Rack::Utils.escape_html(text) end
 
-	def nl2br(text) ; text.gsub(/(\r\n|\r|\n)/, "<br>") end
+	def nl2br text="" ; text.gsub(/(\r\n|\r|\n)/, "<br>") end
 
 	def item_classes data
 		classes = %w(hentry hnews)

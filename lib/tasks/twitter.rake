@@ -1,21 +1,11 @@
 # `static_tweets_local` processes the data from Twitter's archive
 
 namespace :twitter do
-	task :favorites do
-		get_favorites
-	end
+	task :favorites do ; get_favorites end
+	task :backfill_favorites do ; get_favorites true end
 
-	task :backfill_favorites do
-		get_favorites true
-	end
-
-	task :tweets do
-		get_tweets
-	end
-
-	task :backfill_tweets do
-		get_tweets true
-	end
+	task :tweets do ; get_tweets end
+	task :backfill_tweets do ; get_tweets true end
 
 	task :static_tweets_local do
 		items = process_tweet_data
