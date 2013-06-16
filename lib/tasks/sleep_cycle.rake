@@ -6,7 +6,8 @@
 # 2) download iPhone Backup Extractor (http://supercrazyawesome.com)
 # 3) read the backup you just made
 # 4) extract `com.lexwarelabs.goodmorning`
-# 5) copy `Documents/eventlog.sqlite` into this app's directory
+# 5) copy `Documents/eventlog.sqlite` into this app's directory as
+#    `sources/sleep_cycle.sqlite`
 
 namespace :sleep_cycle do
 	task :sleeps => [:local, :remote]
@@ -14,6 +15,8 @@ namespace :sleep_cycle do
 	task :local do
 		begin
 			db = SQLite3::Database.new "sources/sleep_cycle.sqlite"
+
+			puts "-----> Sleep Cycle: processing data"
 
 			items = process_sleep_data db
 			upload_to_remote ENV["SLEEP_CYCLE_FILENAME"], items
