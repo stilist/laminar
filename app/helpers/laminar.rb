@@ -78,6 +78,41 @@ module Laminar
 		Hash === h ? Hash[h.map { |k, v| [k.to_s, Laminar.sym2s(v)] }] : h
 	end
 
+	def self.add_items source="", activity_type="", items=[]
+		abort "       Laminar.add_items was called with a blank source" if source.blank?
+		abort "       Laminar.add_items was called with a blank activity_type" if activity_type.blank?
+
+		total = items.length
+
+		puts
+		puts "-----> #{source}: processing #{total} #{activity_type} item(s)"
+
+		begin
+			ActiveRecord::Base.record_timestamps = false
+			items.each_with_index do |item, idx|
+				puts "       #{source}/#{activity_type}: #{item["original_id"]} [#{idx + 1}/#{total}]"
+
+				existing = Activity.unscoped.where(source: source).
+						where(activity_type: activity_type).
+						where(original_id: item["original_id"]).count
+
+				if existing == 0
+					item.merge!({
+						source: source,
+						activity_type: activity_type
+					})
+
+					Activity.create item
+				end
+			end
+		rescue => e
+			puts "       Failed to add data:"
+			puts e
+		ensure
+			ActiveRecord::Base.record_timestamps = true
+		end
+	end
+
 	def self.get_static_data uri=""
 		if uri.blank?
 			puts "       Laminar.get_static_data was called with a blank URI"
