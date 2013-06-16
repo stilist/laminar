@@ -9,31 +9,44 @@
 		start_date = moment raw_date
 
 		# TEMP
-		offset = Math.ceil(Math.random() * 480) # 8 hours
-		end_date = start_date.clone().add "minutes", offset
+		end_date = start_date.clone().add "minutes", 5
 
 		project =
 			id: idx
 			name: "DEMO"
 			startDate: start_date
 			endDate: end_date
-			color: "blue"
+			color: "rgba(255, 255, 255, 0.3)"
 			tasks: []
 		data.projects.push project
 
 	if data.projects.length > 0
-		sorted = _.sortBy data.projects, (project) ->
+		sorted_start = _.sortBy data.projects, (project) ->
 			project.startDate.unix()
 
-		start_date = sorted[0].startDate.subtract "hours", 10
+		sorted_end = _.sortBy data.projects, (project) ->
+			-project.startDate.unix()
+
+		start_date = sorted_start[0].startDate
+		end_date = sorted_end[0].endDate
+
+		timespan = end_date.diff(start_date, "days")
+		duration = if timespan > 30 then "year"
+		else if timespan > 7 then "month"
+		else if timespan > 0 then "week"
+		else
+			if end_date.diff(start_date, "hours") <= 1 then "hour" else "day"
 	else
 		start_date = null
+		duration = "year"
 
 	$("#timeline").gantt data,
+		gridColor: "rgba(255, 255, 255, 0.3)"
 		mode: "half"
 		modes:
-			half: { scale: 1, paddingX: 0, paddingY: 0, showContent: false }
+			half: { scale: 0.7, paddingX: 0, paddingY: 0.3, showContent: false }
 		position: { date: start_date }
-		view: "year"
+		showTasks: false
+		view: duration
 
 )(window.$ or window.jQuery or window.Zepto, window)

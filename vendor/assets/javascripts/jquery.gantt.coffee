@@ -2,6 +2,7 @@
 	pluginName = "gantt"
 	defaults =
 		filter: {}
+		gridColor: "#ddd"
 		mode: "regular"
 		modes:
 			regular: { scale: 2, paddingX: 2, paddingY: 1, showContent: true }
@@ -10,24 +11,38 @@
 		position: { date: null, top: 0 }
 		view: "year"
 		views:
+			hour:
+				dayOffset: 1
+				format: "hh:mm"
+				grid: { x: 50, y: 10 }
+				highlightDays: 1
+				labelEvery: "hour"
+				preloadDays: 1
+			day:
+				dayOffset: 1
+				format: "hh:mm"
+				grid: { x: 50, y: 10 }
+				highlightDays: 1
+				labelEvery: "day"
+				preloadDays: 15
 			week:
 				dayOffset: 1
 				format: "MMM DD"
-				grid: { color: "#DDD", x: 150, y: 10 }
+				grid: { x: 150, y: 10 }
 				highlightDays: 7
 				labelEvery: "day"
 				preloadDays: 60
 			month:
 				dayOffset: 3
 				format: "MMM DD"
-				grid: { color: "#DDD", x: 42, y: 10 }
+				grid: { x: 42, y: 10 }
 				highlightDays: 10
 				labelEvery: "day"
 				preloadDays: 30
 			year:
 				dayOffset: 5
 				format: "MMM"
-				grid: { color: "#DDD", x: 13, y: 10 }
+				grid: { x: 13, y: 10 }
 				highlightDays: 10
 				labelEvery: "month"
 				preloadDays: 0
@@ -39,6 +54,11 @@
 			@data = data
 			@elements = {}
 			@options = $.extend true, {}, defaults, options
+
+			if _.include ["day", "hour"], @options.view
+				@options.unit = @options.view
+			else
+				@options.unit = "days"
 
 			@init()
 
@@ -161,8 +181,8 @@
 			@daysUntilCurrent = Math.floor(@containerWidth / gridX)
 			@daysInGrid = Math.floor(@timelineWidth / gridX)
 			@curMoment = if date then moment(date) else moment()
-			@startMoment = moment(@curMoment).subtract "days", @daysUntilCurrent
-			@endMoment = moment(@startMoment).add "days", @daysInGrid
+			@startMoment = moment(@curMoment).subtract @options.unit, @daysUntilCurrent
+			@endMoment = moment(@startMoment).add @options.unit, @daysInGrid
 			@dayOffset = @view.dayOffset * gridX
 
 		setActiveProjects: =>
@@ -215,9 +235,8 @@
 			# Draw the grid image
 			# Use 0.5 to compensate for canvas pixel quirk
 			ctx.moveTo gridX - 0.5, -0.5
-			ctx.lineTo gridX - 0.5, gridY - 0.5
-			ctx.lineTo -0.5, gridY - 0.5
-			ctx.strokeStyle = view.grid.color
+			ctx.lineTo gridX - 0.5, gridY + 0.5
+			ctx.strokeStyle = @options.gridColor
 			ctx.stroke()
 
 			# Create a repeated image from canvas
@@ -258,9 +277,13 @@
 			gridX = view.grid.x
 			labels = []
 
+			previous_day = null
+
 			# Iterate over each day
-			for day in [1..@daysInGrid]
-				curMoment = moment(@startMoment).add "days", day
+			for timespan in [1..@daysInGrid]
+				moment_timespan = moment(@startMoment).clone()
+				curMoment = moment_timespan.add @options.unit, timespan
+
 				format = false
 
 				# Determine if the label should be present
@@ -270,16 +293,18 @@
 					else
 						format = view.format
 
-				if format and moment().format("YYYY") isnt curMoment.format("YYYY")
+				if format and previous_day and moment(previous_day).format("YYYY") isnt curMoment.format("YYYY")
 					format += ", YYYY"
 
 				# Create the label
 				if format
-					label = "<div class='jg-label' style='left:#{(gridX * day)}px; width:#{gridX}px'>
+					label = "<div class='jg-label' style='left:#{(gridX * timespan)}px; width:#{gridX}px'>
 						<div class='jg-#{options.view}'>#{curMoment.format format}</div>
 					</div>"
 
 					labels.push label
+
+				previous_day = curMoment
 
 			@elements.dates.append labels.join ""
 
@@ -306,8 +331,8 @@
 				# Determine the project date
 				startDate = moment.unix project.startDate
 				endDate = moment.unix project.endDate
-				daysBetween = endDate.diff(startDate, "days", true)
-				daysSinceStart = startDate.diff(@startMoment, "days", true)
+				daysBetween = endDate.diff(startDate, @options.unit, true)
+				daysSinceStart = startDate.diff(@startMoment, @options.unit, true)
 
 				# Element Attributes
 				el_width = daysBetween * gridX
@@ -416,7 +441,7 @@
 
 					# Calculate dates
 					curDayOffset = Math.round($elements.timeline.position().left / gridX)
-					startMoment = moment(that.startMoment).subtract "days", curDayOffset
+					startMoment = moment(that.startMoment).subtract @options.unit, curDayOffset
 
 					# Store heights for calculating max drag values
 					contentHeight = $elements.content.height()
@@ -453,9 +478,9 @@
 
 					# Calculate the currently selected day
 					curDayOffset = Math.round(($elements.timeline.position().left - that.dayOffset) / gridX)
-					curMoment = moment(that.startMoment).subtract "days", curDayOffset
+					curMoment = moment(that.startMoment).subtract @options.unit, curDayOffset
 
-					if moment(curMoment).subtract("days", that.view.dayOffset).format("MM DD") isnt startMoment.format("MM DD")
+					if moment(curMoment).subtract(@options.unit, that.view.dayOffset).format("MM DD") isnt startMoment.format("MM DD")
 						# Set the new day as the current moment
 						options.position.date = curMoment
 						options.position.top = $elements.content.position().top
@@ -540,7 +565,7 @@
 			for task, idx in tasks
 				size = 5
 				date = moment.unix task.date
-				daysSinceStart = date.diff(startDate, "days") + offset
+				daysSinceStart = date.diff(startDate, @options.unit) + offset
 				task_left = daysSinceStart * gridX
 
 				for n in [0...idx]

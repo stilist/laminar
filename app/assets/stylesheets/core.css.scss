@@ -41,7 +41,10 @@ body {color:#ab8876; cursor:default; font-family:museo-sans-1, museo-sans-2, "Tr
 	body {font-size:13pt;}
 	.hentry .entry-content h2 {font-size:1em; margin-bottom:25px; margin-top:52px;}
 	.hentry .entry-content h2 + p {margin-top:25px;}
-	.hentry .entry-content figure, .hentry .entry-content ol, .hentry .entry-content p, .hentry .entry-content ul {margin-bottom:26px; margin-top:26px;}
+	.hentry .entry-content figure,
+	.hentry .entry-content ol,
+	.hentry .entry-content p,
+	.hentry .entry-content ul {margin-bottom:26px; margin-top:26px;}
 	.bottom .copyright {margin-top:26px;}
 }
 @media all and (min-width:1025px) and (max-width:1399px) {
@@ -52,9 +55,10 @@ body {color:#ab8876; cursor:default; font-family:museo-sans-1, museo-sans-2, "Tr
 
 a {border-bottom:1px solid #ccc; color:#ccc; padding:1px 1px 0 1px; text-decoration:none;}
 a:hover {color:#ffa2a2;}
-abbr.smallcaps, strong {font-size:0.8em; letter-spacing:0.1em; line-height:1.25em; text-transform:uppercase;}
-address, cite {font-style:normal;}
-article, footer, header, nav, section {display:block;} /* html5 */
+abbr.smallcaps,
+strong {font-size:0.8em; letter-spacing:0.1em; line-height:1.25em; text-transform:uppercase;}
+address,
+cite {font-style:normal;}
 code {font-family:Inconsolata, Monaco, monospace; font-size:0.9em; line-height:1.6em;}
 h1 + .copy > h2:first-child {margin-top:0.9em;}
 h2 {font-weight:700; line-height:1.6em; margin:42px 0 -1px 0;}
@@ -64,55 +68,69 @@ ins:before {content:"[";}
 ins:after {content:"]"; }
 q:before {content:open-quote;}
 q:after {content:close-quote;}
-q:lang(de), q:lang(deu) {quotes:"„" "“" "‚" "‘";}
-q:lang(en), q:lang(eng) {quotes:"‘" "’" "“" "”";}
+q:lang(en),
+q:lang(eng) {quotes:"‘" "’" "“" "”";}
 q:lang(en-GB) {quotes:"‘ " " ’" "“ " " ”";}
 q:lang(en-US) {quotes: "“" "”" "‘" "’";}
-q:lang(fr), q:lang(fra) {quotes:"« " " »";}
-q:lang(ru), q:lang(rus) {quotes:"«" "»" "„" "“";}
+q:lang(fr),
+q:lang(fra) {quotes:"« " " »";}
+q:lang(ru),
+q:lang(rus) {quotes:"«" "»" "„" "“";}
 strong {font-weight:normal;}
 .clear {clear:both;}
 
-#nameplate {@include shadow(0 3px 3px 0 rgba(0, 0, 0, 0.2)); border-top:10px solid transparent; padding:20px; top:0; width:100%; z-index:10;}
+#nameplate {border-top:10px solid transparent; box-shadow:0 3px 3px 0 rgba(0, 0, 0, 0.2); padding:20px; top:0; width:100%; z-index:10;}
 #nameplate a {background:none; border-bottom:none; font-family:chaparral-pro-1,chaparral-pro-2, "Chaparral Pro", Times, "Times New Roman", serif; line-height:1em; text-transform:lowercase;}
 #nameplate #logo {font-size:40px;}
 
-#timeline {
-	background: #efefef;
-	border: 1px solid #000;
-	height: 150px;
-}
+#timeline {background: rgba(255, 255, 255, 0.1); height: 150px; position:relative; z-index:2;}
+#timeline .jg-viewport .jg-scrub {display:none;}
+#timeline .jg-viewport .jg-scrub-timeframe {display:none;}
+#timeline .jg-viewport .jg-header-dates {border-bottom:none; box-shadow:inset 0 -1px 0 rgba(255, 255, 255, 0.2);}
+#timeline .jg-viewport .jg-label {font-size:0.6em;}
+#timeline .jg-content .jg-project {min-width:6px; position:absolute;}
+#timeline .jg-content .jg-project .jg-data {border-radius:6px; height:100%;}
 
 .hfeed {position:relative; z-index:5;}
 .hentry {@include vertical_gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.0)); box-shadow:inset 0 1px 0 rgba(255, 255, 255, 0.1), inset 0 -1px 0 rgba(0, 0, 0, 0.15); min-height:45px; padding:10px 45px 10px 10px; position:relative;}
-.hentry + .hentry {@include shadow(inset 0 1px 0 0 rgba(255, 255, 255, 0.2), inset 0 -1px 0 0 rgba(0, 0, 0, 0.2));}
+.hentry + .hentry {box-shadow:inset 0 1px 0 0 rgba(255, 255, 255, 0.2), inset 0 -1px 0 0 rgba(0, 0, 0, 0.2);}
 .hentry blockquote {border-left:1px solid #fff; border-right:1px solid #fff; margin:0 auto; max-width:500px; padding:0 10px;}
-.hentry figure, .hentry ol, .hentry p, .hentry ul {clear:both; margin:22px 0;}
+.hentry figure,
+.hentry ol,
+.hentry p,
+.hentry ul {clear:both; margin:22px 0;}
 .hentry .entry-title {font-weight:normal; line-height:1.9em;}
 .hentry .entry-title {word-wrap:break-word;}
 .hentry .entry-title a {border:none; margin-left:-1px;}
-.hentry .entry-title code, h2 code {font-size:inherit;}
+.hentry .entry-title code,
+h2 code {font-size:inherit;}
 .hentry .entry-content { margin-top:13px; word-wrap:break-word;}
-.hentry .entry-content > figure:first-child, .hentry .entry-content > p:first-child, .hentry .entry-content > blockquote:first-child > p:first-child {margin-top:9px;}
+.hentry .entry-content > figure:first-child,
+.hentry .entry-content > p:first-child,
+.hentry .entry-content > blockquote:first-child > p:first-child {margin-top:9px;}
 .hentry .entry-content img {display:inline-block; margin:0 auto; max-width:100%;}
 .hentry .entry-content a img {background-color:#371d10; border:2px solid #c12d2d;}
 .hentry .entry-content pre {margin-bottom:-1px; padding-top:1px;}
-.hentry .keywords, .hentry .keywords li {display:inline;}
+.hentry .keywords,
+.hentry .keywords li {display:inline;}
 .hentry .keywords {line-height:1.55em; list-style:none;}
 .hentry .keywords li {float:right; margin-left:0.5em;}
 .hentry .meta {line-height:1em;}
 .hentry .meta .updated {font-size:0.8em; line-height:1.55em;}
 .hentry .meta .observation .icon {background-size:15px 15px; display:inline-block; height:15px; margin-bottom:-2px; width:15px;}
 .hentry .entry-content ol {list-style:decimal inside;}
-.hentry .permalink {@include global_sprite; @include transition(opacity 0.05s linear); border-bottom:none; bottom:15px; display:block; height:10px; position:absolute; opacity:0.5; right:10px; width:20px;}
+.hentry .permalink {@include global_sprite(0, 0); @include transition(opacity 0.05s linear); border-bottom:none; bottom:15px; display:block; height:10px; position:absolute; opacity:0.5; right:10px; width:20px;}
 .hentry:hover .permalink {opacity:1;}
 .hentry.full_view {min-height:120px;}
 
-.avatar {@include round(3); @include shadow(inset 0 1px 1px rgba(255, 255, 255, 0.2), inset 0 1px rgba(0, 0, 0, 0.2)); background-repeat:no-repeat; background-size:15px 15px; display:inline-block; height:15px; width:15px;}
+.avatar {background-repeat:no-repeat; background-size:15px 15px; border-radius:3px; box-shadow:inset 0 1px 1px rgba(255, 255, 255, 0.2), inset 0 1px rgba(0, 0, 0, 0.2); display:inline-block; height:15px; width:15px;}
 
-.album, .book, .film, .game, .magazine, .newspaper, .programme {font-style:italic;}
+.album,
+.book,
+.film,
+.game,
+.magazine,
+.newspaper,
+.programme {font-style:italic;}
 
-.pagination {@include shadow(0 -3px 3px 0 rgba(0, 0, 0, 0.2)); bottom:0; padding:20px 0; text-align:center; width:100%; z-index:10;}
-
-.bottom {margin-top:5.05em;}
-.bottom .copyright {margin-top:22px;}
+.pagination {box-shadow:0 -3px 3px 0 rgba(0, 0, 0, 0.2); bottom:0; padding:20px 0; text-align:center; width:100%; z-index:10;}
