@@ -1,7 +1,41 @@
 namespace :withings do
 	task :data do ; get_withings_data end
 
+	task :static_heart_local do
+		items = preprocess_heart_data
+		Laminar.put_static_data ENV["WITHINGS_HEART_FILENAME"], items
+	end
+	task :static_heart_remote do
+		items = Laminar.get_static_data ENV["WITHINGS_STATIC_HEART_URL"]
+		Laminar.add_items "withings", "heart", items
+	end
+
 	private
+
+	def preprocess_heart_data
+		require "csv"
+
+		out = []
+
+		CSV.foreach("sources/withings_heart.csv", headers: :first_row) do |row|
+			time = Time.parse("#{row["DATE"]} #{row["HOUR"]}")
+			original_id = "#{row["PSEUDO"]}-#{time.to_i}"
+
+			out << {
+				created_at: time.iso8601,
+				updated_at: time.iso8601,
+				original_id: original_id,
+				data: {
+					systolic: row["SYSTOL"].to_i,
+					diastolic: row["DIASTOL"].to_i,
+					pulse: row["PULSE"].to_i,
+					comment: row["COMMENT"]
+				}
+			}
+		end
+
+		out
+	end
 
 	def get_withings_data backfill=false
 		client = LWithing.client

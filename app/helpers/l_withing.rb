@@ -28,6 +28,32 @@ module LWithing
 		out
 	end
 
+	def self.blood_pressure value=0, type=nil
+		# http://www.bloodpressureuk.org/BloodPressureandyou/Thebasics/Bloodpressurechart
+		if type == :diastolic
+			range = case value.to_i
+			when 0..60 then :low
+			when 61..80 then :normal
+			when 81..90 then :high_normal
+			else :high
+			end
+		elsif type == :systolic
+			range = case value.to_i
+			when 0..90 then :low
+			when 101..120 then :normal
+			when 121..140 then :high_normal
+			else :high
+			end
+		else range = nil
+		end
+
+		if range
+			"#{value} <span class='heart_dot range-#{range}'></span>"
+		else
+			value
+		end
+	end
+
 	def self.height data=[], imperial=false
 		if data.empty? then nil
 		else

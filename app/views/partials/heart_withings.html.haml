@@ -1,0 +1,20 @@
+:ruby
+	item = locals["data"]
+	if item["measures"]
+		data = LWithing.height eval(item["measures"]), true
+	else
+		data = item
+	end
+
+	diastolic = LWithing.blood_pressure data["diastolic"], :diastolic
+	systolic = LWithing.blood_pressure data["systolic"], :systolic
+
+%h1.entry-title
+	recorded a blood pressure of
+	#{systolic}/#{diastolic}
+	= succeed "," do
+		%abbr{ title: "millimetres of mercury" }>
+			mmHg
+	with a pulse of #{data["pulse"]}
+	%abbr.smallcaps{ title: "beats per minute" }
+		BPM

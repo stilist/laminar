@@ -133,4 +133,10 @@ h2 code {font-size:inherit;}
 .newspaper,
 .programme {font-style:italic;}
 
+.heart_dot {border:1px solid #fff; border-radius:10px; display:inline-block; height:7px; position:relative; top:-1px; width:7px;}
+.heart_dot.range-low {background-color:#872ef8;}
+.heart_dot.range-normal {background-color:#00ae19;}
+.heart_dot.range-high_normal {background-color:#cbf900;}
+.heart_dot.range-high {background-color:#f00;}
+
 .pagination {box-shadow:0 -3px 3px 0 rgba(0, 0, 0, 0.2); bottom:0; padding:20px 0; text-align:center; width:100%; z-index:10;}
