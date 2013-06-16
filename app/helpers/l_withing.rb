@@ -10,9 +10,9 @@ module LWithing
 
 	def self.heart data=[]
 		out = {
-			diastolic: nil,
-			pulse: nil,
-			systolic: nil
+			"diastolic" => nil,
+			"pulse" => nil,
+			"systolic" => nil
 		}
 
 		data.each do |measure|
