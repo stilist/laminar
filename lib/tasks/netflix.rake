@@ -2,24 +2,13 @@
 
 namespace :netflix do
 	task :static_ratings_local do
-		begin
-			items = process_review_data
-			upload_netflix_remote items
-		rescue => e
-			puts "Netflix processing failed:"
-			puts e
-		end
+		items = process_review_data
+		upload_to_remote ENV["NETFLIX_RATINGS_FILENAME"], items
 	end
 
 	task :static_ratings_remote do
-		begin
-			items = fetch_netflix_json
-
-			add_netflix_items items, "review"
-		rescue => e
-			puts "Netflix import failed:"
-			puts e
-		end
+		items = Laminar.get_static_data ENV["NETFLIX_STATIC_RATINGS_URL"]
+		add_netflix_items items, "review"
 	end
 
 	private
@@ -65,36 +54,6 @@ namespace :netflix do
 		out
 	end
 
-	def upload_netflix_remote items
-		storage = Fog::Storage.new({
-			provider: ENV["FOG_PROVIDER"],
-			aws_access_key_id: ENV["AWS_ACCESS_KEY_ID"],
-			aws_secret_access_key: ENV["AWS_SECRET_ACCESS_KEY"]
-		})
-
-		directory = storage.directories.get ENV["FOG_DIRECTORY"]
-		file = directory.files.get ENV["NETFLIX_RATINGS_FILENAME"]
-
-		json = items.to_json
-
-		if file
-			file.body = json
-			file.public = true
-		else
-			file = directory.files.create({
-				key: ENV["NETFLIX_RATINGS_FILENAME"],
-				body: json,
-				public: true
-			})
-			puts "export NETFLIX_STATIC_RATINGS_URL=#{file.public_url}"
-		end
-
-		file.save
-	rescue => e
-		puts "Failed to upload data:"
-		puts e
-	end
-
 	def add_netflix_items items, activity_type
 		total = items.length
 
@@ -117,20 +76,5 @@ namespace :netflix do
 		ensure
 			ActiveRecord::Base.record_timestamps = true
 		end
-	end
-
-	def fetch_netflix_json
-		unless ENV["NETFLIX_STATIC_RATINGS_URL"]
-			puts "Please set the NETFLIX_STATIC_RATINGS_URL environment variable"
-			puts "e.g. export NETFLIX_STATIC_RATINGS_URL=http://foobar.s3.amazonaws.com/netflix_ratings.json"
-			abort
-		end
-
-		data = open(ENV["NETFLIX_STATIC_RATINGS_URL"]).read
-		JSON.parse data
-	rescue OpenURI::HTTPError => e
-		abort "Unable to fetch data from NETFLIX_STATIC_RATINGS_URL"
-	rescue => e
-		abort e
 	end
 end

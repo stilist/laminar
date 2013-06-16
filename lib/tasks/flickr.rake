@@ -1,11 +1,11 @@
 namespace :flickr do
 	task :static_favorites do
-		items = fetch_flickr_data ENV["FLICKR_STATIC_FAVORITES_URL"]
+		items = Laminar.get_static_data ENV["FLICKR_STATIC_FAVORITES_URL"]
 		add_flickr_favorites items, "favorite"
 	end
 
 	task :static_photos do
-		items = fetch_flickr_data ENV["FLICKR_STATIC_PHOTOS_URL"]
+		items = Laminar.get_static_data ENV["FLICKR_STATIC_PHOTOS_URL"]
 		add_flickr_photos items, "photo"
 	end
 
@@ -73,14 +73,5 @@ namespace :flickr do
 		ensure
 			ActiveRecord::Base.record_timestamps = true
 		end
-	end
-
-	def fetch_flickr_data url=""
-		data = open(url).read
-		JSON.parse data
-	rescue OpenURI::HTTPError => e
-		abort "Unable to fetch data from #{url}"
-	rescue => e
-		abort e
 	end
 end

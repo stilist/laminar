@@ -18,24 +18,13 @@ namespace :twitter do
 	end
 
 	task :static_tweets_local do
-		begin
-			items = process_tweet_data
-			upload_twitter_remote items
-		rescue => e
-			puts "Twitter processing failed:"
-			puts e
-		end
+		items = process_tweet_data
+		upload_to_remote ENV["TWITTER_TWEETS_FILENAME"], items
 	end
 
 	task :static_tweets_remote do
-		begin
-			items = fetch_twitter_json
-
-			add_items items, "post"
-		rescue => e
-			puts "Twitter import failed:"
-			puts e
-		end
+		items = Laminar.get_static_data ENV["TWITTER_STATIC_TWEETS_URL"]
+		add_items items, "post"
 	end
 
 	private

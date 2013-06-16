@@ -78,6 +78,57 @@ module Laminar
 		Hash === h ? Hash[h.map { |k, v| [k.to_s, Laminar.sym2s(v)] }] : h
 	end
 
+	def self.get_static_data uri=""
+		if uri.blank?
+			puts "       Laminar.get_static_data was called with a blank URI"
+			abort
+		end
+
+		data = open(uri).read
+		JSON.parse data
+	rescue OpenURI::HTTPError => e
+		puts "       Laminar.get_static_data was unable to fetch data"
+		puts "       (called with: #{uri})"
+		abort
+	rescue => e
+		abort e
+	end
+
+	def self.put_static_data filename="", data={}
+		if filename.blank?
+			puts "       Laminar.put_static_data was called with a blank filename"
+			abort
+		end
+
+		storage = Fog::Storage.new({
+			provider: ENV["FOG_PROVIDER"],
+			aws_access_key_id: ENV["AWS_ACCESS_KEY_ID"],
+			aws_secret_access_key: ENV["AWS_SECRET_ACCESS_KEY"]
+		})
+
+		directory = storage.directories.get ENV["FOG_DIRECTORY"]
+		file = directory.files.get filename
+		json = data.to_json
+
+		if file
+			file.body = json
+			file.public = true
+		else
+			file = directory.files.create({
+				key: filename,
+				body: json,
+				public: true
+			})
+		end
+
+		file.save
+
+		file
+	rescue => e
+		puts "       Failed to upload data:"
+		puts e
+	end
+
 	private
 
 	def calculate_hsl data, observations=nil

@@ -16,7 +16,7 @@ namespace :sleep_cycle do
 			db = SQLite3::Database.new "sources/sleep_cycle.sqlite"
 
 			items = process_sleep_data db
-			upload_to_remote items
+			upload_to_remote ENV["SLEEP_CYCLE_FILENAME"], items
 		rescue => e
 			puts "Sleep Cycle processing failed:"
 			puts e
@@ -24,14 +24,8 @@ namespace :sleep_cycle do
 	end
 
 	task :remote do
-		begin
-			items = fetch_sleep_json
-
-			add_sleep_cycle_items items, "sleep"
-		rescue => e
-			puts "Sleep Cycle import failed:"
-			puts e
-		end
+		items = Laminar.get_static_data ENV["SLEEP_CYCLE_URL"]
+		add_sleep_cycle_items items, "sleep"
 	end
 
 	private
@@ -88,34 +82,10 @@ namespace :sleep_cycle do
 	end
 
 	def upload_to_remote items
-		storage = Fog::Storage.new({
-			provider: ENV["FOG_PROVIDER"],
-			aws_access_key_id: ENV["AWS_ACCESS_KEY_ID"],
-			aws_secret_access_key: ENV["AWS_SECRET_ACCESS_KEY"]
-		})
+		puts "-----> Sleep Cycle: uploading #{items.length} item(s)"
 
-		directory = storage.directories.get ENV["FOG_DIRECTORY"]
-
-		file = directory.files.get ENV["SLEEP_CYCLE_FILENAME"]
-
-		json = items.to_json
-
-		if file
-			file.body = json
-			file.public = true
-		else
-			file = directory.files.create({
-				key: ENV["SLEEP_CYCLE_FILENAME"],
-				body: json,
-				public: true
-			})
-			puts "export SLEEP_CYCLE_URL=#{file.public_url}"
-		end
-
-		file.save
-	rescue => e
-		puts "Failed to upload data:"
-		puts e
+		file = Laminar.put_static_data ENV["SLEEP_CYCLE_FILENAME"], items
+		puts "export SLEEP_CYCLE_URL=#{file.public_url}"
 	end
 
 	def add_sleep_cycle_items items, activity_type
@@ -150,20 +120,5 @@ namespace :sleep_cycle do
 		ensure
 			ActiveRecord::Base.record_timestamps = true
 		end
-	end
-
-	def fetch_sleep_json
-		unless ENV["SLEEP_CYCLE_URL"]
-			puts "Please set the SLEEP_CYCLE_URL environment variable"
-			puts "e.g. export SLEEP_CYCLE_URL=http://foobar.s3.amazonaws.com/sleep_cycle.json"
-			abort
-		end
-
-		data = open(ENV["SLEEP_CYCLE_URL"]).read
-		JSON.parse data
-	rescue OpenURI::HTTPError => e
-		abort "Unable to fetch database from SLEEP_CYCLE_URL"
-	rescue => e
-		abort e
 	end
 end
