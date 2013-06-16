@@ -1,11 +1,13 @@
-- item = locals["data"]
-- payload = eval item["payload"]
-- repo = eval item["repo"]
+:ruby
+	item = locals["data"]
+	payload = eval item["payload"]
+	repo = eval item["repo"]
 
 %h1.entry-title
 	= payload["action"]
 	%a{ href: payload["issue"]["html_url"] }
 		issue ##{payload["issue"]["number"]}
+		(#{payload["issue"]["title"]})
 	on
 	= succeed "’s" do
 		- owner = LGithub.repo_owner item
@@ -14,9 +16,3 @@
 	repository
 	%a{ href: LGithub.sanitize_url(repo["url"]) }
 		= repo["name"]
-
-- if locals["extras"]["full_view"]
-	%section.entry-content
-		%p
-			%blockquote
-				= payload["issue"]["title"]

@@ -1,0 +1,21 @@
+:ruby
+	item = locals["data"]
+	repo = eval item["repo"]
+	payload = eval item["payload"]
+
+	repo_url = LGithub.sanitize_url(repo["url"])
+	pull_request_url = payload["pull_request"]["html_url"]
+
+%h1.entry-title
+	opened the pull request
+	%a{ href: pull_request_url }
+		= payload["pull_request"]["title"]
+	on the repository
+	%a{ href: repo_url }
+		= repo["name"]
+
+- if locals["extras"]["full_view"]
+	%section.entry-content
+		%blockquote
+			%p
+				= markdown payload["pull_request"]["body"]

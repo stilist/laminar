@@ -1,0 +1,15 @@
+:ruby
+	item = locals["data"]
+	repo = eval item["repo"]
+	payload = eval item["payload"]
+
+	repo_url = LGithub.sanitize_url(repo["url"])
+	branch_url = "#{repo_url}/tree/#{payload["ref"]}"
+
+%h1.entry-title
+	created the
+	%a{ href: branch_url }
+		= payload["ref"]
+	branch on the repository
+	%a{ href: repo_url }
+		= repo["name"]
