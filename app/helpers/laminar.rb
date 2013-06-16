@@ -129,11 +129,13 @@ module Laminar
 		abort e
 	end
 
-	def self.put_static_data filename="", data={}
+	def self.put_static_data filename="", data=[]
 		if filename.blank?
 			puts "       Laminar.put_static_data was called with a blank filename"
 			abort
 		end
+
+		puts "       Uploading #{data.length} item(s) to #{filename}"
 
 		storage = Fog::Storage.new({
 			provider: ENV["FOG_PROVIDER"],
