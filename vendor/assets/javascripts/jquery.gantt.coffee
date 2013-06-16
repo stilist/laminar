@@ -306,11 +306,11 @@
 				# Determine the project date
 				startDate = moment.unix project.startDate
 				endDate = moment.unix project.endDate
-				daysBetween = endDate.diff(startDate, "days") + 1
-				daysSinceStart = startDate.diff(@startMoment, "days") + 1
+				daysBetween = endDate.diff(startDate, "days", true)
+				daysSinceStart = startDate.diff(@startMoment, "days", true)
 
 				# Element Attributes
-				el_width = daysBetween * gridX - 1
+				el_width = daysBetween * gridX
 				el_left = daysSinceStart * gridX
 
 				# For determining top offset
