@@ -39,6 +39,8 @@ namespace :sleep_cycle do
 		db.results_as_hash = true
 		sessions = db.execute("select * from ZSLEEPSESSION")
 
+		puts "       Processing #{sessions.length} sleep session(s)"
+
 		sessions.reverse.each do |session|
 			session_id = session["Z_PK"]
 
