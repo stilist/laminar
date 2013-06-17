@@ -14,7 +14,7 @@
 			hour:
 				dayOffset: 1
 				format: "h:mm a"
-				grid: { x: 50, y: 10 }
+				grid: { x: 150, y: 10 }
 				highlightDays: 1
 				labelEvery: "minute"
 				preloadDays: 1
@@ -23,8 +23,8 @@
 				format: "h:mm a"
 				grid: { x: 50, y: 10 }
 				highlightDays: 1
-				labelEvery: "hour"
-				preloadDays: 15
+				labelEvery: "minute"
+				preloadDays: 1
 			week:
 				dayOffset: 1
 				format: "MMM DD"
