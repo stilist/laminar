@@ -12,8 +12,12 @@ module Weather
 
 		start_date, end_date = end_date, start_date if start_date > end_date
 
-		WeatherObservation.where("created_at >= ?", start_date).
+		results = WeatherObservation.where("created_at >= ?", start_date).
 				where("created_at <= ?", end_date).order("created_at ASC").all
+
+		results = [Weather.nearest_observation(end_date, [])] if results.empty?
+
+		results
 	end
 
 	def self.nearest_observation date=Time.now, prefetched=[]
