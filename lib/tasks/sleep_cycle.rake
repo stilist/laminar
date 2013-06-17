@@ -19,7 +19,7 @@ namespace :sleep_cycle do
 			puts "-----> Sleep Cycle: processing data"
 
 			items = process_sleep_data db
-			upload_to_remote ENV["SLEEP_CYCLE_FILENAME"], items
+			Laminar.put_static_data ENV["SLEEP_CYCLE_FILENAME"], items
 		rescue => e
 			puts "Sleep Cycle processing failed:"
 			puts e
@@ -82,13 +82,6 @@ namespace :sleep_cycle do
 		time_base = DateTime.new 2001, 01, 01, 0, 0, 0
 
 		Time.at(time_base.to_time + time).iso8601
-	end
-
-	def upload_to_remote items
-		puts "-----> Sleep Cycle: uploading #{items.length} item(s)"
-
-		file = Laminar.put_static_data ENV["SLEEP_CYCLE_FILENAME"], items
-		puts "export SLEEP_CYCLE_URL=#{file.public_url}"
 	end
 
 	def add_sleep_cycle_items items, activity_type
