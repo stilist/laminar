@@ -441,7 +441,7 @@
 
 					# Calculate dates
 					curDayOffset = Math.round($elements.timeline.position().left / gridX)
-					startMoment = moment(that.startMoment).subtract @options.unit, curDayOffset
+					startMoment = moment(that.startMoment).subtract options.unit, curDayOffset
 
 					# Store heights for calculating max drag values
 					contentHeight = $elements.content.height()
@@ -478,9 +478,9 @@
 
 					# Calculate the currently selected day
 					curDayOffset = Math.round(($elements.timeline.position().left - that.dayOffset) / gridX)
-					curMoment = moment(that.startMoment).subtract @options.unit, curDayOffset
+					curMoment = moment(that.startMoment).subtract options.unit, curDayOffset
 
-					if moment(curMoment).subtract(@options.unit, that.view.dayOffset).format("MM DD") isnt startMoment.format("MM DD")
+					if moment(curMoment).subtract(options.unit, that.view.dayOffset).format("MM DD") isnt startMoment.format("MM DD")
 						# Set the new day as the current moment
 						options.position.date = curMoment
 						options.position.top = $elements.content.position().top
