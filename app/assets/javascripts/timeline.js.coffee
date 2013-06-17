@@ -5,11 +5,10 @@
 		tasks: []
 
 	# Create some fake data
-	for raw_date, idx in timeline_dates
-		start_date = moment raw_date
-
-		# TEMP
-		end_date = start_date.clone().add "minutes", 5
+	for raw_dates, idx in timeline_dates
+		[raw_start, raw_end] = raw_dates
+		start_date = moment raw_start
+		end_date = moment raw_end
 
 		project =
 			id: idx
@@ -30,12 +29,16 @@
 		start_date = sorted_start[0].startDate
 		end_date = sorted_end[0].endDate
 
-		timespan = end_date.diff(start_date, "days")
+		timespan = end_date.diff start_date, "days"
 		duration = if timespan > 30 then "year"
 		else if timespan > 7 then "month"
 		else if timespan > 0 then "week"
 		else
-			if end_date.diff(start_date, "hours") <= 1 then "hour" else "day"
+			visible_hours = Math.floor($(window).width() / 150)
+			if end_date.diff(start_date, "hours") <= (visible_hours * 20)
+				"hour"
+			else
+				"day"
 	else
 		start_date = null
 		duration = "year"
