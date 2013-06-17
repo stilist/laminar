@@ -53,7 +53,7 @@
 	# bump `luminance` to keep enough contrast at night
 	color = ColorMath::HSL.new hue, 1, (luminance + 0.2)
 	time_color = color.hex
-	active_time_color = ColorMath::Adjust.luminance(color, 0.3).hex
+	active_time_color = ColorMath::Adjust.luminance(color, 0.2).hex
 
 :css
 	#nameplate {border-top-color:#{time_color};}

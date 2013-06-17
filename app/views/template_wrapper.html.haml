@@ -33,17 +33,3 @@
 			include_private = key && key == ENV["PRIVATE_DATA_KEY"]
 			url << "?private_data_key=#{key}" if include_private
 		%a.permalink{ href: url, rel: "bookmark" }
-
-:ruby
-	hsl = item_hsl locals, false
-	color = ColorMath::HSL.new *hsl
-
-	lum = 1 - hsl[2]
-	if (0.33..0.66).include? lum
-		lum = (lum > 0.50) ? (lum - 0.25) : (lum + 0.25)
-	end
-
-	link_color = ColorMath::Adjust.luminance(color, lum).hex
-
-:css
-	#item_#{locals["id"]} a { border-bottom-color: #{link_color}; color: #{link_color}; }
