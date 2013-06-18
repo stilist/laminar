@@ -10,6 +10,8 @@
 
 		%nav#timeline
 
+		= haml Laminar.source_template(@source), { layout: false }
+
 		#content.hfeed
 			= yield
 

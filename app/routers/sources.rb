@@ -4,6 +4,7 @@ App.configure do |app|
 
 		activities = Laminar.activities params
 		@items = activities.where(source: params[:name]).all
+		@source = params[:name]
 
 		if !@items.empty?
 			@permalink = "/sources/#{params[:name]}"

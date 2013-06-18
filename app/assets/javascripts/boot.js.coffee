@@ -1,5 +1,7 @@
+#= depend_on ./map
 #= depend_on ./timeline
 
+#= require ./map
 #= require ./timeline
 
 (($, window) -> $ ->
