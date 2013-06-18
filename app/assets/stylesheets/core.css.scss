@@ -79,9 +79,9 @@ q:lang(rus) {quotes:"«" "»" "„" "“";}
 strong {font-weight:normal;}
 .clear {clear:both;}
 
-#nameplate {border-top:10px solid transparent; box-shadow:0 3px 3px 0 rgba(0, 0, 0, 0.2); padding:20px; top:0; width:100%; z-index:10;}
+#nameplate {border-top:10px solid transparent; box-shadow:0 3px 3px 0 rgba(0, 0, 0, 0.2); top:0; width:100%; z-index:10;}
 #nameplate a {background:none; border-bottom:none; font-family:chaparral-pro-1,chaparral-pro-2, "Chaparral Pro", Times, "Times New Roman", serif; line-height:1em; text-transform:lowercase;}
-#nameplate #logo {font-size:40px;}
+#nameplate #logo {display:block; font-size:40px; margin:20px;}
 
 #timeline {background: rgba(255, 255, 255, 0.1); height: 150px; position:relative; z-index:2;}
 #timeline .jg-viewport .jg-scrub {display:none;}
