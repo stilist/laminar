@@ -6,11 +6,11 @@ App.configure do |app|
 		activities = Laminar.activities params
 		@items = activities.all
 
-		observations = Weather.prefetch @items.first.created_at, @items.last.created_at
-		extras = {
-			"full_view" => false,
-			"observations" => observations
-		}
+		extras = { "full_view" => false }
+		unless @items.empty?
+			observations = Weather.prefetch @items.first.created_at, @items.last.created_at
+			extras.merge!({ "observations" => observations })
+		end
 
 		extras["private_data_key"] = params[:private_data_key]
 		page_out @items, 200, extras
