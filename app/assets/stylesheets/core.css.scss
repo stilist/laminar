@@ -21,7 +21,6 @@ body {color:#808080; cursor:default; font-family:museo-sans-1, museo-sans-2, "Tr
 }
 @media all and (max-width:640px) {
 	#nameplate {position:relative;}
-	.bottom {margin-left:25px; margin-right:25px;}
 }
 /* *** 640px+ *** */
 @media all and (min-width:641px) {
@@ -45,7 +44,6 @@ body {color:#808080; cursor:default; font-family:museo-sans-1, museo-sans-2, "Tr
 	.hentry .entry-content ol,
 	.hentry .entry-content p,
 	.hentry .entry-content ul {margin-bottom:26px; margin-top:26px;}
-	.bottom .copyright {margin-top:26px;}
 }
 @media all and (min-width:1025px) and (max-width:1399px) {
 }
