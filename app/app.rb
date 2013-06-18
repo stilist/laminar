@@ -34,6 +34,7 @@ class App < Sinatra::Base
 
 		set :root, File.dirname(__FILE__)
 		set :activity_templates, self.get_templates("activity")
+		set :source_templates, self.get_templates("source")
 
 		Instagram.configure do |config|
 			config.client_id = ENV["INSTAGRAM_APP_KEY"]

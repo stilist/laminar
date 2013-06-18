@@ -30,6 +30,14 @@ module Laminar
 		out.page params[:page]
 	end
 
+	def self.source_template source="", items=[]
+		if !source.blank? && App.source_templates[source]
+			App.source_templates[source].to_sym
+		else
+			""
+		end
+	end
+
 	def markdown text=""
 		markdown = Redcarpet::Markdown.new Redcarpet::Render::HTML, autolink: true
 
