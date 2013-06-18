@@ -8,7 +8,7 @@ class Activity < ActiveRecord::Base
 	serialize :data, ActiveRecord::Coders::Hstore
 
 	# will_paginate
-	self.per_page = 20
+	self.per_page = 50
 
 	def for_json recurse=true
 		data = self.attributes
