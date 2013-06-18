@@ -17,9 +17,9 @@ module LWithing
 
 		data.each do |measure|
 			measure_type = case measure["type"]
-			when Withings::Api::Constants::DIASTOLIC_BLOOD_PRESSURE then :diastolic
-			when Withings::Api::Constants::HEART_PULSE then :pulse
-			when Withings::Api::Constants::SYSTOLIC_BLOOD_PRESSURE then :systolic
+			when Withings::Api::Constants::DIASTOLIC_BLOOD_PRESSURE then "diastolic"
+			when Withings::Api::Constants::HEART_PULSE then "pulse"
+			when Withings::Api::Constants::SYSTOLIC_BLOOD_PRESSURE then "systolic"
 			end
 
 			out[measure_type] = self.calculate_value(measure) if measure_type
@@ -65,16 +65,16 @@ module LWithing
 
 	def self.weight data=[], imperial=false
 		out = {
-			bmi: nil,
-			lean_mass: nil,
-			weight: nil
+			"bmi" => nil,
+			"lean_mass" => nil,
+			"weight" => nil
 		}
 
 		data.each do |measure|
 			measure_type = case measure["type"]
-			when Withings::Api::Constants::FAT_RATIO then :fat_ratio
-			when Withings::Api::Constants::FAT_MASS then :lean_mass
-			when Withings::Api::Constants::WEIGHT then :weight
+			when Withings::Api::Constants::FAT_RATIO then "fat_ratio"
+			when Withings::Api::Constants::FAT_MASS then "lean_mass"
+			when Withings::Api::Constants::WEIGHT then "weight"
 			end
 
 			if measure_type

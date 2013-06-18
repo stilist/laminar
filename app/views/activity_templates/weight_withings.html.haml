@@ -3,8 +3,8 @@
 	data = LWithing.weight eval(item["measures"]), true
 
 %h1.entry-title
-	weighed in at #{data[:weight].round 1}
+	weighed in at #{data["weight"].round 1}
 	%abbr{ title: "pounds" }
 		lbs
-	- if data[:fat_ratio]
-		(#{data[:fat_ratio].round 1}% body fat)
+	- if data["fat_ratio"]
+		(#{data["fat_ratio"].round 1}% body fat)
