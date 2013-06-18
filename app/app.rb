@@ -12,19 +12,19 @@ class App < Sinatra::Base
 	require_relative "helpers/json_api"
 	helpers Sinatra::JsonApi
 
-	def self.get_templates
-		template_path = File.join(root, "views/partials")
+	def self.get_templates type=""
+		template_path = File.join(root, "views/#{type}_templates")
 		templates = {}
 
 		Dir.chdir(template_path) do
 			Dir.glob("*.haml").each do |path|
 				name = path.split(".")[0]
 				# Allows for `templates["foo"] || nil`, vs a series of `.include?`
-				templates.merge!({ name => "partials/#{name}" })
+				templates.merge!({ name => "#{type}_templates/#{name}" })
 			end
 		end
 
-		puts " * #{templates.length} template(s)"
+		puts " * #{templates.length} #{type} template(s)"
 
 		templates
 	end
@@ -33,7 +33,7 @@ class App < Sinatra::Base
 		use Rack::Deflater
 
 		set :root, File.dirname(__FILE__)
-		set :templates, self.get_templates
+		set :activity_templates, self.get_templates("activity")
 
 		Instagram.configure do |config|
 			config.client_id = ENV["INSTAGRAM_APP_KEY"]

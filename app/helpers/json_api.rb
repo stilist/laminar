@@ -132,8 +132,9 @@ module Sinatra
 			type = data["activity_type"]
 			source = data["source"]
 
-			template = App.templates["#{type}_#{source}"] ||
-					App.templates["#{source}"] || App.templates["generic"] || ""
+			template = App.activity_templates["#{type}_#{source}"] ||
+					App.activity_templates[source] ||
+					App.activity_templates["generic"] || ""
 
 			locals = data.merge({ "template" => template, "extras" => extras })
 
