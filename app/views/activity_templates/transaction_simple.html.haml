@@ -1,0 +1,18 @@
+:ruby
+	item = locals["data"]
+	amount = sprintf "%0.02f", (eval(item["amounts"])["amount"] / 10000.0)
+
+%h1.entry-title
+	- if item["bookkeeping_type"] == "debit"
+		spent $#{amount} at
+	- else
+		got $#{amount} from
+	= item["description"]
+
+- if locals["extras"]["full_view"]
+	%section.entry-content
+		%blockquote
+			%p
+				-# TODO microformat geo
+				- geo = eval item["geo"]
+				#{geo["street"]} #{geo["city"]}, #{geo["state"]}
