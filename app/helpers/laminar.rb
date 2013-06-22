@@ -95,29 +95,33 @@ module Laminar
 		puts
 		puts "-----> #{source}: processing #{total} #{activity_type} item(s)"
 
-		begin
-			ActiveRecord::Base.record_timestamps = false
-			items.each_with_index do |item, idx|
-				puts "       #{source}/#{activity_type}: #{item["original_id"]} [#{idx + 1}/#{total}]"
+		if total > 0
+			ids = Activity.unscoped.where(source: source).
+					where(activity_type: activity_type).select("original_id").
+					map { |activity| activity.original_id }
 
-				existing = Activity.unscoped.where(source: source).
-						where(activity_type: activity_type).
-						where(original_id: item["original_id"]).count
+			begin
+				ActiveRecord::Base.record_timestamps = false
+				items.each_with_index do |item, idx|
+					puts "       #{source}/#{activity_type}: #{item["original_id"]} [#{idx + 1}/#{total}]"
 
-				if existing == 0
-					item.merge!({
-						source: source,
-						activity_type: activity_type
-					})
+					existing = ids.index item["original_id"]
 
-					Activity.create item
+					unless existing
+						item.merge!({
+							source: source,
+							activity_type: activity_type
+						})
+
+						Activity.create item
+					end
 				end
+			rescue => e
+				puts "       Failed to add data:"
+				puts e
+			ensure
+				ActiveRecord::Base.record_timestamps = true
 			end
-		rescue => e
-			puts "       Failed to add data:"
-			puts e
-		ensure
-			ActiveRecord::Base.record_timestamps = true
 		end
 	end
 
