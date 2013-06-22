@@ -26,26 +26,27 @@ namespace :sleep_cycle do
 
 	task :remote do
 		items = Laminar.get_static_data ENV["SLEEP_CYCLE_URL"]
-		add_sleep_cycle_items items, "sleep"
+		Laminar.add_items "sleep_cycle", "sleep", items
 	end
 
 	private
 
 	def process_sleep_data db
-		sleep_sessions = []
+		out = []
 
 		db.results_as_hash = true
 		sessions = db.execute("select * from ZSLEEPSESSION")
 
 		puts "       Processing #{sessions.length} sleep session(s)"
 
-		sessions.reverse.each do |session|
+		sessions.each do |session|
+			item = {}
+
 			session_id = session["Z_PK"]
 
 			movements = session["ZSTATMOVEMENTSPERHOUR"]
 			quality = session["ZSTATSLEEPQUALITY"]
 			data = {
-				"id" => session_id,
 				"sleep_start" => adjust_sleep_timestamp(session["ZSESSIONSTART"]).to_s,
 				"sleep_end" => adjust_sleep_timestamp(session["ZSESSIONEND"]).to_s,
 				"duration" => session["ZSTATTOTALDURATION"],
@@ -71,10 +72,17 @@ namespace :sleep_cycle do
 				}
 			end
 
-			sleep_sessions << data
+			item.merge!({
+				"created_at" => data["sleep_end"],
+				"updated_at" => data["sleep_end"],
+				"data" => data,
+				"original_id" => session_id.to_s
+			})
+
+			out << item
 		end
 
-		sleep_sessions
+		out
 	end
 
 	def adjust_sleep_timestamp time
@@ -82,39 +90,5 @@ namespace :sleep_cycle do
 		time_base = DateTime.new 2001, 01, 01, 0, 0, 0
 
 		Time.at(time_base.to_time + time).iso8601
-	end
-
-	def add_sleep_cycle_items items, activity_type
-		total = items.length
-
-		puts
-		puts "*** #{total} new #{activity_type}(s)"
-
-		begin
-			ActiveRecord::Base.record_timestamps = false
-			items.each_with_index do |item, idx|
-				id = item["id"].to_s
-				puts "  * #{id} [#{idx + 1}/#{total}]"
-
-				existing = Activity.unscoped.where(source: "sleep_cycle").
-						where(activity_type: activity_type).
-						where(original_id: id).count
-
-				if existing == 0
-					timestamp = Time.parse item["sleep_end"]
-
-					Activity.create({
-						source: "sleep_cycle",
-						activity_type: activity_type,
-						created_at: timestamp,
-						updated_at: timestamp,
-						data: item,
-						original_id: id
-					})
-				end
-			end
-		ensure
-			ActiveRecord::Base.record_timestamps = true
-		end
 	end
 end
