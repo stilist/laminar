@@ -10,8 +10,6 @@
 #    `sources/sleep_cycle.sqlite`
 
 namespace :sleep_cycle do
-	task :sleeps => [:local, :remote]
-
 	task :local do
 		begin
 			db = SQLite3::Database.new "sources/sleep_cycle.sqlite"
