@@ -10,7 +10,7 @@ namespace :simple do
 	end
 
 	def preprocess_simple_data
-		file = IO.read("sources/simple.json")
+		file = IO.read "sources/simple.json"
 		data = JSON.parse file
 		items = data["transactions"]
 
