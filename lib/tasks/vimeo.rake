@@ -62,8 +62,6 @@ namespace :vimeo do
 		items = vimeo.get_uploaded(ENV["VIMEO_USER"],
 				opts.merge({ page: 1 }))["videos"]["video"]
 
-		puts items
-
 		add_vimeo_items items, "video"
 	end
 
