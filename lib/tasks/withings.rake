@@ -18,7 +18,7 @@ namespace :withings do
 		out = []
 
 		CSV.foreach("sources/withings_heart.csv", headers: :first_row) do |row|
-			time = Time.parse("#{row["DATE"]} #{row["HOUR"]}")
+			time = Time.parse "#{row["DATE"]} #{row["HOUR"]}"
 			original_id = "#{row["PSEUDO"]}-#{time.to_i}"
 
 			out << {
