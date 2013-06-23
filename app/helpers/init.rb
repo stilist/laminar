@@ -1,4 +1,10 @@
-helpers = %w(laminar l_flickr l_github l_instagram partial l_tumblr l_twitter weather l_vimeo l_withing l_youtube)
+helpers = Dir["app/helpers/*.rb"].map do |path|
+	basename = File.basename(path, ".rb")
+	reject = /(init|json_api|page_out)/
+
+	basename unless basename =~ reject
+end.compact
+
 modules = []
 helpers.each do |helper|
 	require_relative helper
