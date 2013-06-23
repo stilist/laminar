@@ -1,4 +1,9 @@
 module LTwitter
+	@options = {
+		count: 200,
+		include_entities: true
+	}
+
 	def self.get_user data
 		data["user"].is_a?(String) ? eval(data["user"]) : data["user"]
 	end
@@ -87,5 +92,88 @@ module LTwitter
 		client.send(:connection).headers["Connection"] = ""
 
 		client
+	end
+
+	def self.get_favorites use_max_id=false
+		activity_type = "favorite"
+		delay = (15 * 60) / 15
+
+		items = self.get_remote_data :favorites, activity_type, use_max_id
+		Laminar.add_items "twitter", activity_type, items
+
+		if use_max_id and items.length == @options[:count]
+			sleep delay
+
+			self.get_favorites true
+		end
+	end
+
+	def self.get_tweets use_max_id=false
+		activity_type = "post"
+		delay = (15 * 60) / 180
+
+		items = self.get_remote_data :user_timeline, activity_type, use_max_id
+		Laminar.add_items "twitter", activity_type, items
+
+		if use_max_id and items.length == @options[:count]
+			sleep delay
+
+			self.get_tweets true
+		end
+	end
+
+	private
+
+	def self.get_remote_data method, activity_type, use_max_id
+		settings = {}.merge(@options)
+
+		item = Activity.where(source: "twitter").where(activity_type: activity_type)
+
+		if use_max_id
+			oldest = item.last
+			settings.merge!({ max_id: oldest["data"]["id"] }) if oldest
+		else
+			newest = item.first
+			settings.merge!({ since_id: newest["data"]["id"] }) if newest
+		end
+
+		raw_items = self.client.send method, ENV["TWITTER_USER"], settings
+		self.preprocess_data raw_items
+	end
+
+	def self.preprocess_data raw_items
+		raw_items.map do |item|
+			# `.attrs` use: http://stackoverflow.com/a/13249551/672403
+			item = item.respond_to?(:attrs) ? item.attrs : item
+			data = Laminar.sym2s item
+
+			id = data["id_str"]
+			time = Time.parse(data["created_at"]).iso8601
+
+			{
+				"created_at" => time,
+				"updated_at" => time,
+				"data" => data,
+				"url" => "https://twitter.com/#{data["user"]["screen_name"]}/status/#{id}",
+				"original_id" => id
+			}
+		end
+	end
+
+	def self.process_local_data
+		puts "-----> Twitter: processing tweet data"
+
+		data_path = File.expand_path "sources/tweets/data/js/tweets"
+		out = []
+
+		Dir.chdir(data_path) do
+			Dir.glob("*.js") do |path|
+				# http://stackoverflow.com/a/14060317/672403
+				items = JSON.parse(File.readlines(path)[1..-1].join())
+				out << self.preprocess_data(items)
+			end
+		end
+
+		out.flatten 1
 	end
 end
