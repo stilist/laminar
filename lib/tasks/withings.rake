@@ -1,5 +1,5 @@
 namespace :withings do
-	task :data do ; get_withings_data end
+	task :data do ; get_data end
 
 	task :static_heart_local do
 		items = preprocess_heart_data
@@ -37,7 +37,7 @@ namespace :withings do
 		out
 	end
 
-	def get_withings_data backfill=false
+	def get_data backfill=false
 		client = LWithing.client
 		items = client.get_all_data["body"]["measuregrps"]
 
