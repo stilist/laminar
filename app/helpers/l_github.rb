@@ -31,4 +31,61 @@ module LGithub
 			eval(item["repo"])["name"].split("/")[0]
 		end
 	end
+
+	def self.get_activity backfill=false
+		delay = (60 * 60) / 5000 # 5000 requests/hour
+
+		abort "       Please specify GITHUB_CLIENT_KEY" unless ENV["GITHUB_CLIENT_KEY"]
+		abort "       Please specify GITHUB_USER" unless ENV["GITHUB_USER"]
+
+		gh = LGithub.client({ oauth_token: ENV["GITHUB_CLIENT_KEY"] })
+
+		data = gh.activity.events.user_performed ENV["GITHUB_USER"]
+		grouped_items = self.process_data data
+
+		grouped_items.each { |type, items| Laminar.add_items "github", type, items }
+
+		if backfill
+			# Will fetch up to 300 items
+			while data.has_next_page?
+				data = items.next_page
+				grouped_items = self.process_data data
+
+				grouped_items.each { |type, items| Laminar.add_items "github", type, items }
+
+				sleep delay
+			end
+		end
+	end
+
+	def self.process_data raw_items
+		out = {}
+
+		raw_items.each do |item|
+			time = Time.parse item.created_at
+
+			data = {}
+			item.each { |k,v| data[k] = v.is_a?(Hashie::Mash) ? v.to_hash : v }
+
+			public = item.public.is_a?(String) ? eval(item.public) : item.public
+
+			out_item = {
+				"created_at" => time,
+				"updated_at" => time,
+				"is_private" => !public,
+				"data" => data,
+				"url" => item.repo.url,
+				"original_id" => item.id
+			}
+
+			activity_type = item.type.sub("Event", "").underscore
+			if out.has_key? activity_type
+				out[activity_type] << out_item
+			else
+				out[activity_type] = [out_item]
+			end
+		end
+
+		out
+	end
 end
