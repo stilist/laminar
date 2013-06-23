@@ -52,43 +52,22 @@ namespace :withings do
 
 		heart = non_weight - height
 
-		add_withings_items heart, "heart"
-		add_withings_items height, "height"
-		add_withings_items weight, "weight"
+		{ heart: heart, height: height, weight: weight }.each do |type, data|
+			Laminar.add_items "withings", type, preprocess_data(data)
+		end
 	end
 
-	def add_withings_items items, activity_type
-		total = items.length
+	def preprocess_data raw_items
+		raw_items.map do |item|
+			id = item["grpid"].to_s
+			time = Time.at(item["date"]).iso8601
 
-		puts
-		puts "-----> Withings: processing #{total} item(s)"
-
-		begin
-			ActiveRecord::Base.record_timestamps = false
-			items.each_with_index do |item, idx|
-				id = item["grpid"].to_s
-
-				puts "       #{activity_type}: #{id} [#{idx + 1}/#{total}]"
-
-				existing = Activity.unscoped.where(source: "withings").
-						where(activity_type: activity_type).
-						where(original_id: id).count
-
-				if existing == 0
-					time = Time.at(item["date"]).iso8601
-
-					Activity.create({
-						source: "withings",
-						activity_type: activity_type,
-						created_at: time,
-						updated_at: time,
-						data: item,
-						original_id: id
-					})
-				end
-			end
-		ensure
-			ActiveRecord::Base.record_timestamps = true
+			{
+				"created_at" => time,
+				"updated_at" => time,
+				"data" => item,
+				"original_id" => id
+			}
 		end
 	end
 end
