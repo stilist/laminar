@@ -14,7 +14,7 @@ module LOpenPath
 		data = JSON.parse res.parsed_response
 		items = LOpenPath.process_data data
 
-		self.add_items "openpaths", "location", items
+		Laminar.add_items "openpaths", "location", items
 	end
 
 	def self.process_data raw_items
