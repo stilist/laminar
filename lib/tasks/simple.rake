@@ -1,6 +1,6 @@
 namespace :simple do
 	task :static_local do
-		items = preprocess_simple_data
+		items = preprocess_data
 		Laminar.put_static_data ENV["SIMPLE_FILENAME"], items
 	end
 
@@ -9,7 +9,7 @@ namespace :simple do
 		Laminar.add_items "simple", "transaction", items
 	end
 
-	def preprocess_simple_data
+	def preprocess_data
 		file = IO.read "sources/simple.json"
 		data = JSON.parse file
 		items = data["transactions"]
