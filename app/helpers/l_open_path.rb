@@ -23,11 +23,11 @@ module LOpenPath
 			time = Time.at(item["t"]).iso8601
 
 			{
-				created_at: time,
-				updated_at: time,
-				data: item,
-				is_private: true,
-				original_id: id
+				"created_at" => time,
+				"updated_at" => time,
+				"data" => item,
+				"is_private" => true,
+				"original_id" => id
 			}
 		end
 	end
