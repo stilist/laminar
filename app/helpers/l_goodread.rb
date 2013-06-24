@@ -1,5 +1,5 @@
 module LGoodread
-	def self.get_reviews
+	def self.get_reviews backfill=false
 		abort "       Please specify GOODREADS_API_KEY" unless ENV["GOODREADS_API_KEY"]
 		abort "       Please specify GOODREADS_USER" unless ENV["GOODREADS_USER"]
 
@@ -7,7 +7,7 @@ module LGoodread
 
 		total = self.get_data("#{url_base}&per_page=1")["reviews"]["total"].to_i
 		per_page = 200 # max: 200
-		pages = (total / per_page.to_f).ceil
+		pages = backfill ? (total / per_page.to_f).ceil : 1
 
 		puts "*** #{total} reviews"
 
