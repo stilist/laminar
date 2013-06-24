@@ -1,6 +1,6 @@
 module LOpenPath
 	def self.get_data backfill=false
-		num_points = backfill ? 2000 : 50 # max: 2000
+		num_points = backfill ? 2000 : 100 # max: 2000
 
 		# https://gist.github.com/pdarche/5034801
 		base_url = "https://openpaths.cc/api/1"
