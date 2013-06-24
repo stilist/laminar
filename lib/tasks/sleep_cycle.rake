@@ -12,11 +12,11 @@
 namespace :sleep_cycle do
 	task :local do
 		begin
-			db = SQLite3::Database.new "sources/sleep_cycle.sqlite"
-
 			puts "-----> Sleep Cycle: processing data"
 
-			items = LSleepCycle.process_sleep_data db
+			db = SQLite3::Database.new "sources/sleep_cycle.sqlite"
+			items = LSleepCycle.process_data db
+
 			Laminar.put_static_data ENV["SLEEP_CYCLE_FILENAME"], items
 		rescue => e
 			puts "Sleep Cycle processing failed:"

@@ -1,5 +1,5 @@
 module LSleepCycle
-	def process_sleep_data db
+	def self.process_data db
 		out = []
 
 		db.results_as_hash = true
