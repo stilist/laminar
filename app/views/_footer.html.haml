@@ -15,31 +15,7 @@
 /[if IE]
 	= javascript_script_tag "//html5shiv.googlecode.com/svn/trunk/html5.js"
 
-:ruby
-	def sleep_cycle_start item
-		item["created_at"] - item["data"]["duration"].to_i
-	end
-
-	@items = [@item] if @item
-
-	if @items
-		timestamps = []
-
-		timestamps = @items.map do |item|
-			if item["source"] == "sleep_cycle"
-				ts_start = sleep_cycle_start item
-				ts_end = item["created_at"]
-			else
-				ts_start = item["created_at"]
-				ts_end = ts_start + (3 * 60)
-			end
-
-			[ts_start.to_s, ts_end.to_s]
-		end
-	end
-
-:javascript
-	var timeline_dates = #{timestamps || []};
+= partial "_timeline"
 
 :ruby
 	date = Time.now
