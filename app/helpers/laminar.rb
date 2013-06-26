@@ -178,6 +178,15 @@ module Laminar
 		puts e
 	end
 
+	# `time` is in seconds
+	def self.adjust_core_data_timestamp time=0
+		# Cocoa (and thus Core Data) epoch is midnight UTC on 1 January 2001
+		time_base = DateTime.new 2001, 01, 01, 0, 0, 0
+
+		Time.at(time_base.to_time + time).iso8601
+	end
+
+
 	private
 
 	def calculate_hsl data, observations=nil

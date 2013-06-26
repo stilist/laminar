@@ -15,8 +15,8 @@ module LSleepCycle
 			movements = session["ZSTATMOVEMENTSPERHOUR"]
 			quality = session["ZSTATSLEEPQUALITY"]
 			data = {
-				"sleep_start" => self.adjust_sleep_timestamp(session["ZSESSIONSTART"]).to_s,
-				"sleep_end" => self.adjust_sleep_timestamp(session["ZSESSIONEND"]).to_s,
+				"sleep_start" => Laminar.adjust_core_data_timestamp(session["ZSESSIONSTART"]).to_s,
+				"sleep_end" => Laminar.adjust_core_data_timestamp(session["ZSESSIONEND"]).to_s,
 				"duration" => session["ZSTATTOTALDURATION"],
 				"rating" => session["ZRATING"] || 0,
 				# seems to be a newer column
@@ -34,7 +34,7 @@ module LSleepCycle
 			data["events"] = events.map do |event|
 				{
 					"intensity" => event["ZINTENSITY"],
-					"timestamp" => self.adjust_sleep_timestamp(event["ZTIME"]).to_s,
+					"timestamp" => Laminar.adjust_core_data_timestamp(event["ZTIME"]).to_s,
 					# TODO don't know what this represents, but it does change sometimes
 					"type" => event["ZTYPE"]
 				}
@@ -51,12 +51,5 @@ module LSleepCycle
 		end
 
 		out
-	end
-
-	def self.adjust_sleep_timestamp time
-		# Cocoa (and thus Core Data) epoch is midnight UTC on 1 January 2001
-		time_base = DateTime.new 2001, 01, 01, 0, 0, 0
-
-		Time.at(time_base.to_time + time).iso8601
 	end
 end
