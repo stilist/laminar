@@ -57,7 +57,7 @@ abbr.smallcaps,
 strong {font-size:0.8em; letter-spacing:0.1em; line-height:1.25em; text-transform:uppercase;}
 address,
 cite {font-style:normal;}
-code {font-family:Inconsolata, Monaco, monospace; font-size:0.9em; line-height:1.6em;}
+code {@include monospace; line-height:1.6em;}
 h1 + .copy > h2:first-child {margin-top:0.9em;}
 h2 {font-weight:700; line-height:1.6em; margin:42px 0 -1px 0;}
 hr {border:none; border-top:1px solid #ab8876; margin:32px auto 33px auto; width:20%;}
@@ -138,5 +138,11 @@ h2 code {font-size:inherit;}
 .heart_dot.range-normal {background-color:#00ae19;}
 .heart_dot.range-high_normal {background-color:#cbf900;}
 .heart_dot.range-high {background-color:#f00;}
+
+.hentry.type-conversation p {line-height:1.4em; margin:0; padding:10px 70px 10px 0; position:relative;}
+.hentry.type-conversation p + p {border-top:1px dashed #fff;}
+.hentry.type-conversation p cite {@include monospace;}
+.hentry.type-conversation p q {quotes:none;}
+.hentry.type-conversation p .timestamp {font-size:0.8em; line-height:1em; position:absolute; right:10px; text-align:right; top:17px; width:60px;}
 
 .pagination {box-shadow:0 -3px 3px 0 rgba(0, 0, 0, 0.2); bottom:0; padding:20px 0; text-align:center; width:100%; z-index:10;}

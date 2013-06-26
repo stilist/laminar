@@ -67,6 +67,10 @@
 	box-shadow: $shadows;
 }
 
+@mixin monospace {
+	font-family:Inconsolata, Monaco, monospace; font-size:0.9em;
+}
+
 //GRADIENTS
 @mixin no_gradient {
 	background-image: none;

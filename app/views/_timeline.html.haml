@@ -5,9 +5,15 @@
 		timestamps = []
 
 		timestamps = @items.map do |item|
-			if item["source"] == "sleep_cycle"
-				ts_start = item["created_at"] - item["data"]["duration"].to_i
+			case item["source"]
+			when "messages"
 				ts_end = item["created_at"]
+
+				messages = eval item["data"]["messages"]
+				ts_start = Time.parse(messages.first["time"])
+			when "sleep_cycle"
+				ts_end = item["created_at"]
+				ts_start = ts_end - item["data"]["duration"].to_i
 			else
 				ts_start = item["created_at"]
 				ts_end = ts_start + (3 * 60)

@@ -1,0 +1,18 @@
+:ruby
+	item = locals["data"]
+	messages = eval item["messages"]
+
+%h1.entry-title
+	had a conversation
+
+	%section.entry-content
+		%blockquote
+			- messages.each do |message|
+				%p
+					%cite
+						#{message["sender"]}:
+					%q
+						= message["text"]
+					%span.timestamp{ title: message["time"] }
+						- time = Time.parse message["time"]
+						= time.strftime "%l:%M %P"

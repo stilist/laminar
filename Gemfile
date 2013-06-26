@@ -66,4 +66,5 @@ group :app do
 	gem "colormath"
 	# http://stackoverflow.com/a/9531191/672403
 	gem "certified"
+	gem "plist"
 end
