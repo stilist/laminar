@@ -9,12 +9,12 @@ module LSimple
 			time = Time.parse(item["times"]["when_recorded_local"]).iso8601
 
 			{
-				created_at: time,
-				updated_at: time,
-				original_id: item["uuid"],
-				url: "http://simple.com/activity/transactions/#{item["uuid"]}",
-				is_private: true,
-				data: item
+				"created_at" => time,
+				"updated_at" => time,
+				"original_id" => item["uuid"],
+				"url" => "http://simple.com/activity/transactions/#{item["uuid"]}",
+				"is_private" => true,
+				"data" => item
 			}
 		end
 	end
