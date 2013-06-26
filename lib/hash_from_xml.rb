@@ -1,4 +1,5 @@
 # https://gist.github.com/335286
+
 # USAGE: Hash.from_xml:(YOUR_XML_STRING)
 require 'nokogiri'
 # modified from http://stackoverflow.com/questions/1230741/convert-a-nokogiri-document-to-a-ruby-hash/1231297#1231297
@@ -10,7 +11,6 @@ class Hash
 				result = Nokogiri::XML(xml_io)
 				return { result.root.name.to_sym => xml_node_to_hash(result.root)}
 			rescue Exception => e
-				puts e
 				# raise your custom exception here
 			end
 		end
@@ -31,12 +31,7 @@ class Hash
 
 						if child.name == "text"
 							unless child.next_sibling || child.previous_sibling
-								if result_hash[:attributes]
-									result_hash[:value] = prepare(result)
-									return result_hash
-								else
-									return prepare(result)
-								end
+								return prepare(result)
 							end
 						elsif result_hash[child.name.to_sym]
 							if result_hash[child.name.to_sym].is_a?(Object::Array)
@@ -64,6 +59,7 @@ class Hash
 	end
 
 	def to_struct(struct_name)
-		Struct.new(struct_name,*keys).new(*values)
+			Struct.new(struct_name,*keys).new(*values)
 	end
 end
+

@@ -1,3 +1,4 @@
+Dir.glob("#{File.dirname(__FILE__)}/lib/*.rb") { |file| import file }
 Dir.glob("#{File.dirname(__FILE__)}/lib/tasks/*.rake") { |file| import file }
 
 # https://github.com/janko-m/sinatra-activerecord
