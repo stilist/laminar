@@ -20,7 +20,7 @@ namespace :duplicate_activities do
 		known = {}
 		dups = []
 
-		Activity.unscoped.all.each do |a|
+		Activity.unscoped.select("id, source, activity_type, original_id").all.each do |a|
 			next unless a.original_id
 
 			name = [a.source, a.activity_type, a.original_id.to_s].join "-"
