@@ -86,7 +86,11 @@ module Laminar
 		Hash === h ? Hash[h.map { |k, v| [k.to_s, Laminar.sym2s(v)] }] : h
 	end
 
-	def self.add_items source="", activity_type="", items=[]
+	def self.add_items source="", activity_type="", items=[], options={}
+		settings = {
+			replace: false
+		}.merge(options)
+
 		abort "       Laminar.add_items was called with a blank source" if source.blank?
 		abort "       Laminar.add_items was called with a blank activity_type" if activity_type.blank?
 
@@ -107,7 +111,11 @@ module Laminar
 
 					existing = ids.index item["original_id"]
 
-					unless existing
+					if existing && settings[:replace]
+						puts "       updating #{item["original_id"]}"
+						existing_item = Activity.find_by_original_id item["original_id"]
+						existing_item.update_attributes item
+					elsif !existing
 						item.merge!({
 							source: source,
 							activity_type: activity_type
