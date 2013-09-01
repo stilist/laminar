@@ -1,6 +1,10 @@
 App.configure do |app|
 	app.get "/initialize/:service" do
 		case params[:service]
+		when "fitbit"
+			request_token = LFitbit.client.request_token
+
+			authorize_url = "http://www.fitbit.com/oauth/authorize?oauth_token=#{request_token.token}"
 		when "tumblr"
 			request_token = LTumblr.oauth_request_token
 
@@ -50,6 +54,11 @@ App.configure do |app|
 		request_token = YAML.load open("#{params[:service]}_token.yaml").read
 
 		case params[:service]
+		when "fitbit"
+			response = LFitbit.client.authorize(request_token.token,
+					request_token.secret, { oauth_verifier: params[:oauth_verifier] })
+
+			out = "<code>export FITBIT_CLIENT_KEY=#{response.token} FITBIT_CLIENT_SECRET=#{response.secret}</code>"
 		when "github"
 			response = LGithub.client.get_token(params[:code],
 				redirect_uri: ENV["GITHUB_AUTHORIZE_URL"])

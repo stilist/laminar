@@ -49,6 +49,7 @@ group :app do
 	gem "tux"
 
 	# services
+	gem "fitgem"
 	gem "github_api"
 	gem "instagram"
 	gem "lastfm"
