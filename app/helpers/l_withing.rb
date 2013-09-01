@@ -79,7 +79,7 @@ module LWithing
 
 			if measure_type
 				value = self.calculate_value measure
-				if measure_type == :fat_ratio
+				if measure_type == "fat_ratio"
 					out[measure_type] = value
 				else
 					# meters -> feet
