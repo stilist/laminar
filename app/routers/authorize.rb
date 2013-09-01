@@ -83,6 +83,8 @@ App.configure do |app|
 			"<code>export #{params[:service].upcase}_CLIENT_KEY=#{token}</code>"
 		elsif out
 			out
+		else
+			""
 		end
 	end
 end
