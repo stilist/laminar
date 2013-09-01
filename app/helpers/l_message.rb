@@ -72,11 +72,7 @@ module LMessage
 	def self.extract_string data ; data.is_a?(Hash) ? data["NS.string"] : data end
 
 	def self.process_file path
-		file = IO.popen(["plutil", "-convert", "xml1", "-o", "-", path])
-		raw_data = file.read
-		file.close
-
-		parsed = Plist::parse_xml raw_data
+		parsed = Laminar.extract_binary_plist path
 		objects = parsed["$objects"]
 
 		account = self.get_account objects

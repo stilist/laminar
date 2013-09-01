@@ -186,6 +186,16 @@ module Laminar
 		Time.at(time_base.to_time + time).iso8601
 	end
 
+	def self.extract_binary_plist path
+		# `Plist::parse_xml` is able to read files directly, but sometimes
+		# complains about invalid UTF-8 sequences, a problem `plutil` doesn't
+		# share.
+		file = IO.popen ["plutil", "-convert", "xml1", "-o", "-", path]
+		raw_data = file.read
+		file.close
+
+		Plist::parse_xml raw_data
+	end
 
 	private
 
