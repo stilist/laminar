@@ -1,0 +1,7 @@
+:ruby
+	item = locals["data"]
+
+%h1.entry-title
+	visited
+	%a{ href: locals["url"] }
+		= item["title"].empty? ? locals["url"] : item["title"]
