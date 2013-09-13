@@ -1,7 +1,8 @@
-- @domain = request.host
-- @page_title ||= "Recent Activity"
-- @page_summary ||= "Jordan Cole’s lifestream. Follow my digital activities."
-- @page_type ||= :index
+:ruby
+	@domain = request.host
+	@page_title ||= "Recent Activity"
+	@page_summary ||= "Jordan Cole’s lifestream. Follow my digital activities."
+	@page_type ||= :index
 
 %meta{ charset: "UTF-8" }
 
@@ -246,7 +247,8 @@
 - external.each do |url|
 	%link{ href: url[0], rel: "me", title: url[1] }
 
-%link{ href: "#{@permalink}", rel: "canonical" }
+- if @page_type != :index
+	%link{ href: @permalink, rel: "canonical" }
 
 = stylesheet_link_tag "assets/vendor.css"
 = stylesheet_link_tag "assets/core.css"
