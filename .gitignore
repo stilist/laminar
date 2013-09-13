@@ -11,3 +11,5 @@ vendor/gems/
 
 *.dump
 sources/
+
+.sass-cache/
