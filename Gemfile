@@ -50,6 +50,7 @@ group :app do
 
 	# services
 	gem "fitgem"
+	gem "flickraw"
 	gem "github_api"
 	gem "instagram"
 	gem "lastfm"

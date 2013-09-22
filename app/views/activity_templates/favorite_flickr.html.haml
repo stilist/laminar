@@ -5,27 +5,34 @@
 	type = (item.has_key? "video") ? "video" : "photo"
 	url = LFlickr.photo_url item
 
+	if !item["title"].empty?
+		title = item["title"].is_a?(String) ? item["title"] : item["title"]["_content"]
+	end
+
+	if !item["description"].empty?
+		description = item["description"].is_a?(String) ? item["description"] : item["description"]["_content"]
+	end
+
 %h1.entry-title
 	favorited
 	= succeed "’s" do
 		%a{ href: LFlickr::person_url(locals["data"]) }><
 			= h username
-	- if item["title"]["_content"].empty?
+	- if !title
 		%a{ href: locals["url"] }
 			= type
 	- else
 		= type
 		= surround "‘", "’" do
 			%a{ href: url }><
-				= h item["title"]["_content"]
+				= h title
 
 - if locals["extras"]["full_view"]
 	%section.entry-content
 		%a{ href: LFlickr::photo_url(item) }
 			%img{ src: LFlickr::photo_source_url(item, "b") }
 
-		- description = item["description"]["_content"]
-		- unless description.empty?
+		- if description
 			%blockquote
 				%p
 					= nl2br description

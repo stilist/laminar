@@ -1,4 +1,7 @@
 namespace :flickr do
+	task :favorites do ; LFlickr.get_favorites end
+	task :backfill_favorites do ; LFlickr.get_favorites true end
+
 	task :static_favorites do
 		items = Laminar.get_static_data ENV["FLICKR_STATIC_FAVORITES_URL"]
 		add_flickr_favorites items, "favorite"
