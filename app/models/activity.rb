@@ -1,7 +1,6 @@
 # encoding: utf-8
 
 class Activity < ActiveRecord::Base
-	# has_and_belongs_to_many :tags
 
 	default_scope { order("activities.updated_at DESC, activities.id DESC") }
 
