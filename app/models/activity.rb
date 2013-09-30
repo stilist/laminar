@@ -1,6 +1,7 @@
 # encoding: utf-8
 
 class Activity < ActiveRecord::Base
+	has_many :parsed_activities
 
 	default_scope { order("activities.updated_at DESC, activities.id DESC") }
 
