@@ -3,7 +3,7 @@
 class Activity < ActiveRecord::Base
 	# has_and_belongs_to_many :tags
 
-	default_scope order("activities.updated_at DESC, activities.id DESC")
+	default_scope { order("activities.updated_at DESC, activities.id DESC") }
 
 	serialize :data, ActiveRecord::Coders::Hstore
 

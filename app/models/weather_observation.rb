@@ -1,5 +1,5 @@
 class WeatherObservation < ActiveRecord::Base
-	default_scope order("weather_observations.updated_at DESC, weather_observations.id DESC")
+	default_scope { order("weather_observations.updated_at DESC, weather_observations.id DESC") }
 	serialize :data, ActiveRecord::Coders::Hstore
 
 	def for_json recurse=true
