@@ -5,7 +5,11 @@ App.configure do |app|
 	database_url = ENV["DATABASE_URL"] || ""
 	app.set :database, database_url
 end
-require "carrierwave/orm/activerecord"
 
-models = %w(activity weather_observation)
-models.each { |model| require_relative model }
+files = Dir["app/models/*.rb"].map do |path|
+	basename = File.basename path, ".rb"
+	reject = /(init)/
+
+	basename unless basename =~ reject
+end.compact
+files.each { |file| require_relative file }
