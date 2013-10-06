@@ -1,6 +1,6 @@
 @import "shared/mixins";
 
-@charset "utf-8"; /* via John Gruber */
+@charset "utf-8";
 
 * {margin:0; padding:0;}
 
@@ -10,15 +10,6 @@ body,
 .pagination {background:#111;}
 body {color:#808080; cursor:default; font-family:museo-sans-1, museo-sans-2, "Trebuchet MS", Arial, sans-serif; font-weight:500; line-height:1.55em;}
 
-/* 22px baseline */
-/* *** 320px+ *** */
-@media all and (max-width:480px) {
-}
-/* *** 480px+ *** */
-@media all and (min-width:481px) {
-}
-@media all and (min-width:481px) and (max-width:640px) {
-}
 @media all and (max-width:640px) {
 	#nameplate {position:relative;}
 }
@@ -27,8 +18,6 @@ body {color:#808080; cursor:default; font-family:museo-sans-1, museo-sans-2, "Tr
 	body {padding-bottom:62px; padding-top:90px;}
 	#nameplate,
 	.pagination {position:fixed;}
-}
-@media all and (min-width:641px) and (max-width:1024px) {
 }
 @media all and (max-width:1024px) {
 	body {font-size:11pt;}
@@ -44,11 +33,6 @@ body {color:#808080; cursor:default; font-family:museo-sans-1, museo-sans-2, "Tr
 	.hentry .entry-content ol,
 	.hentry .entry-content p,
 	.hentry .entry-content ul {margin-bottom:26px; margin-top:26px;}
-}
-@media all and (min-width:1025px) and (max-width:1399px) {
-}
-/* *** 1400px+ *** */
-@media all and (min-width:1400px) {
 }
 
 a {border-bottom:1px solid #ccc; color:#ccc; padding:1px 1px 0 1px; text-decoration:none;}
@@ -66,19 +50,11 @@ ins:before {content:"[";}
 ins:after {content:"]"; }
 q:before {content:open-quote;}
 q:after {content:close-quote;}
-q:lang(en),
-q:lang(eng) {quotes:"‘" "’" "“" "”";}
-q:lang(en-GB) {quotes:"‘ " " ’" "“ " " ”";}
-q:lang(en-US) {quotes: "“" "”" "‘" "’";}
-q:lang(fr),
-q:lang(fra) {quotes:"« " " »";}
-q:lang(ru),
-q:lang(rus) {quotes:"«" "»" "„" "“";}
 strong {font-weight:normal;}
 .clear {clear:both;}
 
 #nameplate {border-top:10px solid transparent; box-shadow:0 3px 3px 0 rgba(0, 0, 0, 0.2); top:0; width:100%; z-index:10;}
-#nameplate a {background:none; border-bottom:none; font-family:chaparral-pro-1,chaparral-pro-2, "Chaparral Pro", Times, "Times New Roman", serif; line-height:1em; text-transform:lowercase;}
+#nameplate a {background:none; border-bottom:none; font-family:chaparral-pro-1,chaparral-pro-2, "Chaparral Pro", serif; line-height:1em; text-transform:lowercase;}
 #nameplate #logo {display:inline-block; font-size:40px; margin:20px;}
 
 #timeline {background: rgba(255, 255, 255, 0.1); height: 150px; position:relative; z-index:2;}
