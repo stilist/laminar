@@ -71,7 +71,7 @@ module LTwitter
 		end
 
 		if autolink
-			out = tweet.gsub /@(\w+)/, %Q{@<a href="http://twitter.com/\\1">\\1</a>}
+			out = tweet.gsub /@(\w+)/, %Q{@<a href="//twitter.com/\\1">\\1</a>}
 
 			Rinku.auto_link out
 		else

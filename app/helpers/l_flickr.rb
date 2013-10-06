@@ -70,9 +70,9 @@ module LFlickr
 	# http://www.flickr.com/services/api/misc.buddyicons.html
 	def self.avatar_url data
 		if data["iconfarm"] > 0
-			"http://farm#{data["iconfarm"]}.staticflickr.com/#{data["iconserver"]}/buddyicons/#{data["nsid"]}.jpg"
+			"//farm#{data["iconfarm"]}.staticflickr.com/#{data["iconserver"]}/buddyicons/#{data["nsid"]}.jpg"
 		else
-			"http://www.flickr.com/images/buddyicon.gif"
+			"//www.flickr.com/images/buddyicon.gif"
 		end
 	end
 
@@ -96,6 +96,6 @@ module LFlickr
 	def self.photo_source_url data, size="o"
 		data = eval(data) unless data.is_a? Hash
 		secret = (size == "o") ? data["originalsecret"] : data["secret"]
-		"http://farm#{data["farm"]}.staticflickr.com/#{data["server"]}/#{data["id"]}_#{secret}_#{size}.jpg"
+		"//farm#{data["farm"]}.staticflickr.com/#{data["server"]}/#{data["id"]}_#{secret}_#{size}.jpg"
 	end
 end

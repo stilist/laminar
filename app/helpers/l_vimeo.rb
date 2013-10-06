@@ -17,7 +17,7 @@ module LVimeo
 		# Use range because `.hex` includes `#`, which Vimeo doesn't like
 		color = ColorMath::HSL.new(*hsl).hex[1..-1]
 
-		url = "http://player.vimeo.com/video/#{data["id"]}?title=0&byline=0&portrait=0&color=#{color}"
+		url = "//player.vimeo.com/video/#{data["id"]}?title=0&byline=0&portrait=0&color=#{color}"
 
 		"<iframe src='#{url}' height='#{data["height"]}' width='#{data["width"]}'
 				frameborder='0' webkitAllowFullScreen mozallowfullscreen
