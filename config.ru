@@ -35,6 +35,7 @@ map "/assets" do
 		config.digest = false
 	end
 
+	use Rack::Deflater
 	run environment
 end
 
