@@ -11,7 +11,7 @@ App.configure do |app|
 	# [3] => 03
 	# [4] => /05
 	# [5] => 05
-	app.get %r{(0\d{4})(\/((\d{2})(\/(\d{2}))?))?\Z} do
+	app.get %r{\A\/(0\d{4})(\/((\d{2})(\/(\d{2}))?))?\Z} do
 		captures = params[:captures]
 		year = captures[0]
 		month = captures[3]
