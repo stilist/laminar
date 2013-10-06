@@ -49,6 +49,6 @@ module Weather
 		hour = date.strftime("%k").to_i
 		icon = "nt_#{icon}" if hour < 7 || hour > 19
 
-		"http://icons.wxug.com/i/c/i/#{icon}.gif"
+		"/assets/weather/#{icon}.gif"
 	end
 end
