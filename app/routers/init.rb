@@ -1,2 +1,7 @@
-routers = %w(main activities authorize dates sources)
-routers.each { |router| require_relative router }
+files = Dir["app/routers/*.rb"].map do |path|
+	basename = File.basename path, ".rb"
+	reject = /(init)/
+
+	basename unless basename =~ reject
+end.compact
+files.each { |file| require_relative file }
