@@ -15,6 +15,7 @@ group :app do
 	# server
 	gem "sinatra", require: "sinatra/base"
 	gem "sinatra-static-assets", require: "sinatra/static_assets"
+	gem "rack-ssl-enforcer"
 
 	# database
 	gem "sinatra-activerecord", require: "sinatra/activerecord"

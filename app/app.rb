@@ -2,6 +2,8 @@ class App < Sinatra::Base
 	register Sinatra::StaticAssets
 	register Sinatra::RespondTo
 
+	use Rack::SslEnforcer if ENV["REQUIRE_SSL"]
+
 	# pagination
 	require "will_paginate"
 	require "will_paginate/array"
