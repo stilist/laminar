@@ -1,6 +1,8 @@
+#= depend_on ./graph
 #= depend_on ./map
 #= depend_on ./timeline
 
+#= require ./graph
 #= require ./map
 #= require ./timeline
 

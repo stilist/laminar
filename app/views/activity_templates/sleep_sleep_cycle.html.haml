@@ -39,43 +39,12 @@
 							end
 
 		%div{ id: "graph_#{locals["id"]}" }
-		:ruby
-			hsl = item_hsl locals, false
-			color = ColorMath::HSL.new *hsl
-			graph_color = ColorMath::Adjust.luminance(color, 1 - hsl[2]).hex
 
 		:javascript
-			function kill_dygraph_event(e) { Dygraph.cancelEvent(e); }
-
-			options = {
-				axisLineColor: "#{graph_color}",
-				colors: ["#{graph_color}"],
-				drawXGrid: false,
-				drawYAxis: false,
-				drawYGrid: false,
-				height: 100,
-				highlightCircleSize: 0,
-				rollPeriod: 1,
-				showLabelsOnHighlight: false,
-				width: "100%",
-				interactionModel: {
-					"mousedown": kill_dygraph_event,
-					"mousemove": kill_dygraph_event,
-					"mouseup": kill_dygraph_event,
-					"click": kill_dygraph_event,
-					"dblclick": kill_dygraph_event,
-					"mousewheel": function () { return; }
-				}
-			}
-			if (#{clamp}) {
-				options.valueRange = [0, 0.3];
-			}
-
-			new Dygraph(
-				document.getElementById("graph_#{locals["id"]}"),
-				#{time_series.join("+")},
-				options
-			);
-
-		:css
-			#graph_#{locals["id"]} .dygraph-axis-label {color:#{graph_color}; opacity:0.5;}
+			(function ($, window) { $(function () {
+				graph({
+					data: #{time_series.join("+")},
+					selector: $("#graph_#{locals["id"]}"),
+					valueRange: [0, 0.5]
+				})
+			}) })(window.$ || window.jQuery || window.Zepto, window);

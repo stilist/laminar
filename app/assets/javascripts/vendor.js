@@ -3,4 +3,5 @@
 //= require underscore
 
 //= require moment
+//= require dygraphs
 //= require jquery.gantt
