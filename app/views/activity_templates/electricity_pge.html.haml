@@ -16,7 +16,7 @@
 		kW·h
 	of electricity
 
-	- if true #locals["extras"]["full_view"]
+	- if locals["extras"]["full_view"]
 		%section.entry-content
 			%div{ id: "graph_#{locals["id"]}" }
 			:ruby
