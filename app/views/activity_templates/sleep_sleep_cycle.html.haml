@@ -2,13 +2,10 @@
 	item = locals["data"]
 	duration = item["duration"].to_f / 60 / 60
 
-	extremes = []
 	time_series = eval(item["events"]).map do |e|
-		extremes << e["intensity"] if e["intensity"] >= 0.5
 		timestamp = Time.parse(e["timestamp"]).localtime.strftime("%D %T")
 		"'#{timestamp},#{e["intensity"]}\\n'"
 	end
-	clamp = extremes.length > 0
 
 %h1.entry-title
 	woke up after #{sprintf("%0.01f", duration)} hours, with a quality of #{item["quality"].to_f / 10.0}/10
