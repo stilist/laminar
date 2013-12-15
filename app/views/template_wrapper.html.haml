@@ -3,6 +3,7 @@
 	time = locals["updated_at"].localtime
 	extras = locals["extras"]
 	full_view = locals["extras"]["full_view"]
+	weather = Weather::nearest_observation locals["created_at"], extras["observations"]
 
 %section{ class: item_classes(locals), style: item_hsl(locals),
 			id: "item_#{locals["id"]}" }
@@ -18,11 +19,9 @@
 			%span.time
 				= time.strftime "%l:%M %P"
 
-		- weather = Weather::nearest_observation locals["created_at"],
-				extras["observations"]
 		- if weather
-			%span.observation
-				%span.icon{ style:"background-image:url('#{Weather::icon_url weather["data"]["icon"]}');" }
+			%span.observation{ class: "conditions_#{weather["data"]["icon"]}",
+					title: weather["data"]["conds"] }
 
 	= partial locals["template"], locals: locals
 	- unless full_view
