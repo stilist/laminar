@@ -3,7 +3,7 @@ App.configure do |app|
 
 	# https://github.com/janko-m/sinatra-activerecord
 	database_url = ENV["DATABASE_URL"] || ""
-	app.set :database, database_url
+	app.set(:database, database_url) unless database_url == ""
 end
 
 files = Dir["app/models/*.rb"].map do |path|
