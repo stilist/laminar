@@ -8,11 +8,11 @@
 			= LTwitter::get_user(item)["name"]
 	%a{ href: LTwitter::tweet_url(item) }
 		tweet
-	- if item["in_reply_to_status_id"]
+	- mentions = eval(item["entities"])["user_mentions"]
+	- if item["in_reply_to_status_id"] && !mentions.empty?
 		in reply to
 		%a{ href: "https://twitter.com/#{item["in_reply_to_screen_name"]}/status/#{item["in_reply_to_status_id_str"]}" }
-			- reply_user = eval(item["entities"])["user_mentions"].first
-			= reply_user[:name]
+			= mentions.first[:name]
 
 - if locals["extras"]["full_view"]
 	%section.entry-content
