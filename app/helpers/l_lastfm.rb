@@ -40,7 +40,7 @@ module LLastfm
 
 	def self.process_data raw_items
 		raw_items.map do |item|
-			time = DateTime.parse("#{item["date"]["content"]} GMT").to_time.iso8601
+			time = DateTime.parse("#{item["date"]["content"]} GMT").to_time.getlocal.iso8601
 
 			{
 				"created_at" => time,
