@@ -23,6 +23,9 @@ GEM
       activemodel (>= 3.2.0)
       activesupport (>= 3.2.0)
     certified (0.1.1)
+    cloudapp_api (0.4.0)
+      httparty
+      mime-types
     coffee-script (2.2.0)
       coffee-script-source
       execjs
@@ -204,6 +207,7 @@ DEPENDENCIES
   activerecord-postgres-hstore
   carrierwave
   certified
+  cloudapp_api
   coffee-script
   coinbase
   colormath

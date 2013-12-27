@@ -1,0 +1,12 @@
+:ruby
+	item = locals["data"]
+
+%h1.entry-title
+	uploaded
+	%a{ href: item["href"] }
+		= item["name"]
+
+- if locals["extras"]["full_view"]
+	%section.entry-content
+		%a{ href: item["url"] }
+			%img{ src: item["thumbnail_url"] }
