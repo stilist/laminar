@@ -196,7 +196,7 @@ module Laminar
 		# Cocoa (and thus Core Data) epoch is midnight UTC on 1 January 2001
 		time_base = DateTime.new 2001, 01, 01, 0, 0, 0
 
-		Time.at(time_base.to_time + time).iso8601
+		Time.at(time_base.to_time.utc + time).getlocal.iso8601
 	end
 
 	def self.extract_binary_plist path
