@@ -50,6 +50,7 @@ group :app do
 	gem "tux"
 
 	# services
+	gem "coinbase"
 	gem "fitgem"
 	gem "flickraw"
 	gem "github_api"

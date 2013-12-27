@@ -1,0 +1,21 @@
+:ruby
+	item = locals["data"]
+
+	amount = eval(item["amount"])
+
+	if amount["btc"].to_f > 0
+		transaction_type = item["hsh"] ? :received : :bought
+	else
+		transaction_type = :sent
+	end
+
+%h1.entry-title
+	- if transaction_type == :bought
+		bought #{amount["btc"]} bitcoin for
+		%abbr.smallcaps{ title: "United States Dollars" }
+			USD
+		$#{amount["currency"]}
+	- else
+		%a{ href: "http://blockchain.info/tx/#{item["hsh"]}" }
+			#{transaction_type} #{amount["btc"]} bitcoin
+		-# TODO include bitcoin address
