@@ -1,0 +1,13 @@
+:ruby
+	item = locals["data"]
+
+%h1.entry-title
+	posted
+	%a{ href: locals["url"] }
+		a comment
+
+	- if locals["extras"]["full_view"]
+		%section.entry-content
+			%blockquote
+				%p
+					= item["body"]

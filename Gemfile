@@ -58,6 +58,7 @@ group :app do
 	gem "instagram"
 	gem "lastfm"
 	gem "pinboard"
+	gem "redditkit", "~> 1.0"
 	gem "tumblr_client"
 	gem "twitter"
 	gem "vimeo"

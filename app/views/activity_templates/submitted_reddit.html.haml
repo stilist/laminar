@@ -1,0 +1,11 @@
+:ruby
+	item = locals["data"]
+
+%h1.entry-title
+	submitted
+	%a{ href: locals["url"] }
+		= item["title"]
+
+	- if locals["extras"]["full_view"]
+		%section.entry-content
+			= LReddit.media item
