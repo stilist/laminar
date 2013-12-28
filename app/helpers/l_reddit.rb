@@ -76,7 +76,10 @@ module LReddit
 		raw_items.map do |raw_item|
 			item = raw_item.attributes
 
-			time = Time.at(item[:created_utc]).getlocal.iso8601
+			# All I wanted was to parse a UNIX timestamp in a different timezone.
+			fake_utc = Time.at item[:created_utc]
+			local = fake_utc.utc.iso8601.gsub /Z$/, Time.now.zone
+			time = DateTime.parse(local).iso8601
 
 			{
 				"created_at" => time,
