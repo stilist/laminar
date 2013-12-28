@@ -56,6 +56,7 @@ group :app do
 	gem "flickraw"
 	gem "github_api"
 	gem "instagram"
+	gem "kickscraper"
 	gem "lastfm"
 	gem "pinboard"
 	gem "redditkit", "~> 1.0"

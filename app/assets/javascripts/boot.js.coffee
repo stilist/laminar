@@ -8,7 +8,7 @@
 
 (($, window) -> $ ->
 	set_video_size = ->
-		$(".hfeed .video").each ->
+		$(".hfeed .video, .hfeed video").each ->
 			$video = $(@)
 			ratio = $video.prop("width") / $video.prop("height")
 			width = $video.parent().width()

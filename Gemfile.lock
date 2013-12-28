@@ -89,6 +89,12 @@ GEM
     jwt (0.1.8)
       multi_json (>= 1.5)
     kgio (2.8.0)
+    kickscraper (0.1.1)
+      faraday (>= 0.7, < 0.9)
+      faraday_middleware (~> 0.8)
+      hashie (~> 2)
+      multi_json (~> 1.0, >= 1.0.3)
+      uri-query_params
     lastfm (1.21.0)
       activesupport (>= 3.2.0)
       httparty
@@ -183,6 +189,7 @@ GEM
       kgio (~> 2.6)
       rack
       raindrops (~> 0.7)
+    uri-query_params (0.7.0)
     vimeo (1.5.3)
       httparty (>= 0.4.5)
       httpclient (>= 2.1.5.2)
@@ -223,6 +230,7 @@ DEPENDENCIES
   handlebars_assets
   instagram
   json
+  kickscraper
   lastfm
   pg
   pinboard
