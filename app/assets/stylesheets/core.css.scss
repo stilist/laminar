@@ -2,8 +2,6 @@
 
 @charset "utf-8";
 
-* {margin:0; padding:0;}
-
 html,
 body,
 #nameplate,
@@ -21,18 +19,18 @@ body {color:#808080; cursor:default; font-family:museo-sans-1, museo-sans-2, "Tr
 }
 @media all and (max-width:1024px) {
 	body {font-size:11pt;}
-	.hentry .entry-content h2 {font-size:1.1em;}
+	.entry-content h2 {font-size:1.1em;}
 }
 /* 26px baseline */
 /* *** 1024px+ *** */
 @media all and (min-width:1025px) {
 	body {font-size:13pt;}
-	.hentry .entry-content h2 {font-size:1em; margin-bottom:25px; margin-top:52px;}
-	.hentry .entry-content h2 + p {margin-top:25px;}
-	.hentry .entry-content figure,
-	.hentry .entry-content ol,
-	.hentry .entry-content p,
-	.hentry .entry-content ul {margin-bottom:26px; margin-top:26px;}
+	.entry-content h2 {font-size:1em; margin-bottom:25px; margin-top:52px;}
+	.entry-content h2 + p {margin-top:25px;}
+	.entry-content figure,
+	.entry-content ol,
+	.entry-content p,
+	.entry-content ul {margin-bottom:26px; margin-top:26px;}
 }
 
 a {border-bottom:1px solid #ccc; color:#ccc; padding:1px 1px 0 1px; text-decoration:none;}
@@ -58,12 +56,12 @@ strong {font-weight:normal;}
 #nameplate #logo {display:inline-block; font-size:40px; margin:20px;}
 
 #timeline {background: rgba(255, 255, 255, 0.1); height: 150px; position:relative; z-index:2;}
-#timeline .jg-viewport .jg-scrub {display:none;}
-#timeline .jg-viewport .jg-scrub-timeframe {display:none;}
-#timeline .jg-viewport .jg-header-dates {border-bottom:none; box-shadow:inset 0 -1px 0 rgba(255, 255, 255, 0.2);}
-#timeline .jg-viewport .jg-label {font-size:0.6em;}
-#timeline .jg-content .jg-project {min-width:6px; position:absolute;}
-#timeline .jg-content .jg-project .jg-data {border-radius:6px; height:100%;}
+.jg-viewport .jg-scrub {display:none;}
+.jg-viewport .jg-scrub-timeframe {display:none;}
+.jg-viewport .jg-header-dates {border-bottom:none; box-shadow:inset 0 -1px 0 rgba(255, 255, 255, 0.2);}
+.jg-viewport .jg-label {font-size:0.6em;}
+.jg-content .jg-project {min-width:6px; position:absolute;}
+.jg-content .jg-project .jg-data {border-radius:6px; height:100%;}
 
 #map {height:300px;}
 
@@ -93,27 +91,27 @@ h2 code {font-size:inherit;}
 .hentry .keywords li {float:right; margin-left:0.5em;}
 .hentry .meta {line-height:1em;}
 .hentry .meta .updated {font-size:0.8em; line-height:1.55em;}
-.hentry .meta .observation {@include sprite("climacons", "png", 275, 150); display:inline-block; height:32px; margin-bottom:-2px; width:28px;}
-.hentry .meta .observation.conditions_chanceflurries,
-.hentry .meta .observation.conditions_chancesnow,
-.hentry .meta .observation.conditions_flurries,
-.hentry .meta .observation.conditions_snow {background-position:-141px -50px;}
-.hentry .meta .observation.conditions_chancerain {background-position:-140px -18px;}
-.hentry .meta .observation.conditions_chancesleet,
-.hentry .meta .observation.conditions_sleet {background-position:-56px -50px;}
-.hentry .meta .observation.conditions_clear,
-.hentry .meta .observation.conditions_sunny {background-position:0 -115px;}
-.hentry .meta .observation.conditions_cloudy {background-position:-56px -18px;}
-.hentry .meta .observation.conditions_fog,
-.hentry .meta .observation.conditions_hazy {background-position:-56px -83px;}
-.hentry .meta .observation.conditions_mostlycloudy,
-.hentry .meta .observation.conditions_mostlysunny,
-.hentry .meta .observation.conditions_partlycloudy,
-.hentry .meta .observation.conditions_partlysunny {background-position:0 -18px;}
-.hentry .meta .observation.conditions_rain {background-position:-224px -18px;}
-.hentry .meta .observation.conditions_chancetstorms,
-.hentry .meta .observation.conditions_tstorms {background-position:-224px -50px;}
-.hentry .meta .observation.conditions_unknown {display:none;}
+.observation {@include sprite("climacons", "png", 275, 150); display:inline-block; height:32px; margin-bottom:-2px; width:28px;}
+.observation.conditions_chanceflurries,
+.observation.conditions_chancesnow,
+.observation.conditions_flurries,
+.observation.conditions_snow {background-position:-141px -50px;}
+.observation.conditions_chancerain {background-position:-140px -18px;}
+.observation.conditions_chancesleet,
+.observation.conditions_sleet {background-position:-56px -50px;}
+.observation.conditions_clear,
+.observation.conditions_sunny {background-position:0 -115px;}
+.observation.conditions_cloudy {background-position:-56px -18px;}
+.observation.conditions_fog,
+.observation.conditions_hazy {background-position:-56px -83px;}
+.observation.conditions_mostlycloudy,
+.observation.conditions_mostlysunny,
+.observation.conditions_partlycloudy,
+.observation.conditions_partlysunny {background-position:0 -18px;}
+.observation.conditions_rain {background-position:-224px -18px;}
+.observation.conditions_chancetstorms,
+.observation.conditions_tstorms {background-position:-224px -50px;}
+.observation.conditions_unknown {display:none;}
 .hentry .entry-content ol {list-style:decimal inside;}
 .hentry .permalink {@include global_sprite(0, 0); @include transition(opacity 0.05s linear); border-bottom:none; bottom:15px; display:block; height:10px; position:absolute; opacity:0.5; right:10px; width:20px;}
 .hentry:hover .permalink {opacity:1;}
