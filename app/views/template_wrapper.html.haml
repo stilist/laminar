@@ -23,7 +23,7 @@
 			%span.observation{ class: "conditions_#{weather["data"]["icon"]}",
 					title: weather["data"]["conds"] }
 
-	%a.source{ href: "/sources/#{locals["source"]}" }
+		%a.source{ href: "/sources/#{locals["source"]}" }
 
 	= partial locals["template"], locals: locals
 	- unless full_view
