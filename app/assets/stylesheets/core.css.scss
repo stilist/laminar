@@ -113,8 +113,35 @@ h2 code {font-size:inherit;}
 .observation.conditions_tstorms {background-position:-224px -50px;}
 .observation.conditions_unknown {display:none;}
 .hentry .entry-content ol {list-style:decimal inside;}
-.hentry .permalink {@include global_sprite(0, 0); @include transition(opacity 0.05s linear); border-bottom:none; bottom:15px; display:block; height:10px; position:absolute; opacity:0.5; right:10px; width:20px;}
+.hentry .permalink,
+.hentry .source {border-bottom:none; display:block; position:absolute; right:10px;}
+.hentry .permalink {@include global_sprite(0, 0); @include transition(opacity 0.05s linear); bottom:15px; height:10px; opacity:0.5; width:20px;}
 .hentry:hover .permalink {opacity:1;}
+.hentry .source {@include services_sprite(0, 0); bottom:35px; height:16px; padding:0; width:16px;}
+.hentry.source-chrome .source {background-position:0 -48px;}
+.hentry.source-cloudapp .source {background-position:-16px -48px;}
+.hentry.source-coinbase .source {background-position:-32px -48px;}
+.hentry.source-fitbit .source {background-position:-16px -96px;}
+.hentry.source-flickr .source {background-position:-32px -96px;}
+.hentry.source-github .source {background-position:0 -112px;}
+.hentry.source-goodreads .source {background-position:-16px -112px;}
+.hentry.source-instagram .source {background-position:0 -144px;}
+.hentry.source-kickstarter .source {background-position:0 -176px;}
+.hentry.source-lastfm .source {background-position:0 -192px;}
+.hentry.source-messages .source {background-position:-16px -208px;}
+.hentry.source-netflix .source {background-position:0 -224px;}
+.hentry.source-openpaths .source {background-position:0 -240px;}
+.hentry.source-pge .source {background-position:-32px -256px;}
+.hentry.source-pinboard .source {background-position:-64px -256px;}
+.hentry.source-reddit .source {background-position:-16px -288px;}
+.hentry.source-simple .source {background-position:0 -304px;}
+.hentry.source-sleep_cycle .source {background-position:-32px -304px;}
+.hentry.source-tumblr .source {background-position:0 -320px;}
+.hentry.source-twitter .source {background-position:-16px -320px;}
+.hentry.source-vimeo .source {background-position:0 -368px;}
+.hentry.source-wikipedia .source {background-position:0 -384px;}
+.hentry.source-withings .source {background-position:-16px -384px;}
+.hentry.source-youtube .source {background-position:-16px -400px;}
 .hentry.full_view {min-height:120px;}
 .dygraph-axis-label {color:#fff; opacity:0.5;}
 

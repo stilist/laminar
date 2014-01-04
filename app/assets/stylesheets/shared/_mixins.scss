@@ -45,6 +45,10 @@
 	@include sprite("sprite", "png", 250, 250);
 	background-position: -#{$x}px -#{$y}px;
 }
+@mixin services_sprite($x:0, $y:0) {
+	@include sprite("services_sprite", "png", 224, 432);
+	background-position: -#{$x * 16}px -#{$y * 16}px;
+}
 
 @mixin transition($transitions...) {
 	transition: $transitions;
