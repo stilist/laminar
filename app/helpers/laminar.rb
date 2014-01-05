@@ -57,6 +57,20 @@ module Laminar
 		classes << "type-#{data["activity_type"]} source-#{data["source"]}"
 		classes << "full_view" if data["extras"]["full_view"]
 		classes << "hreview" if data["activity_type"] == "review"
+
+		always_me = %w(chrome cloudapp coinbase fitbit github goodreads kickstarter lastfm messages netflix openpaths pge pinboard simple sleep_cycle wikipedia withings)
+		if always_me.include? data["source"]
+			by_me = true
+		else
+			by_me = case data["source"]
+			when "flickr", "instagram" then data["activity_type"] == "photo"
+			when "reddit" then %w(comments submitted).include? data["activity_type"]
+			when "tumblr", "twitter" then data["activity_type"] == "post"
+			when "vimeo" then data["activity_type"] == "video"
+			end
+		end
+		classes << "by-me" if by_me
+
 		classes.join " "
 	end
 
