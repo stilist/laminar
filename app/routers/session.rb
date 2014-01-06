@@ -1,7 +1,11 @@
 App.configure do |app|
 	app.get "/login" do
-		status 200
-		haml :"_login", layout: :"layouts/login"
+		if session[:login]
+			redirect "/"
+		else
+			status 200
+			haml :"_login", layout: :"layouts/login"
+		end
 	end
 
 	app.post "/login" do
@@ -11,9 +15,9 @@ App.configure do |app|
 
 		content_type :json
 		if status_code == 200
-			body({ data: {}, status: status_code }.to_json)
-
 			session[:login] = User.generate_key
+
+			{ data: {}, status: status_code }.to_json
 		else
 			halt 401, {}.to_json
 		end
