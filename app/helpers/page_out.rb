@@ -103,18 +103,6 @@ module Sinatra
 
 		private
 
-		def to_mongo data
-			data
-		end
-
-		def from_mongo data
-			# Transform into something slightly more useful.
-			data["_id"] = data["_id"].to_s
-			data["timestamp"] = Time.at(data["unix_timestamp"]).utc.iso8601
-
-			data
-		end
-
 		def prerender_data data
 			_data = from_mongo data
 
