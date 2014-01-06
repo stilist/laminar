@@ -37,8 +37,9 @@ body {color:#808080; cursor:default; font-family:museo-sans-1, museo-sans-2, "Tr
 	.entry-content ul {margin-bottom:26px; margin-top:26px;}
 }
 
-a {border-bottom:1px solid #ccc; color:#ccc; padding:1px 1px 0 1px; text-decoration:none;}
-a:hover {color:#ffa2a2;}
+a {border-bottom:1px solid #ccc; color:#fff; padding:1px 1px 0 1px; text-decoration:none;}
+a:hover {background-color:rgba(#fff, 0.2); color:#000;}
+a:active {background-color:rgba(#fff, 0.7); color:#000;}
 abbr.smallcaps,
 strong {font-size:0.8em; letter-spacing:0.1em; line-height:1.25em; text-transform:uppercase;}
 address,
@@ -56,7 +57,9 @@ strong {font-weight:normal;}
 .clear {clear:both;}
 
 #nameplate {border-top:10px solid transparent; box-shadow:0 3px 3px 0 rgba(#000, 0.2); top:0; width:100%; z-index:10;}
-#nameplate a {background:none; border-bottom:none; font-family:chaparral-pro-1,chaparral-pro-2, "Chaparral Pro", serif; line-height:1em; text-transform:lowercase;}
+#nameplate a {border-bottom:none; border-radius:5px; font-family:chaparral-pro-1,chaparral-pro-2, "Chaparral Pro", serif; line-height:1em; text-transform:lowercase;}
+#nameplate a:hover {color:#fff;}
+#nameplate a:active {color:#000;}
 #nameplate #logo {display:inline-block; font-size:40px; margin:20px;}
 
 #timeline {background: rgba(#fff, 0.1); height: 150px; position:relative; z-index:2;}
@@ -80,7 +83,7 @@ strong {font-weight:normal;}
 .hentry ul {clear:both; margin:22px 0;}
 .hentry .entry-title {font-weight:normal; line-height:1.4em;}
 .hentry .entry-title {word-wrap:break-word;}
-.hentry .entry-title a {border:none; margin-left:-1px;}
+.hentry .entry-title a {margin-left:-1px;}
 .hentry .entry-title code,
 h2 code {font-size:inherit;}
 .hentry .entry-content { margin-top:13px; word-wrap:break-word;}
@@ -120,7 +123,7 @@ h2 code {font-size:inherit;}
 .observation.conditions_unknown {display:none;}
 .hentry .entry-content ol {list-style:decimal inside;}
 .hentry .permalink,
-.hentry .source {border-bottom:none; display:block; position:absolute;}
+.hentry .source {background-color:transparent; border-bottom:none; display:block; position:absolute;}
 .hentry .permalink {@include global_sprite(0, 0); @include transition(opacity 0.05s linear); bottom:15px; height:10px; opacity:0.5; right:10px; width:20px;}
 .hentry:hover .permalink {opacity:1;}
 .hentry .source {@include services_sprite(0, 0); height:16px; margin-top:-8px; padding:0; right:-26px; top:50%; width:16px;}

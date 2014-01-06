@@ -25,13 +25,8 @@
 	luminance = (pct_of_day > 50 ? (100 - pct_of_day) : pct_of_day).floor.abs / 100.0
 
 	# bump `luminance` to keep enough contrast at night
-	color = ColorMath::HSL.new hue, 1, (luminance + 0.2)
-	time_color = color.hex
-	active_time_color = ColorMath::Adjust.luminance(color, 0.2).hex
+	color = ColorMath::HSL.new(hue, 1, (luminance + 0.2)).hex
 
 :css
-	#nameplate {border-top-color:#{time_color};}
-	a {border-bottom-color:#{time_color}; color:#{time_color};}
-	a:active,
-	a:hover {color:#{active_time_color};}
-	#login input[type=submit] {background-color:#{time_color};}
+	#nameplate {border-top-color:#{color};}
+	#login input[type=submit] {background-color:#{color};}
