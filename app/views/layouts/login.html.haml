@@ -1,0 +1,14 @@
+!!! 5
+%html{ lang: "en", class: "no-js", "xmlns:og" => "//ogp.me/ns#" }
+	%head{ profile: "//gmpg.org/xfn/11" }
+		= haml :"_header", layout: false
+
+	%body#login
+		%nav#nameplate
+			%a#logo{ href: "/", rel: "home index" }
+				Ratafia Currant
+
+		= yield
+
+		= haml :"_footer", layout: false
+		= javascript_script_tag "assets/login.js"

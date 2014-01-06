@@ -40,7 +40,7 @@ App.configure do |app|
 
 		@page_type = :index
 
-		activities = Laminar.activities params
+		activities = Laminar.activities params, session
 		@items = activities.where("updated_at BETWEEN ? AND ?", start_timestamp, end_timestamp).all
 
 		if @items.count > 0

@@ -21,6 +21,7 @@ group :app do
 	gem "sinatra-activerecord", require: "sinatra/activerecord"
 	gem "pg"
 	gem "activerecord-postgres-hstore"
+	gem "bcrypt-ruby", "~> 3.0.0"
 
 	# remote assets
 	gem "carrierwave"

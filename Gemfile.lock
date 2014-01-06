@@ -17,6 +17,7 @@ GEM
       i18n (= 0.6.1)
       multi_json (~> 1.0)
     arel (3.0.2)
+    bcrypt-ruby (3.0.1)
     bond (0.4.3)
     builder (3.0.4)
     carrierwave (0.8.0)
@@ -214,6 +215,7 @@ PLATFORMS
 
 DEPENDENCIES
   activerecord-postgres-hstore
+  bcrypt-ruby (~> 3.0.0)
   carrierwave
   certified
   cloudapp_api

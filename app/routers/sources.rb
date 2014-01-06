@@ -2,7 +2,7 @@ App.configure do |app|
 	app.get "/sources/:name" do
 		@page_type = :index
 
-		activities = Laminar.activities params
+		activities = Laminar.activities params, session
 		@items = activities.where(source: params[:name]).all
 		@source = params[:name]
 

@@ -1,4 +1,8 @@
-@import "shared/mixins";
+//= depend_on shared/_mixins
+//= depend_on shared/_login
+
+@import "shared/_mixins";
+@import "shared/_login";
 
 @charset "utf-8";
 

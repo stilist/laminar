@@ -5,3 +5,6 @@
 //= require moment
 //= require dygraphs
 //= require jquery.gantt
+
+//= require form2js
+//= require jquery.toObject

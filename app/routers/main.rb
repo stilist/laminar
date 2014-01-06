@@ -3,7 +3,7 @@ App.configure do |app|
 		@page_type = :index
 		@permalink = "/"
 
-		activities = Laminar.activities params
+		activities = Laminar.activities params, session
 		@items = activities.all
 
 		extras = { "full_view" => false }

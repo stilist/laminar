@@ -1,6 +1,6 @@
 App.configure do |app|
 	app.get "/activities/:id" do
-		activities = Laminar.activities params
+		activities = Laminar.activities params, session
 		@item = activities.find_by_id params[:id]
 
 		@page_title = @item ? @item.title : 404
@@ -27,7 +27,7 @@ App.configure do |app|
 			@page_type = :index
 			@permalink = "/"
 
-			activities = Laminar.activities params
+			activities = Laminar.activities params, session
 			@items = activities.all
 
 			extras = { "full_view" => false }

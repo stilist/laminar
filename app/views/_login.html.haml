@@ -1,0 +1,11 @@
+%form{ action: "/login" }
+	.fields
+		.field.handle
+			-# TODO I18n
+			%input{ name: :handle, placeholder: "Username", type: :text }
+		.field.password
+			-# TODO I18n
+			%input{ name: :password, placeholder: "Password", type: :password }
+
+	-# TODO I18n
+	%input.btn{ type: "submit", value: "Log in" }

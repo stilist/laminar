@@ -22,9 +22,8 @@ module Laminar
 		unknown: 0
 	}.freeze
 
-	def self.activities params
-		key = params[:private_data_key]
-		include_private = key && key == ENV["PRIVATE_DATA_KEY"]
+	def self.activities params, session
+		include_private = session[:login]
 
 		out = include_private ? Activity : Activity.where(is_private: false)
 		out.page params[:page]
