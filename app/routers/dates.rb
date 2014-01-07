@@ -34,9 +34,8 @@ App.configure do |app|
 			@page_title = "Activity in #{start_date.strftime("0%Y")}"
 		end
 
-		format = "%Y-%m-%d %H:%M:%S %:z"
-		start_timestamp = Time.parse("#{start_date} 0:0:0").strftime format
-		end_timestamp = Time.parse("#{end_date} 23:59:59").strftime format
+		start_timestamp = Time.parse "#{start_date} 0:0:0"
+		end_timestamp = Time.parse "#{end_date} 23:59:59"
 
 		@page_type = :index
 
