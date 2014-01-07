@@ -63,6 +63,7 @@ module Laminar
 		else
 			by_me = case data["source"]
 			when "flickr", "instagram" then data["activity_type"] == "photo"
+			when "gmail" then data["activity_type"] == "sent"
 			when "reddit" then %w(comments submitted).include? data["activity_type"]
 			when "tumblr", "twitter" then data["activity_type"] == "post"
 			when "vimeo" then data["activity_type"] == "video"
