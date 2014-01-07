@@ -13,6 +13,6 @@ namespace :currant do
 	end
 	task :static_remote do
 		items = Laminar.get_static_data ENV["CURRANT_URL"]
-		Laminar.add_items "currant", "entry", items
+		Laminar.add_items "currant", "entry", items, { replace: true }
 	end
 end
