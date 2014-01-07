@@ -56,6 +56,7 @@ group :app do
 	gem "fitgem"
 	gem "flickraw"
 	gem "github_api"
+	gem "gmail"
 	gem "instagram"
 	gem "kickscraper"
 	gem "lastfm"

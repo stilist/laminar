@@ -1,0 +1,13 @@
+:ruby
+	item = locals["data"]
+	message = Mail.new item["raw_message"]
+	from = message.from.map { |a| %Q{<a href="mailto:#{a}">#{a}</a>} }.join ", "
+	to = message.to.map { |a| %Q{<a href="mailto:#{a}">#{a}</a>} }.join ", "
+
+%h1.entry-title
+	sent ‘#{message.subject}’ to #{to} (from #{from})
+
+- if locals["extras"]["full_view"]
+	%section.entry-content
+		%blockquote
+			%iframe.mail_viewer{ sandbox: true, srcdoc: LGmail.body(message) }

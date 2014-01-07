@@ -1,0 +1,59 @@
+module LGmail
+	def self.client
+		@client ||= Gmail.new(ENV["GMAIL_USER"], ENV["GMAIL_PASSWORD"])
+	end
+
+	def self.get_received backfill=false
+		items = self.get_data "[Gmail]/All Mail", backfill
+
+		Laminar.add_items "gmail", "received", items
+	end
+
+	def self.get_sent backfill=false
+		items = self.get_data "[Gmail]/Sent Mail", backfill
+
+		Laminar.add_items "gmail", "sent", items
+	end
+
+	def self.body message
+		if message.html_part
+			message.html_part.body
+		elsif message.text_part
+			message.text_part.body
+		else
+			""
+		end
+	end
+
+	private
+
+	def self.get_data mailbox, backfill=false
+		client = self.client
+
+		yesterday = Time.now - (60 * 60 * 24)
+		opts = backfill ? {} : { after: yesterday }
+		data = client.mailbox(mailbox).emails opts
+
+		puts "-----> #{mailbox}: #{data.length} messages"
+
+		self.process_data data
+	ensure
+		client.logout
+	end
+
+	def self.process_data raw_items=[]
+		raw_items.map do |item|
+			time = item.message.date
+
+			puts "       #{item.uid.to_s}: #{item.message.subject}"
+
+			{
+				"created_at" => time,
+				"updated_at" => time,
+				"data" => { "raw_message" => item.message.encoded },
+				"is_private" => true,
+				"original_id" => item.uid.to_s
+			}
+		end
+	end
+end
