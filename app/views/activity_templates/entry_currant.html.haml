@@ -1,0 +1,12 @@
+:ruby
+	item = locals["data"]
+	title = item["title"] || locals["original_id"].split(/\./)[0...-1].join("")
+	source = item["keywords"].match(/import:(\w+)/)[1]
+
+%h1.entry-title
+	posted ‘#{title}’ to #{source}
+
+- if locals["extras"]["full_view"]
+	%section.entry-content
+		%blockquote
+			= markdown item["body"]
