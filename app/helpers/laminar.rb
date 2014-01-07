@@ -57,7 +57,7 @@ module Laminar
 		classes << "full_view" if data["extras"]["full_view"]
 		classes << "hreview" if data["activity_type"] == "review"
 
-		always_me = %w(chrome cloudapp coinbase fitbit github goodreads kickstarter lastfm messages netflix openpaths pge pinboard simple sleep_cycle wikipedia withings)
+		always_me = %w(chrome cloudapp coinbase currant fitbit github goodreads kickstarter lastfm messages netflix openpaths pge pinboard simple sleep_cycle wikipedia withings)
 		if always_me.include? data["source"]
 			by_me = true
 		else
