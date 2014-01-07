@@ -5,7 +5,7 @@
 	to = message.to.map { |a| %Q{<a href="mailto:#{a}">#{a}</a>} }.join ", "
 
 %h1.entry-title
-	received ‘#{message.subject}’ from #{from} (sent to #{to})
+	received ‘#{h message.subject}’ from #{from} (sent to #{to})
 
 - if locals["extras"]["full_view"]
 	%section.entry-content
