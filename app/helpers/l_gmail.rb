@@ -4,15 +4,11 @@ module LGmail
 	end
 
 	def self.get_received backfill=false
-		items = self.get_data "[Gmail]/All Mail", backfill
-
-		Laminar.add_items "gmail", "received", items
+		self.get_data "[Gmail]/All Mail", "received", backfill
 	end
 
 	def self.get_sent backfill=false
-		items = self.get_data "[Gmail]/Sent Mail", backfill
-
-		Laminar.add_items "gmail", "sent", items
+		self.get_data "[Gmail]/Sent Mail", "sent", backfill
 	end
 
 	def self.body message
@@ -21,13 +17,13 @@ module LGmail
 		elsif message.text_part
 			message.text_part.body
 		else
-			""
+			message.raw_source
 		end
 	end
 
 	private
 
-	def self.get_data mailbox, backfill=false
+	def self.get_data mailbox, activity_type, backfill=false
 		client = self.client
 
 		yesterday = Time.now - (60 * 60 * 24)
@@ -36,7 +32,11 @@ module LGmail
 
 		puts "-----> #{mailbox}: #{data.length} messages"
 
-		self.process_data data
+		grouped = data.each_slice(100).to_a
+		grouped.each do |group|
+			items = self.process_data group
+			Laminar.add_items "gmail", activity_type, items
+		end
 	ensure
 		client.logout
 	end
@@ -50,10 +50,16 @@ module LGmail
 			{
 				"created_at" => time,
 				"updated_at" => time,
-				"data" => { "raw_message" => item.message.encoded },
+				"data" => { "raw_message" => self.raw_message(item.message) },
 				"is_private" => true,
 				"original_id" => item.uid.to_s
 			}
 		end
+	end
+
+	def self.raw_message message
+		message.encoded
+	rescue
+		message.raw_source
 	end
 end
