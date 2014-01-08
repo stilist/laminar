@@ -34,7 +34,7 @@ module LGmail
 
 		grouped = data.each_slice(100).to_a
 		grouped.each do |group|
-			items = self.process_data group
+			items = self.process_data(group).compact
 			Laminar.add_items "gmail", activity_type, items
 		end
 	ensure
@@ -42,11 +42,18 @@ module LGmail
 	end
 
 	def self.process_data raw_items=[]
+		ids = Activity.unscoped.where(source: "gmail").select("original_id").
+				map(&:original_id)
+
 		raw_items.map do |item|
+			debug = "       #{item.uid}: #{item.message.subject}"
+
+			existing = ids.index item.uid.to_s
+			debug << " (skipped)" if existing
+			puts debug
+			next if existing
+
 			time = item.message.date
-
-			puts "       #{item.uid.to_s}: #{item.message.subject}"
-
 			{
 				"created_at" => time,
 				"updated_at" => time,
