@@ -100,10 +100,27 @@ module Laminar
 		Hash === h ? Hash[h.map { |k, v| [k.to_s, Laminar.sym2s(v)] }] : h
 	end
 
+	def self.s2sym h
+		# http://stackoverflow.com/a/8380073/672403
+		Hash === h ? Hash[h.map { |k, v| [k.to_sym, Laminar.s2sym(v)] }] : h
+	end
+
 	# When `activerecord-postgres-hstore` pulls fields out of the database it
 	# basically returns `{#{data}}`--nothing is deserialized, so values have to
-	# be run through `eval` before they're usable
-	def self.hstore2hash data={} ; Hash[data.map { |k,v| [k, eval(v)] }] end
+	# be run through `eval` before they're usable.
+	#
+	# Tries to avoid processing `String`s and `Nil`s, which will crash.
+	def self.hstore2hash data={}
+		data = eval(data) if data.is_a? String
+
+		mapped = data.map do |k,v|
+			_v = v.is_a?(String) ? eval(v) : v
+
+			[k, _v]
+		end
+
+		Hash[mapped]
+	end
 
 	def self.add_items source="", activity_type="", items=[], options={}
 		settings = {
