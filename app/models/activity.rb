@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 class Activity < ActiveRecord::Base
-	has_many :parsed_activities
+	serialize :data, JSON
 
 	default_scope { order("activities.updated_at DESC, activities.id DESC") }
 
@@ -11,30 +11,27 @@ class Activity < ActiveRecord::Base
 	self.per_page = 50
 
 	def for_json recurse=true
-		data = self.attributes
+		out = self.attributes
 
-		# if recurse
-		# 	data.delete "location_id"
-		# 	data.delete "user_id"
+		out["data"] = YAML.load(self.parsed_data) if self.parsed_data
 
-		# 	data["location"] = self.location.for_json(false)
-		# 	data["place"] = self.location.place.for_json(false)
-		# 	data["user"] = self.user.for_json(false)
-		# else
-		# 	data["place_id"] = self.location.place_id
-		# end
-
-		data
+		out
 	end
 
 	def title ; @title ||= open_graph[:title] end
 	def description ; @description ||= open_graph[:description] end
 
-	private
+	def parse_data!
+		helper = Laminar.helper self.source
+		parsed = helper.parse_activity self.data, self.activity_type
 
-	def h text
-		Rack::Utils.escape_html text
+		ActiveRecord::Base.record_timestamps = false
+		self.parsed_data = parsed
+		self.save
+		ActiveRecord::Base.record_timestamps = true
 	end
+
+	private
 
 	# This is kind of a monster
 	def open_graph
@@ -42,7 +39,6 @@ class Activity < ActiveRecord::Base
 
 		title = description = ""
 		data = self.data
-
 		case self.source
 		when "flickr"
 			media_type = (data.has_key? "video") ? "video" : "photo"

@@ -1,7 +1,5 @@
 :ruby
-	item = Laminar.hstore2hash locals["data"]
-
-	summary = item["summary"]
+	item = locals["data"]
 
 %h1.entry-title
-	took #{summary["steps"]} steps
+	took #{item[:steps]} steps

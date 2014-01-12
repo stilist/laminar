@@ -46,6 +46,29 @@ module LFitbit
 		end
 	end
 
+	def self.parse_activity activity, activity_type
+		parsed = {}
+
+		case activity_type
+		when "activity"
+			summary = Laminar.hstore2hash activity["summary"]
+
+			parsed[:steps] = summary["steps"]
+
+			times = {
+				light: summary["lightlyActiveMinutes"],
+				moderate: summary["fairlyActiveMinutes"],
+				high: summary["veryActiveMinutes"]
+			}
+			active_sum = times[:light] + times[:moderate] + times[:high]
+			times[:inactive] = ((60 * 24) - active_sum)
+
+			parsed[:times] = times
+		end
+
+		parsed
+	end
+
 	private
 
 	def self.process_data raw_item, date

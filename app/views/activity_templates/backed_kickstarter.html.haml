@@ -4,13 +4,14 @@
 %h1.entry-title
 	backed
 	%a{ href: locals["url"] }
-		= item["name"]
-	(#{item["state"]})
+		= item[:name]
+	(#{item[:state]})
 
 - if locals["extras"]["full_view"]
 	%section.entry-content
-		%video{ src: eval(item["video"])["high"], controls: true }
+		- if item[:video]
+			%video{ src: item[:video], controls: true }
 
 		%blockquote
 			%p
-				= item["blurb"]
+				= item[:blurb]

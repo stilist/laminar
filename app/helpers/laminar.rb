@@ -243,6 +243,26 @@ module Laminar
 
 	private
 
+	def self.get_activity_helpers
+		# preset sources that don’t fit the pattern
+		helpers = {
+			"goodreads" => LGoodread,
+			"messages" => LMessage,
+			"openpaths" => LOpenPath,
+			"sleep_cycle" => LSleepCycle,
+			"wikipedia" => LWikipedium,
+			"withings" => LWithing
+		}
+
+		# need `.reorder` due to default order including `updated_at`
+		sources = Activity.select("DISTINCT source").reorder("source").map &:source
+		sources.reject { |s| helpers.has_key? s }.each do |s|
+			helpers[s] = eval "L#{s.capitalize}"
+		end
+
+		helpers
+	end
+
 	def calculate_hsl data, observations=nil
 		date = data["created_at"]
 

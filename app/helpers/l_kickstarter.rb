@@ -18,6 +18,20 @@ module LKickstarter
 		Laminar.add_items "kickstarter", "backed", items, { replace: true }
 	end
 
+	def self.parse_activity activity, activity_type
+		parsed = {}
+
+		case activity_type
+		when "backed"
+			parsed[:name] = activity["name"]
+			parsed[:state] = activity["state"]
+			parsed[:video] = eval(activity["video"])["high"] if activity["video"]
+			parsed[:blurb] = activity["blurb"]
+		end
+
+		parsed
+	end
+
 	private
 
 	def self.process_data raw_items

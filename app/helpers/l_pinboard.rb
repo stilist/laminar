@@ -9,6 +9,29 @@ module LPinboard
 		Laminar.add_items "pinboard", "bookmark", items
 	end
 
+	def self.parse_activity activity, activity_type
+		# TODO figure out how to import these from `Laminar` module
+		h = ->(text) { Rack::Utils.escape_html text }
+		nl2br = ->(text) { text.gsub(/(\r\n|\r|\n)/, "<br>") }
+
+		parsed = {}
+
+		case activity_type
+		when "bookmark"
+			if activity["description"] == ""
+				parsed[:description] = activity["href"]
+			else
+				parsed[:description] = activity["description"]
+			end
+			parsed[:url] = activity["url"]
+			parsed[:extended] = nl2br.call h.call activity["extended"]
+		end
+
+		parsed
+	end
+
+	private
+
 	def self.process_data raw_items=[]
 		raw_items.map do |item|
 			{

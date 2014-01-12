@@ -1,14 +1,14 @@
-- item = locals["data"]
+:ruby
+	item = locals["data"]
 
 %h1.entry-title
 	bookmarked
 	%a{ href: locals["url"] }
-		= item["description"].empty? ? locals["url"] : item["description"]
+		= item[:description]
 
 - if locals["extras"]["full_view"]
 	%section.entry-content
-		- description = h item["extended"]
-		- unless description.empty?
+		- unless item[:extended].empty?
 			%blockquote
 				%p
-					= nl2br description
+					= item[:extended]
