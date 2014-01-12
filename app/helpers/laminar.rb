@@ -241,6 +241,12 @@ module Laminar
 		Plist::parse_xml raw_data
 	end
 
+	def self.helper source
+		@helpers ||= self.get_activity_helpers
+
+		@helpers[source]
+	end
+
 	private
 
 	def self.get_activity_helpers
