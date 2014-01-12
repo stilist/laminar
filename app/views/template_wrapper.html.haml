@@ -27,10 +27,4 @@
 
 	= partial locals["template"], locals: locals
 	- unless full_view
-		:ruby
-			url = "/activities/#{locals["id"]}"
-
-			key = locals["extras"]["private_data_key"]
-			include_private = key && key == ENV["PRIVATE_DATA_KEY"]
-			url << "?private_data_key=#{key}" if include_private
-		%a.permalink{ href: url, rel: "bookmark" }
+		%a.permalink{ href: "/activities/#{locals["id"]}", rel: "bookmark" }
