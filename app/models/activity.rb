@@ -21,11 +21,6 @@ class Activity < ActiveRecord::Base
 	def title ; @title ||= open_graph[:title] end
 	def description ; @description ||= open_graph[:description] end
 
-	def parse_data
-		helper = Laminar.helper self.source
-		helper.parse_activity self.data, self.activity_type
-	end
-
 	def parse_data!
 		parsed = self.parse_data
 
