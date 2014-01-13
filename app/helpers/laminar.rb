@@ -243,6 +243,20 @@ module Laminar
 		Plist::parse_xml raw_data
 	end
 
+	def self.fetch_feed url
+		require "rss"
+		require "open-uri"
+
+		open(url) do |rss|
+			feed = RSS::Parser.parse rss
+
+			feed.items
+		end
+	rescue => e
+		puts "       Failed to fetch feed:"
+		puts e
+	end
+
 	def self.helper source
 		@helpers ||= self.get_activity_helpers
 
