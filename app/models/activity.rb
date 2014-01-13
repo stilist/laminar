@@ -22,7 +22,7 @@ class Activity < ActiveRecord::Base
 	def description ; @description ||= open_graph[:description] end
 
 	def parse_data!
-		parsed = self.parse_data
+		parsed = Activity.parse_data self.source, self.activity_type, self.data
 
 		ActiveRecord::Base.record_timestamps = false
 		self.parsed_data = parsed
@@ -30,7 +30,7 @@ class Activity < ActiveRecord::Base
 		ActiveRecord::Base.record_timestamps = true
 	end
 
-	def self.parse_data source=self.source, activity_type=self.activity_type, data=self.data
+	def self.parse_data source, activity_type, data
 		helper = Laminar.helper source
 
 		if helper.respond_to? :parse_activity
