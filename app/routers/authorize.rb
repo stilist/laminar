@@ -24,20 +24,7 @@ App.configure do |app|
 		end
 
 		if request_token
-			# Serialize `request_token` to disk, because any `app.set` or `session`
-			# only applies to the Unicorn worker handling this request, which
-			# probably won't be the same one to handle the post-auth redirect.
-			file = File.open "#{params[:service]}_token.yaml", "w"
-
-			begin
-				file << request_token.to_yaml
-				puts "*** saved request token for #{params[:service]}"
-			rescue => e
-				puts "*** didn't save request token for #{params[:service]}:"
-				puts e
-			ensure
-				file.close
-			end
+			session "#{params[:service]}_token" = request_token
 		else
 			puts "*** didn't save request token for #{params[:service]}"
 		end
@@ -64,7 +51,7 @@ App.configure do |app|
 	private
 
 	def get_output params={}
-		request_token = YAML.load open("#{params[:service]}_token.yaml").read
+		request_token = session "#{params[:service]}_token"
 
 		case params[:service]
 		when "fitbit"
