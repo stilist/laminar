@@ -36,6 +36,6 @@ module LGoodread
 	end
 
 	def self.get_data url=""
-		Crack::XML.parse(open(url).read)["GoodreadsResponse"]
+		::Crack::XML.parse(open(url).read)["GoodreadsResponse"]
 	end
 end
