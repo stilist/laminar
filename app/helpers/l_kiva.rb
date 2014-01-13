@@ -32,15 +32,21 @@ module LKiva
 
 		case activity_type
 		when "loan"
-			parsed[:image_url] = "http://s3.kiva.org/img/w800/#{eval(activity["image"])["id"]}.jpg"
-			parsed[:youtube_id] = eval(activity["video"])["youtube_id"] if activity["video"]
+			# hash breaks when serialized to the database
+			activity["image"] = eval(activity["image"]) if activity["image"].is_a?(String)
+			activity["video"] = eval(activity["video"]) if activity["video"].is_a?(String)
+			activity["balance"] = eval(activity["balance"]) if activity["balance"].is_a?(String)
+			activity["location"] = eval(activity["location"]) if activity["location"].is_a?(String)
+
+			parsed[:image_url] = "http://s3.kiva.org/img/w800/#{activity["image"]["id"]}.jpg"
+			parsed[:youtube_id] = activity["video"]["youtube_id"] if activity["video"]
 			parsed[:title] = activity["name"]
 			parsed[:description] = activity["use"]
-			parsed[:amount] = eval(activity["balance"])["total_amount_purchased"].to_s << ".00"
+			parsed[:amount] = activity["balance"]["total_amount_purchased"].to_s << ".00"
 			parsed[:status] = activity["status"]
 			parsed[:display_status] = parsed[:status].gsub /_/, " "
 
-			location = eval activity["location"]
+			location = activity["location"]
 			parsed[:country] = location["country"]
 			parsed[:town] = location["town"]
 			parsed[:coords] = location["geo"]["pairs"].sub /\s+/, ","
