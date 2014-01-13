@@ -5,6 +5,11 @@ App.configure do |app|
 			request_token = LFitbit.client.request_token
 
 			authorize_url = "http://www.fitbit.com/oauth/authorize?oauth_token=#{request_token.token}"
+		when "kiva"
+			request_token = LKiva.client.get_request_token(oauth_callback: ENV["KIVA_AUTHORIZE_URL"])
+
+			scopes = %w(access user_anon_lender_loans user_loan_balances).join ","
+			authorize_url = request_token.authorize_url << "&response_type=code&client_id=#{ENV["KIVA_API_KEY"]}&scope=#{scopes}&oauth_callback=#{ENV["KIVA_AUTHORIZE_URL"]}"
 		when "tumblr"
 			request_token = LTumblr.oauth_request_token
 
@@ -71,6 +76,10 @@ App.configure do |app|
 			response = LGithub.client.get_token(params[:code],
 				redirect_uri: ENV["GITHUB_AUTHORIZE_URL"])
 			token = response.token
+		when "kiva"
+			access_token = request_token.get_access_token(oauth_verifier: params[:oauth_verifier])
+
+			out = "<code>export KIVA_CLIENT_KEY=#{access_token.token} KIVA_CLIENT_SECRET=#{access_token.secret}</code>"
 		when "instagram"
 			response = Instagram.get_access_token(params[:code],
 				redirect_uri: ENV["INSTAGRAM_AUTHORIZE_URL"])

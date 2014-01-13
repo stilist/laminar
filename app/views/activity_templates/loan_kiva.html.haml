@@ -1,0 +1,21 @@
+:ruby
+	item = locals["data"]
+
+%h1.entry-title
+	loaned $#{item[:amount]} for
+	%a{ href: locals["url"] }
+		= item[:title]
+	(#{item[:display_status]})
+
+- if locals["extras"]["full_view"]
+	%section.entry-content
+		%blockquote
+			- if item[:youtube_id]
+				%iframe.video{ src: "//www.youtube.com/embed/#{item[:youtube_id]}",
+						height: 360, width: 480, frameborder: 0, modestbranding: 1, rel: 0,
+						webkitAllowFullScreen: true, mozallowfullscreen: true }
+			- else
+				%p
+					%img{ src: item[:image_url] }
+			%p
+				= item[:description]
