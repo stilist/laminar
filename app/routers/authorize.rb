@@ -51,7 +51,7 @@ App.configure do |app|
 	private
 
 	def get_output params={}
-		request_token = session "#{params[:service]}_token"
+		request_token = session["#{params[:service]}_token".to_sym]
 
 		case params[:service]
 		when "fitbit"
