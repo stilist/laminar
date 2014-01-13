@@ -9,7 +9,15 @@ module LMetafilter
 	end
 
 	def self.parse_activity activity, activity_type
-		Laminar.s2sym activity["data"]
+		parsed = {}
+
+		case activity_type
+		when "favorite"
+			parsed[:title] = activity["title"]
+			parsed[:description] = activity["description"]
+		end
+
+		parsed
 	end
 
 	private
