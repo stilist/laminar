@@ -24,7 +24,7 @@ App.configure do |app|
 		end
 
 		if request_token
-			session "#{params[:service]}_token" = request_token
+			session["#{params[:service]}_token".to_sym] = request_token
 		else
 			puts "*** didn't save request token for #{params[:service]}"
 		end
