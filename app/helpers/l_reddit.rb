@@ -1,5 +1,8 @@
 module LReddit
 	def self.client
+		abort "       Please specify REDDIT_PASSWORD" unless ENV["REDDIT_PASSWORD"]
+		abort "       Please specify REDDIT_USER" unless ENV["REDDIT_USER"]
+
 		@client ||= RedditKit::Client.new ENV["REDDIT_USER"], ENV["REDDIT_PASSWORD"]
 	end
 
