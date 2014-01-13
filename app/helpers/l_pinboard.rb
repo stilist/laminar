@@ -23,7 +23,6 @@ module LPinboard
 			else
 				parsed[:description] = activity["description"]
 			end
-			parsed[:url] = activity["url"]
 			parsed[:extended] = nl2br.call h.call activity["extended"]
 		end
 

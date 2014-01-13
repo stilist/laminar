@@ -146,6 +146,8 @@ module Laminar
 					puts "       #{source}/#{activity_type}: #{item["original_id"]} [#{idx + 1}/#{total}]"
 
 					existing = ids.index item["original_id"]
+					parsed = Activity.parse_data source, activity_type, item
+					item[:parsed_data] = parsed
 
 					if existing && settings[:replace]
 						puts "       updating #{item["original_id"]}"

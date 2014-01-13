@@ -21,14 +21,28 @@ class Activity < ActiveRecord::Base
 	def title ; @title ||= open_graph[:title] end
 	def description ; @description ||= open_graph[:description] end
 
-	def parse_data!
+	def parse_data
 		helper = Laminar.helper self.source
-		parsed = helper.parse_activity self.data, self.activity_type
+		helper.parse_activity self.data, self.activity_type
+	end
+
+	def parse_data!
+		parsed = self.parse_data
 
 		ActiveRecord::Base.record_timestamps = false
 		self.parsed_data = parsed
 		self.save
 		ActiveRecord::Base.record_timestamps = true
+	end
+
+	def self.parse_data source=self.source, activity_type=self.activity_type, data=self.data
+		helper = Laminar.helper source
+
+		if helper.respond_to? :parse_activity
+			helper.parse_activity data, activity_type
+		else
+			nil
+		end
 	end
 
 	private
