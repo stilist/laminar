@@ -71,9 +71,9 @@ App.configure do |app|
 
 			out = "<code>export KIVA_CLIENT_KEY=#{access_token.token} KIVA_CLIENT_SECRET=#{access_token.secret}</code>"
 		when "moves"
-			token = LMove.get_access_token params[:code]
+			data = LMove.get_access_token params[:code]
 
-			out = "<code>export WITHINGS_CLIENT_KEY=#{token["access_token"]}</code>"
+			out = "<code>export WITHINGS_CLIENT_KEY=#{data["access_token"]}</code>"
 		when "instagram"
 			response = Instagram.get_access_token(params[:code],
 				redirect_uri: ENV["INSTAGRAM_AUTHORIZE_URL"])
