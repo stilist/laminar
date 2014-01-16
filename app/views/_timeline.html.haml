@@ -11,6 +11,11 @@
 
 				messages = eval item["data"]["messages"]
 				ts_start = Time.parse(messages.first["time"])
+			when "moves"
+				data = YAML.load item["parsed_data"]
+
+				ts_end = data[:end_time]
+				ts_start = data[:start_time]
 			when "sleep_cycle"
 				ts_end = item["created_at"]
 				ts_start = ts_end - item["data"]["duration"].to_i

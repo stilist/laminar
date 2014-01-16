@@ -2,6 +2,7 @@
 #= depend_on ./map
 #= depend_on ./timeline
 
+#= require_tree ./helpers
 #= require ./graph
 #= require ./map
 #= require ./timeline

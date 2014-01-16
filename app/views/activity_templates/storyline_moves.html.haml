@@ -1,0 +1,26 @@
+:ruby
+	item = locals["data"]
+
+	activity = item[:activity]
+	place = item[:place]
+
+%h1.entry-title
+	- if item[:type] == "place"
+		was at
+		- if place[:type] == "foursquare"
+			%a{ href: "//foursquare.com/v/#{place[:foursquareId]}" }
+				= place[:name]
+		- else
+			= place[:name]
+
+		- if item[:activity]
+			and moved around a bit:
+
+	- elsif item[:type] == "move"
+		was on the move:
+
+	- if item[:activity]
+		%ul.moves
+			- item[:activity].each do |activity|
+				%li.move{ data: { start: activity[:start_time], end: activity[:end_time] } }
+					= activity[:type]

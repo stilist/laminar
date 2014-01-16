@@ -115,6 +115,8 @@ GEM
     mime-types (1.21)
     money (5.1.1)
       i18n (~> 0.6.0)
+    moves (0.0.4)
+      rest-client
     multi_json (1.5.0)
     multi_xml (0.5.3)
     multipart-post (1.2.0)
@@ -147,6 +149,8 @@ GEM
     redcarpet (2.3.0)
     redditkit (1.0.0)
       faraday (~> 0.8)
+    rest-client (1.6.7)
+      mime-types (>= 1.16)
     rinku (1.7.2)
     ripl (0.7.0)
       bond (~> 0.4.2)
@@ -253,6 +257,7 @@ DEPENDENCIES
   json
   kickscraper
   lastfm
+  moves
   pg
   pinboard
   plist

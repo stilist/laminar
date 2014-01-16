@@ -63,6 +63,7 @@ group :app do
 	gem "instagram"
 	gem "kickscraper"
 	gem "lastfm"
+	gem "moves"
 	gem "pinboard"
 	gem "redditkit", "~> 1.0"
 	gem "tumblr_client"

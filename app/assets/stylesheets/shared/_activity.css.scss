@@ -12,6 +12,8 @@
 .hentry ol,
 .hentry p,
 .hentry ul {clear:both; margin:22px 0;}
+.hentry ol,
+.hentry ul {padding-left:20px;}
 .hentry .entry-title {font-weight:normal; line-height:1.4em;}
 .hentry .entry-title {word-wrap:break-word;}
 .hentry .entry-title a {margin-left:-1px;}
@@ -24,6 +26,8 @@ h2 code {font-size:inherit;}
 .hentry .entry-content img {display:inline-block; margin:0 auto; max-width:100%;}
 .hentry .entry-content a img {background-color:#371d10; border:2px solid #c12d2d;}
 .hentry .entry-content pre {margin-bottom:-1px; padding-top:1px;}
+.hentry ol,
+.hentry ul {list-style:circle;}
 .hentry .keywords,
 .hentry .keywords li {display:inline;}
 .hentry .keywords {line-height:1.55em; list-style:none;}
@@ -72,6 +76,7 @@ h2 code {font-size:inherit;}
 .hentry.source-lastfm .source {background-position:0 -192px;}
 .hentry.source-messages .source {background-position:-16px -208px;}
 .hentry.source-metafilter .source {background-position:-32px -208px;}
+.hentry.source-moves .source {background-position:-48px -208px;}
 .hentry.source-netflix .source {background-position:0 -224px;}
 .hentry.source-openpaths .source {background-position:0 -240px;}
 .hentry.source-pge .source {background-position:-32px -256px;}

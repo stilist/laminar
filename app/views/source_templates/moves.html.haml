@@ -1,0 +1,23 @@
+#map
+
+:ruby
+	activity_locations = []
+	activity_point_sets = []
+
+	@items.each do |item|
+		data = YAML.load item["parsed_data"]
+
+		if data[:place]
+			activity_locations << data[:place][:location]
+		end
+
+		if data[:activity]
+			data[:activity].each do |a|
+				activity_point_sets << a[:points]
+			end
+		end
+	end
+
+:javascript
+	window.activity_locations = #{activity_locations.to_json};
+	window.activity_point_sets = #{activity_point_sets.to_json};
