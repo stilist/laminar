@@ -10,6 +10,9 @@ App.configure do |app|
 
 			scopes = %w(access user_anon_lender_loans user_loan_balances).join ","
 			authorize_url = request_token.authorize_url << "&response_type=code&client_id=#{ENV["KIVA_API_KEY"]}&scope=#{scopes}&oauth_callback=#{ENV["KIVA_AUTHORIZE_URL"]}"
+		when "moves"
+			scopes = %w(activity location).join "%20"
+			authorize_url = "https://api.moves-app.com/oauth/v1/authorize?response_type=code&client_id=#{ENV["MOVES_API_KEY"]}&scope=#{scopes}"
 		when "tumblr"
 			request_token = LTumblr.oauth_request_token
 
@@ -67,6 +70,8 @@ App.configure do |app|
 			access_token = request_token.get_access_token(oauth_verifier: params[:oauth_verifier])
 
 			out = "<code>export KIVA_CLIENT_KEY=#{access_token.token} KIVA_CLIENT_SECRET=#{access_token.secret}</code>"
+		when "moves"
+			out = "<code>export WITHINGS_CLIENT_KEY=#{params[:code]}</code>"
 		when "instagram"
 			response = Instagram.get_access_token(params[:code],
 				redirect_uri: ENV["INSTAGRAM_AUTHORIZE_URL"])
