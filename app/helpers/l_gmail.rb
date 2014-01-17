@@ -1,5 +1,8 @@
 module LGmail
 	def self.client
+		abort "       Please specify GMAIL_PASSWORD" unless ENV["GMAIL_PASSWORD"]
+		abort "       Please specify GMAIL_USER" unless ENV["GMAIL_USER"]
+
 		@client ||= Gmail.new(ENV["GMAIL_USER"], ENV["GMAIL_PASSWORD"])
 	end
 
@@ -38,7 +41,7 @@ module LGmail
 			Laminar.add_items "gmail", activity_type, items
 		end
 	ensure
-		client.logout
+		client.logout if client
 	end
 
 	def self.process_data raw_items=[]
@@ -53,7 +56,8 @@ module LGmail
 			puts debug
 			next if existing
 
-			time = item.message.date
+			time = item.message.date.iso8601
+
 			{
 				"created_at" => time,
 				"updated_at" => time,
