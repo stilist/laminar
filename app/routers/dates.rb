@@ -42,7 +42,7 @@ App.configure do |app|
 		activities = Laminar.activities params, session
 		@items = activities.where("updated_at BETWEEN ? AND ?", start_timestamp, end_timestamp).all
 
-		@locations = Geolocation.where("arrived_at BETWEEN ? AND ?", start_timestamp, end_timestamp).all
+		@locations = Laminar.locations start_timestamp, end_timestamp, session
 		observations = Weather.prefetch start_timestamp, end_timestamp
 
 		extras = {

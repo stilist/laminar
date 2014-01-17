@@ -10,7 +10,7 @@
 
 		%nav#timeline
 
-		= partial("partials/_map") if session[:login] && @locations && !@locations.empty?
+		= partial("partials/_map") if @locations && !@locations.empty?
 
 		#content.hfeed
 			= yield

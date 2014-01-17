@@ -16,7 +16,7 @@ App.configure do |app|
 			start_timestamp = @items.last.created_at
 			end_timestamp = @items.first.created_at
 
-			@locations = Geolocation.where("arrived_at BETWEEN ? AND ?", start_timestamp, end_timestamp).all
+			@locations = Laminar.locations start_timestamp, end_timestamp, session
 			observations = Weather.prefetch start_timestamp, end_timestamp
 
 			extras = { "observations" => observations }

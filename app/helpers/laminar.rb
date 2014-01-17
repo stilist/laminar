@@ -29,6 +29,14 @@ module Laminar
 		out.page params[:page]
 	end
 
+	def self.locations start_at, end_at, session
+		if session[:login]
+			Geolocation.where("arrived_at BETWEEN ? AND ?", start_at, end_at).all
+		else
+			[]
+		end
+	end
+
 	def markdown text=""
 		markdown = Redcarpet::Markdown.new Redcarpet::Render::HTML, autolink: true
 
