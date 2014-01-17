@@ -13,13 +13,17 @@ App.configure do |app|
 			# TODO Something better
 			@page_summary = @page_title
 
-			observations = Weather.prefetch @items.first.created_at, @items.last.created_at
+			start_timestamp = @items.last.created_at
+			end_timestamp = @items.first.created_at
+
+			@locations = Geolocation.where("arrived_at BETWEEN ? AND ?", start_timestamp, end_timestamp).all
+			observations = Weather.prefetch start_timestamp, end_timestamp
+
 			extras = { "observations" => observations }
 		else
 			extras = {}
 		end
 
-		extras["private_data_key"] = params[:private_data_key]
 		page_out @items, ->{ 404 unless @items }, extras
 	end
 end

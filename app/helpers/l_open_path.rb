@@ -31,4 +31,14 @@ module LOpenPath
 			}
 		end
 	end
+
+	def self.parse_locations data
+		{
+			is_path: true,
+			lat: data["lat"],
+			lng: data["lon"],
+			altitude: data["alt"],
+			arrived_at: Time.at(data["t"].to_i).getlocal.iso8601
+		}
+	end
 end

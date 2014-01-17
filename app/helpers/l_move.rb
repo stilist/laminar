@@ -74,6 +74,43 @@ module LMove
 		parsed
 	end
 
+	def self.parse_locations data
+		out = []
+
+		if data["place"]
+			place = eval data["place"]
+			location = place["location"]
+
+			out << {
+				is_path: false,
+				name: place["name"],
+				lat: location["lat"],
+				lng: location["lon"],
+				arrived_at: self.parse_time(data["startTime"]),
+				departed_at: self.parse_time(data["endTime"])
+			}
+		end
+
+		if data["activities"]
+			activity = eval data["activities"]
+			activity.each do |activity|
+				activity_type = @@activity_types[activity["activity"]]
+
+				activity["trackPoints"].each do |point|
+					out << {
+						is_path: true,
+						location_type: activity_type,
+						lat: point["lat"],
+						lng: point["lon"],
+						arrived_at: self.parse_time(point["time"])
+					}
+				end
+			end
+		end
+
+		out
+	end
+
 	def self.get_access_token code=""
 		base = "https://api.moves-app.com/oauth/v1/access_token"
 		params = {

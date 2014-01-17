@@ -3,9 +3,13 @@
 class Activity < ActiveRecord::Base
 	serialize :data, JSON
 
+	has_many :geolocations
+
 	default_scope { order("activities.updated_at DESC, activities.id DESC") }
 
 	serialize :data, ActiveRecord::Coders::Hstore
+
+	after_save :parse_locations!
 
 	# will_paginate
 	self.per_page = 50
@@ -35,6 +39,29 @@ class Activity < ActiveRecord::Base
 
 		if helper.respond_to? :parse_activity
 			helper.parse_activity data, activity_type
+		else
+			nil
+		end
+	end
+
+	def parse_locations!
+		locations = Activity.parse_locations self.source, self.data
+
+		if locations
+			locations = [locations] unless locations.is_a? Array
+			processed = locations.map { |l| Geolocation.new l }
+		else
+			processed = nil
+		end
+
+		self.geolocations = processed
+	end
+
+	def self.parse_locations source, data
+		helper = Laminar.helper source
+
+		if data && helper.respond_to?(:parse_locations)
+			helper.parse_locations data
 		else
 			nil
 		end

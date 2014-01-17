@@ -8,11 +8,15 @@ App.configure do |app|
 
 		extras = { "full_view" => false }
 		unless @items.empty?
-			observations = Weather.prefetch @items.first.created_at, @items.last.created_at
+			start_timestamp = @items.last.created_at
+			end_timestamp = @items.first.created_at
+
+			@locations = Geolocation.where("arrived_at BETWEEN ? AND ?", start_timestamp, end_timestamp).all
+			observations = Weather.prefetch start_timestamp, end_timestamp
+
 			extras.merge!({ "observations" => observations })
 		end
 
-		extras["private_data_key"] = params[:private_data_key]
 		page_out @items, 200, extras
 	end
 end

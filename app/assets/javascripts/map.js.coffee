@@ -4,12 +4,13 @@
 	bounds = new google.maps.LatLngBounds
 
 	render_points = ->
-		locations = window.activity_locations or []
 		points = []
+
+		locations = window.activity_points or []
 		for location in locations
 			points.push
 				name: "foo"
-				latlng: new google.maps.LatLng(location.lat, location.lng)
+				latlng: new google.maps.LatLng location.lat, location.lng
 
 		for point in points
 			new google.maps.Marker
@@ -20,28 +21,24 @@
 			bounds.extend point.latlng
 
 	render_paths = ->
-		paths = []
+		points = []
 
-		point_sets = window.activity_point_sets or []
-		for point_set in point_sets
-			coords = point_set.map (point) ->
-				lat_lng = new google.maps.LatLng point.lat, point.lng
+		paths = window.activity_paths or []
+		points = paths.map (path) ->
+			coords = new google.maps.LatLng path.lat, path.lng
 
-				bounds.extend lat_lng
+			bounds.extend coords
 
-				lat_lng
+			coords
 
-			paths.push coords
+		line = new google.maps.Polyline
+			path: points
+			geodesic: true
+			strokeColor: "#333"
+			strokeOpacity: 0.5
+			strokeWeight: 2
 
-		for path in paths
-			line = new google.maps.Polyline
-				path: path
-				geodesic: true
-				strokeColor: "#333"
-				strokeOpacity: 0.5
-				strokeWeight: 2
-
-			line.setMap map
+		line.setMap map
 
 	render_map = ->
 		options =

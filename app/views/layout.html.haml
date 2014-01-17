@@ -10,7 +10,7 @@
 
 		%nav#timeline
 
-		= haml Laminar.source_template(@source), { layout: false }
+		= partial("partials/_map") if session[:login] && @locations && !@locations.empty?
 
 		#content.hfeed
 			= yield

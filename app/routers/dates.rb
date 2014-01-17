@@ -42,18 +42,14 @@ App.configure do |app|
 		activities = Laminar.activities params, session
 		@items = activities.where("updated_at BETWEEN ? AND ?", start_timestamp, end_timestamp).all
 
-		if @items.count > 0
-			observations = Weather.prefetch @items.first.created_at, @items.last.created_at
-		else
-			observations = Weather.prefetch start_timestamp, end_timestamp
-		end
+		@locations = Geolocation.where("arrived_at BETWEEN ? AND ?", start_timestamp, end_timestamp).all
+		observations = Weather.prefetch start_timestamp, end_timestamp
 
 		extras = {
 			"full_view" => false,
 			"observations" => observations
 		}
 
-		extras["private_data_key"] = params[:private_data_key]
 		page_out @items, ->{ 404 unless @items.count > 0 }, extras
 	end
 end

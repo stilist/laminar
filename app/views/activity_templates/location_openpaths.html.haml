@@ -2,18 +2,16 @@
 	item = locals["data"]
 
 	lat = item["lat"].to_f
-	short_lat = lat.round 2
 	lng = item["lon"].to_f
-	short_lng = lng.round 2
-	altitude = item["alt"].to_f.round 0
+	altitude = item["alt"].to_i
 
 %h1.entry-title.geo
 	was at
 	%a{ href: "https://maps.google.com/maps?q=#{lat},#{lng}" }
 		%span.latitude{ title: "#{lat}" }
-			#{short_lat}° N
+			#{lat.round 2}° N
 		%span.longitude{ title: "#{lng}" }
-			#{short_lng}° W
+			#{lng.round 2}° W
 	= surround "(", ")" do
 		#{altitude}
 		%abbr{ title: "meters" }<
