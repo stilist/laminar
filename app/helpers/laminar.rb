@@ -289,6 +289,7 @@ module Laminar
 		helpers
 	end
 
+	# TODO switch to something with absolute chroma (CIELAB/Munsell)
 	def calculate_hsl data, observations=nil
 		date = data["created_at"]
 

@@ -52,8 +52,6 @@ module LKiva
 			parsed[:coords] = location["geo"]["pairs"].sub /\s+/, ","
 		end
 
-		puts activity_type
-
 		parsed
 	end
 
