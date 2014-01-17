@@ -38,25 +38,17 @@ module LGmail
 		grouped = data.each_slice(100).to_a
 		grouped.each do |group|
 			items = self.process_data(group).compact
-			Laminar.add_items "gmail", activity_type, items
+			Laminar.add_items "gmail", activity_type, items, { replace: true }
 		end
 	ensure
 		client.logout if client
 	end
 
 	def self.process_data raw_items=[]
-		ids = Activity.unscoped.where(source: "gmail").select("original_id").
-				map(&:original_id)
-
 		raw_items.map do |item|
-			debug = "       #{item.uid}: #{item.message.subject}"
-
-			existing = ids.index item.uid.to_s
-			debug << " (skipped)" if existing
-			puts debug
-			next if existing
-
-			time = item.message.date.iso8601
+			# `.date.to_time` seems to randomly return a `DateTime`, so forcibly
+			# convert it to `Time`
+			time = Time.parse(item.message.date.iso8601).getlocal.iso8601
 
 			{
 				"created_at" => time,
