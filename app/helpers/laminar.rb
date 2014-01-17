@@ -40,6 +40,7 @@ module Laminar
 	end
 
 	def h text="" ; Rack::Utils.escape_html(text) end
+	def self.h text="" ; Rack::Utils.escape_html(text) end
 
 	def nl2br text="" ; text.gsub(/(\r\n|\r|\n)/, "<br>") end
 

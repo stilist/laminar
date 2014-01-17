@@ -83,11 +83,11 @@ class Activity < ActiveRecord::Base
 
 				user = eval(data["photo"])["owner"]
 				username = user["realname"].empty? ? user["username"] : user["realname"]
-				description = "favorited #{h username}’s #{media_type} ‘#{h data["title"]["_content"]}’"
+				description = "favorited #{Laminar.h username}’s #{media_type} ‘#{Laminar.h data["title"]["_content"]}’"
 			else
 				title = "posted a #{media_type}"
 
-				description = "posted the #{media_type} ‘#{h data["title"]}’"
+				description = "posted the #{media_type} ‘#{Laminar.h data["title"]}’"
 				description << ": ‘#{data["description"]}’" unless data["description"].empty?
 			end
 		when "netflix"
