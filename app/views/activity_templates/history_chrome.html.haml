@@ -4,4 +4,4 @@
 %h1.entry-title
 	visited
 	%a{ href: locals["url"] }
-		= item["title"].empty? ? locals["url"] : item["title"]
+		= (item["title"] && !item["title"].empty?) ? item["title"] : locals["url"]
