@@ -2,10 +2,13 @@
 
 @import "shared/_mixins";
 
-#nameplate {border-top:10px solid transparent; box-shadow:0 3px 3px 0 rgba(#000, 0.2); top:0; width:100%; z-index:10;}
+#nameplate {border-top:10px solid #000; box-shadow:0 3px 3px 0 rgba(#000, 0.2); top:0; width:100%; z-index:10;}
 #nameplate a {border-bottom:none; border-radius:5px; color:#ccc; font-family:chaparral-pro-1,chaparral-pro-2, "Chaparral Pro", serif; line-height:1em; text-transform:lowercase;}
 #nameplate a:active {color:#000;}
 #nameplate #logo {display:inline-block; font-size:40px; margin:20px;}
+#nameplate #logout {@include global_sprite(25, 0); @include replace; @include transition(opacity 0.1s ease-in); cursor:pointer; display:block; height:20px; opacity:0.75; position:absolute; right:20px; text-align:right; top:30px; width:14px;}
+#nameplate #logout:hover {opacity:1;}
+#nameplate #logout.active {opacity:0.5;}
 
 #timeline {background: rgba(#fff, 0.1); height: 150px; position:relative; z-index:2;}
 .jg-viewport .jg-scrub {display:none;}

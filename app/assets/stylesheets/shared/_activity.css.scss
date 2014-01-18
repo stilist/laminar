@@ -59,7 +59,7 @@ h2 code {font-size:inherit;}
 .hentry .entry-content ol {list-style:decimal inside;}
 .hentry .permalink,
 .hentry .source {background-color:transparent; border-bottom:none; display:block; position:absolute;}
-.hentry .permalink {@include global_sprite(0, 0); @include transition(opacity 0.05s linear); bottom:15px; height:10px; opacity:0.5; right:10px; width:20px;}
+.hentry .permalink {@include global_sprite(0, 5); @include transition(opacity 0.05s linear); bottom:15px; height:11px; opacity:0.5; right:10px; width:20px;}
 .hentry:hover .permalink {opacity:1;}
 .hentry .source {@include services_sprite(0, 0); height:16px; margin-top:-8px; padding:0; right:-26px; top:50%; width:16px;}
 .hentry.by-me .source {left:-26px; right:auto;}

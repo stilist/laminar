@@ -42,7 +42,7 @@
 	}
 }
 @mixin global_sprite($x:0, $y:0) {
-	@include sprite("sprite", "png", 250, 250);
+	@include sprite("global_sprite", "png", 500, 250);
 	background-position: -#{$x}px -#{$y}px;
 }
 @mixin services_sprite($x:0, $y:0) {

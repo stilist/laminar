@@ -7,6 +7,9 @@
 		%nav#nameplate
 			%a#logo{ href: "/", rel: "home index" }
 				Ratafia Currant
+			- if session[:login]
+				%span#logout
+					Log out
 
 		%nav#timeline
 
