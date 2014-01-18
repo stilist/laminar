@@ -1,0 +1,17 @@
+:ruby
+	item = locals["data"]
+
+%h1.entry-title
+	favorited the presentation
+	%a{ href: locals["url"] }
+		= item[:title]
+
+- if locals["extras"]["full_view"]
+	%section.entry-content
+		%blockquote
+			%p
+				= nl2br item[:description]
+
+			%iframe{ src: "https://www.slideshare.net/slideshow/embed_code/#{locals["original_id"]}",
+					width: 427, height: 356, scrolling: "no",
+					allowfullscreen: true, webkitAllowFullScreen: true, mozallowfullscreen: true }
