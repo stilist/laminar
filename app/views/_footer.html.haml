@@ -1,8 +1,8 @@
 = will_paginate(@items, { inner_window: 2 }) if @items
 
 / Libraries
-= javascript_script_tag "//maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"
 = javascript_script_tag "//use.typekit.net/yws8cub.js"
+= javascript_script_tag "//api.tiles.mapbox.com/mapbox.js/v1.6.0/mapbox.js"
 
 / App
 
@@ -27,6 +27,9 @@
 
 	# bump `luminance` to keep enough contrast at night
 	color = ColorMath::HSL.new(hue, 1, (luminance + 0.2)).hex
+
+:javascript
+	current_color = "#{color}";
 
 :css
 	#nameplate {border-top-color:#{color};}

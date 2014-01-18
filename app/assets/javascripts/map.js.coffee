@@ -1,59 +1,55 @@
 (($, window) -> $ ->
 	$map = $("#map")
-	map = null
-	bounds = new google.maps.LatLngBounds
+	bounds = geocoder = map = feature_layer = null
+	mapbox_id = "stilist.h1i7n4a8"
 
 	render_points = ->
-		points = []
+		features = []
 
 		locations = window.activity_points or []
 		for location in locations
-			points.push
-				name: "foo"
-				latlng: new google.maps.LatLng location.lat, location.lng
+			features.push
+				type: "Feature"
+				geometry:
+					type: "Point"
+					coordinates: [location.lng, location.lat]
+				properties:
+					"marker-color": current_color
+					"marker-size": "small"
 
-		for point in points
-			new google.maps.Marker
-				position: point.latlng
-				map: map
-				title: point.name
+		feature_layer.clearLayers()
+		feature_layer.setGeoJSON
+			type: "FeatureCollection"
+			features: features
 
-			bounds.extend point.latlng
+		bounds.extend feature_layer.getBounds()
 
 	render_paths = ->
-		points = []
+		points = window.activity_paths or []
 
-		paths = window.activity_paths or []
-		points = paths.map (path) ->
-			coords = new google.maps.LatLng path.lat, path.lng
+		opts =
+			color: "#333"
+			opacity: 0.5
+			weight: 1
+		line = L.polyline(points, opts).addTo map
 
-			bounds.extend coords
+		bounds.extend line.getBounds()
 
-			coords
+	initialize = ->
+		geocoder = L.mapbox.geocoder mapbox_id
+		map = L.mapbox.map "map", mapbox_id,
+			tileLayer: { detectRetina: true }
+		feature_layer = L.mapbox.featureLayer().addTo map
 
-		line = new google.maps.Polyline
-			path: points
-			geodesic: true
-			strokeColor: "#333"
-			strokeOpacity: 0.5
-			strokeWeight: 2
+		geocoder.query "Portland, OR", render_map
 
-		line.setMap map
-
-	render_map = ->
-		options =
-			zoom: 13
-			# center on Portland
-			center: new google.maps.LatLng(45.5236, -122.6750)
-			disableDefaultUI: true
-			mapTypeId: google.maps.MapTypeId.ROADMAP
-
-		map = new google.maps.Map $map.get(0), options
+	render_map = (err, data) ->
+		bounds = data.lbounds
 
 		render_points()
 		render_paths()
 
 		map.fitBounds bounds
-	render_map() if $map.length > 0
+	initialize() if $map.length > 0
 
 )(window.$ or window.jQuery or window.Zepto, window)
