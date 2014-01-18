@@ -51,7 +51,7 @@ class Activity < ActiveRecord::Base
 			locations = [locations] unless locations.is_a? Array
 			processed = locations.map { |l| Geolocation.create l }
 		else
-			processed = nil
+			processed = []
 		end
 
 		self.geolocations = processed
