@@ -49,7 +49,11 @@ class Activity < ActiveRecord::Base
 
 		if locations
 			locations = [locations] unless locations.is_a? Array
+
+			was_enabled = ActiveRecord::Base.record_timestamps
+			ActiveRecord::Base.record_timestamps = true
 			processed = locations.map { |l| Geolocation.create l }
+			ActiveRecord::Base.record_timestamps = was_enabled
 		else
 			processed = []
 		end
