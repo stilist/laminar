@@ -281,8 +281,8 @@ module Laminar
 		sources = ["chrome", "cloudapp", "coinbase", "currant", "fitbit", "flickr",
 			"github", "gmail", "goodreads", "instagram", "kickstarter", "kiva",
 			"lastfm", "messages", "metafilter", "moves", "netflix", "openpaths", "pge",
-			"pinboard", "reddit", "simple", "sleep_cycle", "tumblr", "twitter",
-			"vimeo", "wikipedia", "withings", "youtube"]
+			"pinboard", "reddit", "simple", "sleep_cycle", "slideshare", "tumblr",
+			"twitter", "vimeo", "wikipedia", "withings", "youtube"]
 		sources.reject { |s| helpers.has_key? s }.each do |s|
 			helpers[s] = eval "L#{s.capitalize}"
 		end
