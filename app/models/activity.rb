@@ -22,8 +22,8 @@ class Activity < ActiveRecord::Base
 		out
 	end
 
-	def title ; @title ||= open_graph[:title] end
-	def description ; @description ||= open_graph[:description] end
+	def title ; open_graph[:title] end
+	def description ; open_graph[:description] end
 
 	def parse_data!
 		parsed = Activity.parse_data self.source, self.activity_type, self.data
@@ -98,7 +98,7 @@ class Activity < ActiveRecord::Base
 			# TODO TV shows
 			title = "reviewed a movie"
 
-			description = "reviewed #{eval(data["title"])[:attributes][:regular]}"
+			description = "reviewed #{eval(data["title"])["attributes"]["regular"]}"
 			description << "(#{data["release_year"]}): #{data["user_rating"].to_i} stars"
 		when "openpaths"
 			title = "was triangulated"
