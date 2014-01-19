@@ -2,7 +2,8 @@
 
 @import "shared/_mixins";
 
-#nameplate {border-top:10px solid #000; box-shadow:0 3px 3px 0 rgba(#000, 0.2); top:0; width:100%; z-index:10;}
+// massive `z-index` boosts above mapbox controls
+#nameplate {border-top:10px solid #000; box-shadow:0 3px 3px 0 rgba(#000, 0.2); top:0; width:100%; z-index:1010;}
 #nameplate a {border-bottom:none; border-radius:5px; color:#ccc; font-family:chaparral-pro-1,chaparral-pro-2, "Chaparral Pro", serif; line-height:1em; text-transform:lowercase;}
 #nameplate a:active {color:#000;}
 #nameplate #logo {display:inline-block; font-size:40px; margin:20px;}
