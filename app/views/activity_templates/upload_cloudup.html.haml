@@ -1,0 +1,12 @@
+:ruby
+	item = locals["data"]
+
+%h1.entry-title
+	uploaded the #{item[:type]}
+	%a{ href: item[:direct_url], type: item[:mime] }
+		= item[:filename]
+
+- if locals["extras"]["full_view"]
+	%section.entry-content
+		%blockquote
+			%img{ src: item[:thumb_url] }
