@@ -1,0 +1,18 @@
+:ruby
+	item = locals["data"]
+
+%h1.entry-title
+	favorited
+	%a{ href: locals["url"] }
+		= item[:title]
+	by
+	%a{ href: item[:user_url] }
+		= item[:user_name]
+
+- if locals["extras"]["full_view"]
+	%section.entry-content
+		%blockquote
+			= LSoundcloud.embed locals["original_id"], item_hsl(locals, false)
+
+			%p
+				= nl2br item[:description]

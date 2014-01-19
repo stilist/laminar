@@ -41,6 +41,7 @@ GEM
       safe_yaml (~> 0.9.0)
     crazylegs (0.1.2)
       ruby-hmac (~> 0.4.0)
+    curb (0.8.5)
     excon (0.20.1)
     execjs (1.4.0)
       multi_json (~> 1.0)
@@ -83,6 +84,9 @@ GEM
       tilt
     hashie (2.0.3)
     hike (1.2.1)
+    httmultiparty (0.3.10)
+      httparty (>= 0.7.3)
+      multipart-post
     httparty (0.11.0)
       multi_json (~> 1.0)
       multi_xml (>= 0.5.2)
@@ -176,6 +180,9 @@ GEM
       sinatra (~> 1.3)
     sinatra-static-assets (1.0.4)
       sinatra (>= 1.1.0)
+    soundcloud (0.3.2)
+      hashie (~> 2.0)
+      httmultiparty (~> 0.3.0)
     sprockets (2.8.2)
       hike (~> 1.2)
       multi_json (~> 1.0)
@@ -245,6 +252,7 @@ DEPENDENCIES
   colormath
   crack
   crazylegs
+  curb
   fitgem
   flickraw
   fog
@@ -272,6 +280,7 @@ DEPENDENCIES
   sinatra-activerecord
   sinatra-respond_to
   sinatra-static-assets
+  soundcloud
   sprockets
   sprockets-helpers (~> 0.2)
   sprockets-sass (~> 0.5)

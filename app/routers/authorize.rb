@@ -13,6 +13,8 @@ App.configure do |app|
 		when "moves"
 			scopes = %w(activity location).join "%20"
 			authorize_url = "https://api.moves-app.com/oauth/v1/authorize?response_type=code&client_id=#{ENV["MOVES_API_KEY"]}&scope=#{scopes}"
+		when "soundcloud"
+			authorize_url = LSoundcloud.authorize_client.authorize_url scope: "non-expiring"
 		when "tumblr"
 			request_token = LTumblr.oauth_request_token
 
@@ -78,6 +80,8 @@ App.configure do |app|
 			response = Instagram.get_access_token(params[:code],
 				redirect_uri: ENV["INSTAGRAM_AUTHORIZE_URL"])
 			token = response.access_token
+		when "soundcloud"
+			token = LSoundcloud.get_access_token params[:code]
 		when "tumblr"
 			response = request_token.get_access_token(oauth_verifier: params[:oauth_verifier])
 			token = response.token

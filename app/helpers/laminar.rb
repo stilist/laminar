@@ -58,7 +58,7 @@ module Laminar
 		classes << "full_view" if data["extras"]["full_view"]
 		classes << "hreview" if data["activity_type"] == "review"
 
-		always_me = %w(chrome cloudapp coinbase currant fitbit github goodreads kickstarter messages moves netflix openpaths pge pinboard simple sleep_cycle wikipedia withings)
+		always_me = %w(chrome cloudapp coinbase currant fitbit github goodreads kickstarter kiva messages moves netflix openpaths pge pinboard simple sleep_cycle wikipedia withings)
 		if always_me.include? data["source"]
 			by_me = true
 		else
@@ -66,6 +66,7 @@ module Laminar
 			when "flickr", "instagram" then data["activity_type"] == "photo"
 			when "gmail" then data["activity_type"] == "sent"
 			when "reddit" then %w(comments submitted).include? data["activity_type"]
+			when "soundcloud" then %w(track).include? data["activity_type"]
 			when "tumblr", "twitter" then data["activity_type"] == "post"
 			when "vimeo" then data["activity_type"] == "video"
 			end
@@ -281,8 +282,8 @@ module Laminar
 		sources = ["chrome", "cloudapp", "coinbase", "currant", "fitbit", "flickr",
 			"github", "gmail", "goodreads", "instagram", "kickstarter", "kiva",
 			"lastfm", "messages", "metafilter", "moves", "netflix", "openpaths", "pge",
-			"pinboard", "reddit", "simple", "sleep_cycle", "slideshare", "tumblr",
-			"twitter", "vimeo", "wikipedia", "withings", "youtube"]
+			"pinboard", "reddit", "simple", "sleep_cycle", "slideshare", "soundcloud",
+			"tumblr", "twitter", "vimeo", "wikipedia", "withings", "youtube"]
 		sources.reject { |s| helpers.has_key? s }.each do |s|
 			helpers[s] = eval "L#{s.capitalize}"
 		end

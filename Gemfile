@@ -66,6 +66,7 @@ group :app do
 	gem "moves"
 	gem "pinboard"
 	gem "redditkit", "~> 1.0"
+	gem "soundcloud"
 	gem "tumblr_client"
 	gem "twitter"
 	gem "vimeo"
@@ -75,6 +76,7 @@ group :app do
 	# helpers
 	# https://gist.github.com/pdarche/5034801
 	gem "crazylegs"
+	gem "curb"
 	gem "redcarpet"
 	gem "colormath"
 	# http://stackoverflow.com/a/9531191/672403
