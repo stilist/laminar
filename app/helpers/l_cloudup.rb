@@ -40,6 +40,12 @@ module LCloudup
 	private
 
 	def self.get_data path, raw_params={}
+		required_keys = %w(password user)
+		required_keys.each do |key|
+			full = "CLOUDUP_#{key.upcase}"
+			abort "       Please specify #{full}" unless ENV[full]
+		end
+
 		params = raw_params.map { |k,v| "#{k}=#{v}" }.join "&"
 		url = "https://api.cloudup.com/1#{path}?#{params}"
 
