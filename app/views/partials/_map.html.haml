@@ -1,4 +1,5 @@
 #map
+#map-size-toggle
 
 :ruby
 	activity_points = []
@@ -7,11 +8,8 @@
 	@locations.each do |item|
 		data = { lat: item.lat.to_f, lng: item.lng.to_f }
 
-		if item.is_path
-			activity_paths << data.merge({ type: item.location_type })
-		else
-			activity_points << data.merge({ name: item.name })
-		end
+		activity_paths << data.merge({ type: item.location_type })
+		activity_points << data.merge({ name: item.name }) if !item.is_path
 	end
 
 :javascript

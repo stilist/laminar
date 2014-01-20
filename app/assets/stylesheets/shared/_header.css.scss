@@ -20,3 +20,8 @@
 .jg-content .jg-project .jg-data {border-radius:6px; height:100%;}
 
 #map {height:300px;}
+#map-size-toggle {@include transition(background-color 0.1s ease-in); background-color:rgba(#000, 0.25); border-radius:3px; cursor:pointer; display:none; height:20px; padding:3px; position:absolute; right:10px; width:7px; z-index:1005;}
+#map-size-toggle:hover {background-color:rgba(#000, 0.75) !important;}
+#map-size-toggle::after {@include global_sprite(44, 0); content:""; display:block; height:100%; width:100%;}
+#map-size-toggle.open {background-color:rgba(#000, 0.5);}
+#map-size-toggle.open::after {background-position:-56px 0;}
