@@ -73,7 +73,9 @@
 		render_points()
 		render_paths()
 
-		map.fitBounds bounds
+		# without the `setTimeout` the map will often render partway and become
+		# non-responsive
+		setTimeout -> map.fitBounds bounds
 	initialize() if $map.length > 0
 
 )(window.$ or window.jQuery or window.Zepto, window)
