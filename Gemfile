@@ -58,6 +58,7 @@ group :app do
 	gem "coinbase"
 	gem "fitgem"
 	gem "flickraw"
+	gem "foursquare2"
 	gem "github_api"
 	gem "gmail"
 	gem "instagram"

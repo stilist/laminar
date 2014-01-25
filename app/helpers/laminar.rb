@@ -58,7 +58,7 @@ module Laminar
 		classes << "full_view" if data["extras"]["full_view"]
 		classes << "hreview" if data["activity_type"] == "review"
 
-		always_me = %w(chrome cloudapp cloudup coinbase currant fitbit github goodreads kickstarter kiva messages moves netflix openpaths pge pinboard simple sleep_cycle wikipedia withings)
+		always_me = %w(chrome cloudapp cloudup coinbase currant fitbit foursquare github goodreads kickstarter kiva messages moves netflix openpaths pge pinboard simple sleep_cycle wikipedia withings)
 		if always_me.include? data["source"]
 			by_me = true
 		else
@@ -280,9 +280,9 @@ module Laminar
 		}
 
 		sources = ["chrome", "cloudapp", "cloudup", "coinbase", "currant",
-			"fitbit", "flickr", "github", "gmail", "goodreads", "instagram",
-			"kickstarter", "kiva", "lastfm", "messages", "metafilter", "moves",
-			"netflix", "openpaths", "pge", "pinboard", "reddit", "simple",
+			"foursquare", "fitbit", "flickr", "github", "gmail", "goodreads",
+			"instagram", "kickstarter", "kiva", "lastfm", "messages", "metafilter",
+			"moves", "netflix", "openpaths", "pge", "pinboard", "reddit", "simple",
 			"sleep_cycle", "slideshare", "soundcloud", "tumblr", "twitter", "vimeo",
 			"wikipedia", "withings", "youtube"]
 		sources.reject { |s| helpers.has_key? s }.each do |s|

@@ -65,6 +65,10 @@ GEM
     foreman (0.62.0)
       thor (>= 0.13.6)
     formatador (0.2.4)
+    foursquare2 (1.9.8)
+      faraday (~> 0.8)
+      faraday_middleware (>= 0.8)
+      hashie (>= 1.0, < 3.0.0)
     github_api (0.9.7)
       faraday (~> 0.8.1)
       hashie (>= 1.2)
@@ -257,6 +261,7 @@ DEPENDENCIES
   flickraw
   fog
   foreman
+  foursquare2
   github_api
   gmail
   haml

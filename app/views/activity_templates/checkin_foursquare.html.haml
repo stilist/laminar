@@ -1,0 +1,11 @@
+:ruby
+	item = locals["data"]
+
+%h1.entry-title
+	= "was" if item[:checked_in_by]
+	checked in at
+	%a{ href: locals["url"] }
+		= item[:place_name]
+	- if item[:checked_in_by]
+		by
+		#{item[:checked_in_by][:first_name]} #{item[:checked_in_by][:last_name]}
