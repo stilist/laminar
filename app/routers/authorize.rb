@@ -5,6 +5,8 @@ App.configure do |app|
 			request_token = LFitbit.client.request_token
 
 			authorize_url = "http://www.fitbit.com/oauth/authorize?oauth_token=#{request_token.token}"
+		when "foursquare"
+			authorize_url = LFoursquare.authorize_client.auth_code.authorize_url(redirect_uri: ENV["FOURSQUARE_AUTHORIZE_URL"])
 		when "kiva"
 			request_token = LKiva.client.get_request_token(oauth_callback: ENV["KIVA_AUTHORIZE_URL"])
 
@@ -64,6 +66,9 @@ App.configure do |app|
 					request_token.secret, { oauth_verifier: params[:oauth_verifier] })
 
 			out = "<code>export FITBIT_CLIENT_KEY=#{response.token} FITBIT_CLIENT_SECRET=#{response.secret}</code>"
+		when "foursquare"
+			response = LFoursquare.authorize_client.auth_code.get_token(params[:code], redirect_uri: ENV["FOURSQUARE_AUTHORIZE_URL"])
+			token = response.token
 		when "github"
 			response = LGithub.client.get_token(params[:code],
 				redirect_uri: ENV["GITHUB_AUTHORIZE_URL"])
