@@ -39,7 +39,7 @@ App.configure do |app|
 		if authorize_url
 			redirect authorize_url
 		else
-			erb "Try again.", { layout: :layout, layout_engine: :haml }
+			erb "Unknown service. Try again.", { layout: :layout, layout_engine: :haml }
 		end
 	end
 

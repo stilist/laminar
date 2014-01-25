@@ -3,7 +3,7 @@
 class Activity < ActiveRecord::Base
 	serialize :data, JSON
 
-	has_many :geolocations
+	has_many :geolocations, dependent: :destroy
 
 	default_scope { order("activities.updated_at DESC, activities.id DESC") }
 
