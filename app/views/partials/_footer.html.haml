@@ -12,7 +12,8 @@
 /[if IE]
 	= javascript_script_tag "//html5shiv.googlecode.com/svn/trunk/html5.js"
 
-= partial "_timeline"
+= partial "partials/_timeline"
+= partial("partials/_map") if @locations && !@locations.empty?
 
 -# TODO do in JS
 :ruby
