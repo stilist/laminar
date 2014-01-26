@@ -52,7 +52,7 @@
 		opts =
 			color: "#333"
 			opacity: 0.5
-			smoothFactor: 2
+			smoothFactor: 3
 			weight: 1
 		line = L.polyline(points, opts).addTo map
 

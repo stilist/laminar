@@ -46,7 +46,7 @@
 	background-position: -#{$x}px -#{$y}px;
 }
 @mixin services_sprite($x:0, $y:0) {
-	@include sprite("services_sprite", "png", 224, 432);
+	@include sprite("services_sprite", "png", 224, 448);
 	background-position: -#{$x * 16}px -#{$y * 16}px;
 }
 

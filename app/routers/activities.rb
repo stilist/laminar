@@ -10,6 +10,8 @@ App.configure do |app|
 
 		extras = { "full_view" => true }
 		if @item
+			@locations = @item.geolocations
+
 			observations = Weather.prefetch @item.created_at, @item.created_at
 			extras.merge!({ "observations" => observations })
 		end
