@@ -45,10 +45,12 @@ class Activity < ActiveRecord::Base
 	end
 
 	def parse_locations!
-		locations = Activity.parse_locations self.source, self.data
+		locations = Activity.parse_locations self.source, self.activity_type, self.data
 
 		if locations
 			locations = [locations] unless locations.is_a? Array
+
+			locations.each { |l| l[:arrived_at] ||= self.created_at }
 
 			was_enabled = ActiveRecord::Base.record_timestamps
 			ActiveRecord::Base.record_timestamps = true
@@ -61,11 +63,11 @@ class Activity < ActiveRecord::Base
 		self.geolocations = processed
 	end
 
-	def self.parse_locations source, data
+	def self.parse_locations source, activity_type, data
 		helper = Laminar.helper source
 
 		if data && helper.respond_to?(:parse_locations)
-			helper.parse_locations data
+			helper.parse_locations data, activity_type
 		else
 			nil
 		end

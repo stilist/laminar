@@ -40,6 +40,21 @@ module LInstagram
 		end
 	end
 
+	def self.parse_locations data, activity_type
+		if activity_type == "photo"
+			location = data["location"] ? eval(data["location"]) : nil
+
+			if location
+				{
+					is_path: false,
+					name: location["name"],
+					lat: location["latitude"],
+					lng: location["longitude"]
+				}
+			end
+		end
+	end
+
 	private
 
 	def self.process_data raw_items
