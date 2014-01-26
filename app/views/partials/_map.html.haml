@@ -5,10 +5,13 @@
 	@locations.each do |item|
 		data = { lat: item.lat.to_f, lng: item.lng.to_f }
 
-		activity_paths << data.merge({ type: item.location_type })
-		activity_points << data.merge({ name: item.name }) if !item.is_path
+		if item.is_path
+			activity_paths << data.merge({ type: item.location_type })
+		else
+			activity_points << data.merge({ name: item.name })
+		end
 	end
 
 :javascript
-	window.activity_points = #{activity_points.to_json};
 	window.activity_paths = #{activity_paths.to_json};
+	window.activity_points = #{activity_points.to_json};

@@ -47,6 +47,7 @@
 
 	render_paths = ->
 		points = window.activity_paths or []
+		points = points.concat window.activity_points
 		return if points.length is 0
 
 		opts =
