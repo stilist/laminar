@@ -1,7 +1,7 @@
 //= require modernizr.custom.02814
 
 //= require underscore
-
+//= require backbone
 //= require moment
 //= require dygraphs
 //= require jquery.gantt
