@@ -3,11 +3,12 @@
 @import "shared/_mixins";
 
 // massive `z-index` boosts above mapbox controls
-#nameplate {border-top:10px solid #000; box-shadow:0 3px 3px 0 rgba(#000, 0.2); top:0; width:100%; z-index:1010;}
+#nameplate {border-top:10px solid #000; box-shadow:0 3px 3px 0 rgba(#000, 0.2); overflow:hidden; top:0; width:100%; z-index:1010;}
 #nameplate a {border-bottom:none; border-radius:5px; color:#ccc; font-family:chaparral-pro-1,chaparral-pro-2, "Chaparral Pro", serif; line-height:1em; text-transform:lowercase;}
 #nameplate a:active {color:#000;}
-#nameplate #logo {display:inline-block; font-size:40px; margin:20px;}
-#nameplate #logout {@include global_sprite(25, 0); @include replace; @include transition(opacity 0.1s ease-in); cursor:pointer; display:block; height:20px; opacity:0.75; position:absolute; right:20px; text-align:right; top:30px; width:14px;}
+#nameplate #logo {display:inline-block; font-size:40px; margin:20px; z-index:5;}
+#nameplate .sun {border-radius:50%; background-color:rgba(#fc0, 0.5); display:block; height:10px; margin-left:-5px; margin-top:-5px; position:absolute; width:10px; z-index:2;}
+#nameplate #logout {@include global_sprite(25, 0); @include replace; @include transition(opacity 0.1s ease-in); cursor:pointer; display:block; height:20px; opacity:0.75; position:absolute; right:20px; text-align:right; top:30px; width:14px; z-index:4;}
 #nameplate #logout:hover {opacity:1;}
 #nameplate #logout.active {opacity:0.5;}
 

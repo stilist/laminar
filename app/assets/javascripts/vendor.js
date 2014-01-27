@@ -3,6 +3,7 @@
 //= require underscore
 //= require backbone
 //= require moment
+//= require moment-timezone
 //= require dygraphs
 //= require jquery.gantt
 
