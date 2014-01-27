@@ -24,17 +24,11 @@
 		$("#login input[type=submit]").css backgroundColor: current_color
 
 	setInterval ->
-		# ###
-		ts = model.get "timestamp"
-		new_ts = moment(ts).add "hour", 1
-		model.set "timestamp", new_ts
-		# ###
-		# model.set "timestamp", new Date()
+		model.set "timestamp", new Date()
 
 		positionSun()
 		set_chrome_colors()
-	, 250
-	# , (60 * 1000)
+	, (60 * 1000)
 
 	positionSun()
 	set_chrome_colors()
