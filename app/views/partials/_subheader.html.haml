@@ -8,7 +8,9 @@
 		%span#logout
 			Log out
 
+
 %nav#timeline
 
-#map
-#map-size-toggle
+- if @locations && !@locations.empty?
+	#map
+	#map-size-toggle

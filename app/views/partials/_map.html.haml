@@ -2,13 +2,15 @@
 	activity_points = []
 	activity_paths = []
 
-	@locations.each do |item|
-		data = { lat: item.lat.to_f, lng: item.lng.to_f }
+	if @locations
+		@locations.each do |item|
+			data = { lat: item.lat.to_f, lng: item.lng.to_f }
 
-		if item.is_path
-			activity_paths << data.merge({ type: item.location_type })
-		else
-			activity_points << data.merge({ name: item.name })
+			if item.is_path
+				activity_paths << data.merge({ type: item.location_type })
+			else
+				activity_points << data.merge({ name: item.name })
+			end
 		end
 	end
 
