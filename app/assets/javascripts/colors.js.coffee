@@ -44,9 +44,13 @@
 		color = chroma.hsl hue, saturation, (luminance + 0.2)
 		if as_hex then color.hex() else color
 
-	window.current_color = get_color()
-	$("#nameplate").css borderTopColor: current_color
-	$("#login input[type=submit]").css backgroundColor: current_color
+	set_chrome_colors = ->
+		window.current_color = get_color()
+
+		$("#nameplate").css borderTopColor: current_color
+		$("#login input[type=submit]").css backgroundColor: current_color
+	setInterval set_chrome_colors, (60 * 1000)
+	set_chrome_colors()
 
 	$(".hentry").each ->
 		$entry = $(@)
