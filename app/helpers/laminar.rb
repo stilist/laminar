@@ -52,11 +52,14 @@ module Laminar
 
 	def nl2br text="" ; text.gsub(/(\r\n|\r|\n)/, "<br>") end
 
-	def item_classes data
+	def item_classes data, observations
 		classes = %w(hentry hnews)
 		classes << "type-#{data["activity_type"]} source-#{data["source"]}"
 		classes << "full_view" if data["extras"]["full_view"]
 		classes << "hreview" if data["activity_type"] == "review"
+
+		wo = Weather::nearest_observation data["created_at"], observations
+		classes << "weather-#{wo["data"]["icon"]}"
 
 		always_me = %w(chrome cloudapp cloudup coinbase currant fitbit foursquare github goodreads kickstarter kiva messages moves netflix openpaths pge pinboard simple sleep_cycle wikipedia withings)
 		if always_me.include? data["source"]

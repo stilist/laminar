@@ -5,8 +5,7 @@
 	full_view = locals["extras"]["full_view"]
 	weather = Weather::nearest_observation locals["created_at"], extras["observations"]
 
-%section{ class: item_classes(locals), style: item_hsl(locals),
-			id: "item_#{locals["id"]}" }
+%section{ class: item_classes(locals, extras["observations"]), id: "item_#{locals["id"]}" }
 	.meta
 		%time.updated{ datetime: time.iso8601, pubdate: "" }
 			- if full_view

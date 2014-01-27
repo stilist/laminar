@@ -6,5 +6,7 @@
 //= require dygraphs
 //= require jquery.gantt
 
+//= require chroma
+
 //= require form2js
 //= require jquery.toObject

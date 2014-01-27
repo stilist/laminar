@@ -1,9 +1,11 @@
+#= depend_on ./colors
 #= depend_on ./graph
 #= depend_on ./map
 #= depend_on ./logout
 #= depend_on ./timeline
 
 #= require_tree ./helpers
+#= require ./colors
 #= require ./graph
 #= require ./map
 #= require ./logout
