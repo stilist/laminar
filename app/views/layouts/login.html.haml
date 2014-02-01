@@ -1,7 +1,7 @@
 !!! 5
 %html{ lang: "en", class: "no-js", "xmlns:og" => "//ogp.me/ns#" }
 	%head{ profile: "//gmpg.org/xfn/11" }
-		= haml :"_header", layout: false
+		= partial "partials/_header"
 
 	%body#login
 		%nav#nameplate
@@ -10,5 +10,5 @@
 
 		= yield
 
-		= haml :"_footer", layout: false
+		= partial "partials/_footer"
 		= javascript_script_tag "assets/helpers/login.js"
