@@ -1,0 +1,7 @@
+:ruby
+	item = locals["data"]
+
+%h1.entry-title
+	tipped $#{item[:amount]} to
+	%a{ href: locals["url"] }
+		#{item[:username]}
