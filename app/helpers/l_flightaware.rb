@@ -19,7 +19,7 @@ module LFlightaware
 		Laminar.add_items "flightaware", "track", [items], { replace: true }
 	end
 
-	def self.parse_locations data
+	def self.parse_locations data, activity_type
 		out = []
 
 		points = eval data["points"]

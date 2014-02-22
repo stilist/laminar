@@ -58,7 +58,7 @@ module LFoursquare
 		parsed
 	end
 
-	def self.parse_locations data
+	def self.parse_locations data, activity_type
 		venue = eval data["venue"]
 
 		{

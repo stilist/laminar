@@ -15,7 +15,7 @@ module LMove
 		if backfill
 			start = DateTime.parse client.profile["profile"]["firstDate"]
 		else
-			start = DateTime.now
+			start = DateTime.now - 3
 		end
 
 		range = (start..DateTime.now)
@@ -74,7 +74,7 @@ module LMove
 		parsed
 	end
 
-	def self.parse_locations data
+	def self.parse_locations data, activity_type
 		out = []
 
 		if data["place"]
