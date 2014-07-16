@@ -1,3 +1,15 @@
+GIT
+  remote: git://github.com/markolson/kickscraper.git
+  revision: b539179d4edb0305997d6e3cbb49b6b7fc345f9f
+  tag: v0.1.1
+  specs:
+    kickscraper (0.1.1)
+      faraday (>= 0.7, < 0.9)
+      faraday_middleware (~> 0.8)
+      hashie (~> 2)
+      multi_json (~> 1.0, >= 1.0.3)
+      uri-query_params
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -106,12 +118,6 @@ GEM
     jwt (0.1.8)
       multi_json (>= 1.5)
     kgio (2.8.0)
-    kickscraper (0.1.1)
-      faraday (>= 0.7, < 0.9)
-      faraday_middleware (~> 0.8)
-      hashie (~> 2)
-      multi_json (~> 1.0, >= 1.0.3)
-      uri-query_params
     lastfm (1.21.0)
       activesupport (>= 3.2.0)
       httparty
@@ -268,7 +274,7 @@ DEPENDENCIES
   handlebars_assets
   instagram
   json
-  kickscraper
+  kickscraper!
   lastfm
   moves
   pg

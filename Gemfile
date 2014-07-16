@@ -62,7 +62,9 @@ group :app do
 	gem "github_api"
 	gem "gmail"
 	gem "instagram"
-	gem "kickscraper"
+	gem "kickscraper",
+			git: "git://github.com/markolson/kickscraper.git",
+			tag: "v0.1.1"
 	gem "lastfm"
 	gem "moves"
 	gem "pinboard"
