@@ -1,11 +1,19 @@
 :ruby
 	item = locals["data"]
 	message = Mail.new item["raw_message"]
-	from = message.from.map { |a| %Q{<a href="mailto:#{a}">#{a}</a>} }.join ", "
-	to = message.to.map { |a| %Q{<a href="mailto:#{a}">#{a}</a>} }.join ", "
+	if message.from
+		from = message.from.map { |a| %Q{<a href="mailto:#{a}">#{a}</a>} }.join ", "
+	end
+	if message.to
+		to = message.to.map { |a| %Q{<a href="mailto:#{a}">#{a}</a>} }.join ", "
+	end
 
 %h1.entry-title
-	received ‘#{h message.subject}’ from #{from} (sent to #{to})
+	received ‘#{h message.subject}’
+	- if from
+		from #{from}
+	- if to
+		(sent to #{to})
 
 - if locals["extras"]["full_view"]
 	%section.entry-content
