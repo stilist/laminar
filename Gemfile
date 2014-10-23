@@ -56,7 +56,7 @@ group :app do
 	# services
 	gem "cloudapp_api"
 	gem "coinbase"
-	gem "fitgem"
+	gem "fitgem", "~> 0.10.0"
 	gem "flickraw"
 	gem "foursquare2"
 	gem "github_api"

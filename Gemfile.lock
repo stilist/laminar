@@ -61,7 +61,7 @@ GEM
       multipart-post (~> 1.1)
     faraday_middleware (0.9.0)
       faraday (>= 0.7.4, < 0.9)
-    fitgem (0.8.0)
+    fitgem (0.10.0)
       oauth
     flickraw (0.9.6)
     fog (1.10.0)
@@ -263,7 +263,7 @@ DEPENDENCIES
   crack
   crazylegs
   curb
-  fitgem
+  fitgem (~> 0.10.0)
   flickraw
   fog
   foreman
