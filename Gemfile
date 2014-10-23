@@ -57,7 +57,7 @@ group :app do
 	gem "cloudapp_api"
 	gem "coinbase"
 	gem "fitgem", "~> 0.10.0"
-	gem "flickraw"
+	gem "flickraw", "~> 0.9.8"
 	gem "foursquare2"
 	gem "github_api"
 	gem "gmail"

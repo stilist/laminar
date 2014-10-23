@@ -63,7 +63,7 @@ GEM
       faraday (>= 0.7.4, < 0.9)
     fitgem (0.10.0)
       oauth
-    flickraw (0.9.6)
+    flickraw (0.9.8)
     fog (1.10.0)
       builder
       excon (~> 0.14)
@@ -264,7 +264,7 @@ DEPENDENCIES
   crazylegs
   curb
   fitgem (~> 0.10.0)
-  flickraw
+  flickraw (~> 0.9.8)
   fog
   foreman
   foursquare2
