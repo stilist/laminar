@@ -48,7 +48,7 @@ module LMove
 					out = {
 						start_time: self.parse_time(a["startTime"]),
 						end_time: self.parse_time(a["endTime"]),
-						type: @@activity_types[a["activity"]]
+						type: @@activity_types[a["activity"]] || a["activity"]
 					}
 
 					if a["trackPoints"]
