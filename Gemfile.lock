@@ -54,6 +54,8 @@ GEM
     crazylegs (0.1.2)
       ruby-hmac (~> 0.4.0)
     curb (0.8.5)
+    domain_name (0.5.23)
+      unf (>= 0.0.5, < 1.0.0)
     excon (0.20.1)
     execjs (1.4.0)
       multi_json (~> 1.0)
@@ -103,6 +105,8 @@ GEM
     httmultiparty (0.3.10)
       httparty (>= 0.7.3)
       multipart-post
+    http-cookie (1.0.2)
+      domain_name (~> 0.5)
     httparty (0.11.0)
       multi_json (~> 1.0)
       multi_xml (>= 0.5.2)
@@ -129,7 +133,7 @@ GEM
     mime-types (1.21)
     money (5.1.1)
       i18n (~> 0.6.0)
-    moves (0.0.4)
+    moves (0.1.1)
       rest-client
     multi_json (1.5.0)
     multi_xml (0.5.3)
@@ -137,6 +141,7 @@ GEM
     net-scp (1.1.0)
       net-ssh (>= 2.6.5)
     net-ssh (2.6.6)
+    netrc (0.10.3)
     nokogiri (1.5.9)
     oauth (0.4.7)
     oauth2 (0.9.1)
@@ -163,8 +168,10 @@ GEM
     redcarpet (2.3.0)
     redditkit (1.0.0)
       faraday (~> 0.8)
-    rest-client (1.6.7)
-      mime-types (>= 1.16)
+    rest-client (1.8.0)
+      http-cookie (>= 1.0.2, < 2.0)
+      mime-types (>= 1.16, < 3.0)
+      netrc (~> 0.7)
     rinku (1.7.2)
     ripl (0.7.0)
       bond (~> 0.4.2)
@@ -224,6 +231,9 @@ GEM
       multi_json (~> 1.0)
       simple_oauth (~> 0.2)
     tzinfo (0.3.37)
+    unf (0.1.4)
+      unf_ext
+    unf_ext (0.0.6)
     unicorn (4.6.2)
       kgio (~> 2.6)
       rack
@@ -276,7 +286,7 @@ DEPENDENCIES
   json
   kickscraper!
   lastfm
-  moves
+  moves (~> 0.1.0)
   pg
   pinboard
   plist

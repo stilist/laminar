@@ -66,7 +66,7 @@ group :app do
 			git: "git://github.com/markolson/kickscraper.git",
 			tag: "v0.1.1"
 	gem "lastfm"
-	gem "moves"
+	gem "moves", "~> 0.1.0"
 	gem "pinboard"
 	gem "redditkit", "~> 1.0"
 	gem "soundcloud"
